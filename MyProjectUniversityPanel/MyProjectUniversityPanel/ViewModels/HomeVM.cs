@@ -1,4 +1,4 @@
-﻿namespace University.ViewModels
+﻿namespace MyProjectUniversityPanel.ViewModels
 {
     public class HomeVM
     {

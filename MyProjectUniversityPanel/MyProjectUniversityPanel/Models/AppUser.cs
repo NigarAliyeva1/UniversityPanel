@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace University.Models
+namespace MyProjectUniversityPanel.Models
 {
     public class AppUser:IdentityUser
     {

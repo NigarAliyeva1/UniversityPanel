@@ -10,8 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using University.DAL;
-using University.Models;
+using MyProjectUniversityPanel.DAL;
+using MyProjectUniversityPanel.Models;
 
 namespace MyProjectUniversityPanel
 {

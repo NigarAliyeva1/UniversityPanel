@@ -1,8 +1,8 @@
-﻿using University.Models;
+﻿using MyProjectUniversityPanel.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace University.DAL
+namespace MyProjectUniversityPanel.DAL
 {
     public class AppDbContext : IdentityDbContext<AppUser>
     {
@@ -11,6 +11,7 @@ namespace University.DAL
 
         }
         public DbSet<Gender> Genders { get; set; }
-        //public DbSet<Department> Departments { get; set; }
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<Teacher> Teachers { get; set; }
     }
 }

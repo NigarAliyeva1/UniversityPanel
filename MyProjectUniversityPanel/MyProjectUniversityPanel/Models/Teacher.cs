@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace University.Models
+namespace MyProjectUniversityPanel.Models
 {
     public class Teacher
     {
@@ -17,6 +17,7 @@ namespace University.Models
         public DateTime CreateTime { get; set; }
         [NotMapped]
         public IFormFile Photo { get; set; }
-      
+        public bool IsDeactive { get; set; }
+
     }
 }

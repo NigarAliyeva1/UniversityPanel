@@ -1,18 +1,21 @@
-﻿@model List<Department>
+﻿@using MyProjectUniversityPanel.ViewModels;
+@model List<Department>
+
+
 <div class="row">
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Basic Table</h4>
-                <p class="card-description">
-                    Add class <code>.table</code>
-                </p>
-                <table class="table">
+                <div class="d-flex justify-content-between">
+                    <h4 class="card-title">Departments</h4>
+                    <a class="mdi mdi-plus-circle icon-lg" asp-action="Create"></a>
+                </div>
+                <table id="myDepartments" class="table">
                     <thead>
                         <tr>
-
+                           
                             <th>Department Name</th>
-                            <th>Actions</th>
+                            <th class="d-flex justify-content-end">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -22,47 +25,18 @@
                         {
                             <tr>
                                 <td>@department.Name</td>
-
-@*
                                 <td>
-                                      <div class="d-flex justify-content-end">
-                                    <a asp-action="ResetPassword" asp-route-id="@item.Id" style="width:130px" class="btn btn-outline-warning mx-2 btn-rounded">Reset Password</a>
-                                <a asp-action="Update" asp-route-id="@item.Id" style="width:120px" class="btn btn-outline-info mx-2 btn-rounded">Update</a>
-                                @if (item.UserName != User.Identity.Name)
-                                {
-                                <a asp-action="ChangeRole" asp-route-id="@item.Id" style="width:120px" class="btn btn-outline-linkedin mx-2 btn-rounded">Change Role</a>
-                                }
-                                else
-                                {
-                                <a style="width:120px" class="btn btn-outline-secondary mx-2 btn-rounded">Change Role</a>
 
-                                }
+                                    <div class="d-flex justify-content-end">
 
-                                @if (item.UserName != User.Identity.Name)
-                                {
-                                @if (item.IsDeactive)
-                                {
-                                <a asp-action="Activity" asp-route-id="@item.Id" style="width:120px" class="btn btn-outline-success mx-2 btn-rounded">Activate</a>
-                                }
-                                else
-                                {
-                                <a asp-action="Activity" asp-route-id="@item.Id" style="width:120px" class="btn btn-outline-danger mx-2 btn-rounded">Deactivate</a>
-                                }
-                                }
-                                else
-                                {
-                                if (item.IsDeactive)
-                                {
-                                <a style="width:120px" class="btn btn-outline-secondary mx-2 btn-rounded">Activate</a>
-                                }
-                                else
-                                {
-                                <a style="width:120px" class="btn btn-outline-secondary mx-2 btn-rounded">Deactivate</a>
-                                }
-                                }
-                                </div>
-                                </td>*@
+                                        <a asp-action="Update" asp-route-id="@department.Id" style="width:50px" class="mdi mdi-border-color icon-md"></a>
+                                        <a asp-action="Delete" asp-route-id="@department.Id" style="width:50px" class="mdi mdi-delete icon-md text-danger"></a>
+                                      
+                                        
+                                    </div>
+                                </td>
                             </tr>
+
 
                         }
 
@@ -74,3 +48,21 @@
 </div>
 
 
+@*@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#myDepartments').DataTable();
+        });
+    </script>
+}*@
+<script type="text/javascript">
+    $(document).ready(function () {
+            $('#myDepartments').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy','csv','excel','pdf','print'
+                ]
+            });
+        });
+  
+    </script>
