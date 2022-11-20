@@ -7,6 +7,8 @@ namespace MyProjectUniversityPanel.Helpers
     public static class Helper
     {
         public enum Roles {
+
+            SuperAdmin,
             Admin,
             Teacher,
             Student,

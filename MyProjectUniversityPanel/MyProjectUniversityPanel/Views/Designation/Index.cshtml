@@ -1,0 +1,68 @@
+﻿@using MyProjectUniversityPanel.ViewModels;
+@model List<Department>
+
+
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <h4 class="card-title">Departments</h4>
+                    <a class="mdi mdi-plus-circle icon-lg" asp-action="Create"></a>
+                </div>
+                <table id="myDepartments" class="table">
+                    <thead>
+                        <tr>
+
+                            <th>Department Name</th>
+                            <th class="d-flex justify-content-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+
+                        @foreach (Department department in Model)
+                        {
+                            <tr>
+                                <td>@department.Name</td>
+                                <td>
+
+                                    <div class="d-flex justify-content-end">
+
+                                        <a asp-action="Update" asp-route-id="@department.Id" style="width:50px" class="mdi mdi-border-color icon-md"></a>
+                                        <a asp-action="Delete" asp-route-id="@department.Id" style="width:50px" class="mdi mdi-delete icon-md text-danger"></a>
+
+
+                                    </div>
+                                </td>
+                            </tr>
+
+
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#myDepartments').DataTable();
+        });
+    </script>
+}*@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#myDepartments').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
+    });
+
+</script>

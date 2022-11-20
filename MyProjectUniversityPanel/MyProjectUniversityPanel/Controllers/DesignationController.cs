@@ -2,13 +2,10 @@
 
 namespace MyProjectUniversityPanel.Controllers
 {
-   
-    public class HomeController : Controller
+    public class DesignationController : Controller
     {
-        
         public IActionResult Index()
         {
-            
             return View();
         }
     }

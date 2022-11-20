@@ -13,5 +13,6 @@ namespace MyProjectUniversityPanel.DAL
         public DbSet<Gender> Genders { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
+        public DbSet<Designation> Designations { get; set; }
     }
 }

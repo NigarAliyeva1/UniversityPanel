@@ -247,3 +247,6 @@ C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyPr
 C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\bin\Debug\net5.0\itextsharp.dll
 C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\bin\Debug\net5.0\itextsharp.xmlworker.dll
 C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Account\Register.cshtml.g.cs
+C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Designation\Index.cshtml.g.cs
+C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Account\Login.cshtml.g.cs
+C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Shared\Error.cshtml.g.cs
