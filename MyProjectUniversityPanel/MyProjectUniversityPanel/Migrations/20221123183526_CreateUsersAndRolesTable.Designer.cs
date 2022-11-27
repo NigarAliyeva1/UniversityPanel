@@ -10,8 +10,8 @@ using MyProjectUniversityPanel.DAL;
 namespace MyProjectUniversityPanel.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221116213202_Init")]
-    partial class Init
+    [Migration("20221123183526_CreateUsersAndRolesTable")]
+    partial class CreateUsersAndRolesTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -152,7 +152,7 @@ namespace MyProjectUniversityPanel.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("University.Models.AppUser", b =>
+            modelBuilder.Entity("MyProjectUniversityPanel.Models.AppUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -237,7 +237,7 @@ namespace MyProjectUniversityPanel.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("University.Models.AppUser", null)
+                    b.HasOne("MyProjectUniversityPanel.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -246,7 +246,7 @@ namespace MyProjectUniversityPanel.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("University.Models.AppUser", null)
+                    b.HasOne("MyProjectUniversityPanel.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -261,7 +261,7 @@ namespace MyProjectUniversityPanel.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("University.Models.AppUser", null)
+                    b.HasOne("MyProjectUniversityPanel.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -270,7 +270,7 @@ namespace MyProjectUniversityPanel.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("University.Models.AppUser", null)
+                    b.HasOne("MyProjectUniversityPanel.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

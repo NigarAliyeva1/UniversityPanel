@@ -1,0 +1,15 @@
+﻿@model AppUser
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Delete User</h4>
+                <p class="card-description">Are you sure you want to delete <span class="font-weight-bold">@Model.UserName</span>?</p>
+                <form class="forms-sample" method="post" enctype="multipart/form-data">
+                    <button type="submit" class="btn btn-gradient-primary me-2">Submit</button>
+                    <a asp-action="Index" class="btn btn-inverse-dark btn-fw">Go back</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

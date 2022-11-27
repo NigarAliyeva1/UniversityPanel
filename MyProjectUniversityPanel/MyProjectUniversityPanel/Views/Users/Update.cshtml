@@ -1,0 +1,36 @@
+﻿@model UpdateVM
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Update User</h4>
+                <p class="card-description"></p>
+                <form class="forms-sample" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label asp-for="Photo"></label>
+                        <input accept="image/*" asp-for="Photo" class="form-control">
+                        <span asp-validation-for="Photo" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input asp-for="FullName" class="form-control form-control-lg" placeholder="Full Name">
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input asp-for="UserName" class="form-control form-control-lg" placeholder="Username">
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input asp-for="Email" class="form-control form-control-lg" placeholder="Email">
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                   
+                    <button type="submit" class="btn btn-gradient-primary me-2">Submit</button>
+                    <a asp-action="Index" class="btn btn-inverse-dark btn-fw">Go back</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

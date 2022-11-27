@@ -1,12 +1,14 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MyProjectUniversityPanel.DAL;
 using MyProjectUniversityPanel.Models;
+using static MyProjectUniversityPanel.Helpers.Helper;
 
 namespace MyProjectUniversityPanel.Controllers
 {
-
+    [Authorize(Roles = "SuperAdmin")]
     public class TeachersController : Controller
     {
         private readonly UserManager<AppUser> _userManager;

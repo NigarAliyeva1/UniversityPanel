@@ -248,5 +248,15 @@ C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyPr
 C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\bin\Debug\net5.0\itextsharp.xmlworker.dll
 C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Account\Register.cshtml.g.cs
 C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Designation\Index.cshtml.g.cs
-C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Account\Login.cshtml.g.cs
 C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Shared\Error.cshtml.g.cs
+C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Account\Login.cshtml.g.cs
+C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Users\Index.cshtml.g.cs
+C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Users\Create.cshtml.g.cs
+C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Users\Update.cshtml.g.cs
+C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Users\ChangeRole.cshtml.g.cs
+C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Users\Delete.cshtml.g.cs
+C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Users\ResetPassword.cshtml.g.cs
+C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\HomeStudent\Index.cshtml.g.cs
+C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\HomeAdmin\Index.cshtml.g.cs
+C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\HomeTeacher\Index.cshtml.g.cs
+C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Default\Index.cshtml.g.cs

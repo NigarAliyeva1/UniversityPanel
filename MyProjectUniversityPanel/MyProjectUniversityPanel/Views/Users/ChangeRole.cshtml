@@ -1,0 +1,37 @@
+﻿@model ChangeRoleVM
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Change Role</h4>
+                <p class="card-description"></p>
+                <form class="forms-sample" method="post" enctype="multipart/form-data">
+                   
+                    <div class="form-group">
+                        <label>@Model.Username</label>
+                        @*<select class="form-control" name="newRole">
+                            @foreach (string item in Model.RoleList)
+                            {
+                                if (Model.RoleSelected == item.ToString())
+                                {
+                                    <option selected value="@item">@item</option>
+                                }
+                                else
+                                {
+                                    <option value="@item">@item</option>
+                                }
+                            }
+                        </select>*@
+                        <select asp-for="RoleSelected" asp-items="@Model.RoleList" name="newRole" class="form-control form-control-lg">
+                          
+                            <option disabled selected>--Select Role--</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-gradient-primary me-2">Submit</button>
+                    <a asp-action="Index" class="btn btn-inverse-dark btn-fw">Go back</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

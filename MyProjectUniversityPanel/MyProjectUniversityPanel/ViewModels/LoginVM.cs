@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MyProjectUniversityPanel.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace MyProjectUniversityPanel.ViewModels
 {
@@ -9,6 +10,9 @@ namespace MyProjectUniversityPanel.ViewModels
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-        
+        public  bool RememberMe { get; set; }
+
+
+
     }
 }

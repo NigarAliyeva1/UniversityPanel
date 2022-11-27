@@ -10,9 +10,16 @@ namespace MyProjectUniversityPanel.DAL
         {
 
         }
-        public DbSet<Gender> Genders { get; set; }
-        public DbSet<Department> Departments { get; set; }
-        public DbSet<Teacher> Teachers { get; set; }
-        public DbSet<Designation> Designations { get; set; }
+        //public DbSet<Gender> Genders { get; set; }
+        //public DbSet<Department> Departments { get; set; }
+        //public DbSet<Teacher> Teachers { get; set; }
+        //public DbSet<Designation> Designations { get; set; }
+        public DbSet<HasSuperAdmin> HasSuperAdmins { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Entity<HasSuperAdmin>().HasData(new HasSuperAdmin { Id = 1, HasSuperadmin = false });
+        }
     }
 }
