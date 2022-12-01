@@ -34,7 +34,7 @@ namespace MyProjectUniversityPanel.ViewModels
         public string ConfirmPassword { get; set; }
 
         public IEnumerable<SelectListItem> RoleList { get; set; }
-        [Required(ErrorMessage = "Please select a state.")]
+        //[Required(ErrorMessage = "Please select a state.")]
         public string RoleSelected { get; set; }
         public IFormFile Photo { get; set; }
 

@@ -8,7 +8,8 @@ using static MyProjectUniversityPanel.Helpers.Helper;
 
 namespace MyProjectUniversityPanel.Controllers
 {
-    [Authorize(Roles = "SuperAdmin")]
+    [Authorize(Roles = "SuperAdmin,Admin")]
+
     public class TeachersController : Controller
     {
         private readonly UserManager<AppUser> _userManager;

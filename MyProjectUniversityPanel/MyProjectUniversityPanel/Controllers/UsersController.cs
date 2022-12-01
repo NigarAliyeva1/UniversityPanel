@@ -58,11 +58,9 @@ namespace Fiorella.Areas.Admin.Controllers
         }
 
 
-
-
         public IActionResult Create()
         {
-          
+
             List<SelectListItem> ListItems = new List<SelectListItem>();
             ListItems.Add(new SelectListItem()
             {
@@ -87,10 +85,11 @@ namespace Fiorella.Areas.Admin.Controllers
             RegisterVM registerVM = new RegisterVM();
             registerVM.RoleList = ListItems;
             return View(registerVM);
+    
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(RegisterVM register)
+        public async Task<IActionResult> Create(RegisterVM register,string createRole)
         {
             if (!ModelState.IsValid)
             {
@@ -104,56 +103,10 @@ namespace Fiorella.Areas.Admin.Controllers
                 UserName = register.UserName,
                 Image = register.Image
             };
-        
 
-            if (appUser.Photo != null)
-            {
-                if (!appUser.Photo.IsImage())
-                {
-                    ModelState.AddModelError("Photo", "Please choose the image flie");
-                    return View();
-                }
-                if (appUser.Photo.IsOlder1MB())
-                {
-                    ModelState.AddModelError("Photo", "Please choose Max 1mb image flie");
-                    return View();
-                }
-                
-                string folder = Path.Combine(_env.WebRootPath, "img");
-                appUser.Image = await appUser.Photo.SaveFileAsync(folder);
-            }
-            else
-            {
-                appUser.Image = "user.png";
-            }
+
             IdentityResult identityResult = await _userManager.CreateAsync(appUser, register.Password);
-            if (identityResult.Succeeded)
-            {
-                if (register.RoleSelected != null && register.RoleSelected.Length > 0 && register.RoleSelected == Helper.Roles.Admin.ToString())
-                {
-                    await _userManager.AddToRoleAsync(appUser, Helper.Roles.Admin.ToString());
-                }
-                else if (register.RoleSelected != null && register.RoleSelected.Length > 0 && register.RoleSelected == Helper.Roles.Teacher.ToString())
-                {
-                    await _userManager.AddToRoleAsync(appUser, Helper.Roles.Teacher.ToString());
-                }
-                else if (register.RoleSelected != null && register.RoleSelected.Length > 0 && register.RoleSelected == Helper.Roles.Student.ToString())
-                {
-                    await _userManager.AddToRoleAsync(appUser, Helper.Roles.Student.ToString());
-                }
-                else
-                {
-
-                    foreach (IdentityError error in identityResult.Errors)
-                    {
-                        ModelState.AddModelError("", error.Description);
-                    }
-                    return View();
-                }
-                await _userManager.UpdateAsync(appUser);
-                return RedirectToAction("Index");
-            }
-            else
+            if (!identityResult.Succeeded)
             {
                 foreach (IdentityError error in identityResult.Errors)
                 {
@@ -162,7 +115,48 @@ namespace Fiorella.Areas.Admin.Controllers
                 return View();
             }
 
+            if (register.Photo != null)
+            {
+                if (!register.Photo.IsImage())
+                {
+                    ModelState.AddModelError("Photo", "Please choose the image flie");
+                    return View();
+                }
+                if (register.Photo.IsOlder1MB())
+                {
+                    ModelState.AddModelError("Photo", "Please choose Max 1mb image flie");
+                    return View();
+                }
 
+                string folder = Path.Combine(_env.WebRootPath, "assets","images");
+                appUser.Image = await register.Photo.SaveFileAsync(folder);
+            }
+            else
+            {
+                appUser.Image = "user.png";
+            }
+            IdentityResult addIdentityResult = await _userManager.AddToRoleAsync(appUser, createRole);
+            if (!addIdentityResult.Succeeded)
+            {
+                ModelState.AddModelError("", "Error");
+                return View();
+            }
+            await _userManager.UpdateAsync(appUser);
+
+            //if (register.RoleSelected != null && register.RoleSelected.Length > 0 && register.RoleSelected == Helper.Roles.Admin.ToString())
+            //{
+            //    await _userManager.AddToRoleAsync(appUser, Helper.Roles.Admin.ToString());
+            //}
+            //else if (register.RoleSelected != null && register.RoleSelected.Length > 0 && register.RoleSelected == Helper.Roles.Teacher.ToString())
+            //{
+            //    await _userManager.AddToRoleAsync(appUser, Helper.Roles.Teacher.ToString());
+            //}
+            //else if (register.RoleSelected != null && register.RoleSelected.Length > 0 && register.RoleSelected == Helper.Roles.Student.ToString())
+            //{
+            //    await _userManager.AddToRoleAsync(appUser, Helper.Roles.Student.ToString());
+            //}
+            //await _userManager.UpdateAsync(appUser);
+            return RedirectToAction("Index");
         }
 
 
@@ -294,7 +288,7 @@ namespace Fiorella.Areas.Admin.Controllers
                     ModelState.AddModelError("Photo", "Please choose Max 1mb image flie");
                     return View(user);
                 }
-                string folder = Path.Combine(_env.WebRootPath, "img");
+                string folder = Path.Combine(_env.WebRootPath, "assets", "images");
                 user.Image = await appUser.Photo.SaveFileAsync(folder);
             }
             user.FullName = updateVM.FullName;

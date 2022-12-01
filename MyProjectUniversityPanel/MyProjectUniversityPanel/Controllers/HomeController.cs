@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace MyProjectUniversityPanel.Controllers
 {
     [Authorize(Roles = "SuperAdmin")]
-    //[Authorize(Roles = "Student")]
 
     public class HomeController : Controller
     {
