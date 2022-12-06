@@ -1,0 +1,16 @@
+﻿@model Teacher
+<div class="row">
+    <div class="col-md-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Do you want to add a department first?</h4>
+                <p class="card-description"></p>
+                <form class="forms-sample" method="post" enctype="multipart/form-data">
+
+                    <a asp-action="Create" asp-controller="Departments" class="btn btn-gradient-primary me-2">Yes</a>
+                    <a asp-action="Index" asp-controller="Teachers" class="btn btn-inverse-dark me-2">No</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -12,7 +12,7 @@ namespace MyProjectUniversityPanel.DAL
         }
         public DbSet<Gender> Genders { get; set; }
         public DbSet<Department> Departments { get; set; }
-        //public DbSet<Teacher> Teachers { get; set; }
+        public DbSet<Teacher> Teachers { get; set; }
         //public DbSet<Designation> Designations { get; set; }
         public DbSet<HasSuperAdmin> HasSuperAdmins { get; set; }
 
@@ -23,6 +23,7 @@ namespace MyProjectUniversityPanel.DAL
             builder.Entity<Gender>().HasData(new Gender { Id = 1, Type = "Male" });
             builder.Entity<Gender>().HasData(new Gender { Id = 2, Type = "Female" });
             builder.Entity<Gender>().HasData(new Gender { Id = 3, Type = "Other" });
+            builder.Entity<Department>().HasData(new Department { Id = 1, Name = "Default" , IsDeactive=false});
         }
     }
 }

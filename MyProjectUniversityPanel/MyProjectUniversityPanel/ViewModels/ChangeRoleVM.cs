@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace MyProjectUniversityPanel.ViewModels
 {
@@ -9,7 +10,8 @@ namespace MyProjectUniversityPanel.ViewModels
         public string RoleSelected { get; set; }
      
         public string Username { get; set; }
-      
+        [DataType(DataType.PhoneNumber)]
+        public string Number { get; set; }
     }
 }
     

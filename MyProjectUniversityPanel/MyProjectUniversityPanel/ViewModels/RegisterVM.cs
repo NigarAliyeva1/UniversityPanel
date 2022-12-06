@@ -13,18 +13,12 @@ namespace MyProjectUniversityPanel.ViewModels
     {
         [Required]
         public string FullName { get; set; }
-
-
         [Required]
         public string UserName { get; set; }
-
         public string Image { get; set; }
-
         [Required]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
-
-
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
@@ -32,9 +26,7 @@ namespace MyProjectUniversityPanel.ViewModels
         [DataType(DataType.Password)]
         [Compare("Password",ErrorMessage ="The password and confirmation password do not match")]
         public string ConfirmPassword { get; set; }
-
         public IEnumerable<SelectListItem> RoleList { get; set; }
-        //[Required(ErrorMessage = "Please select a state.")]
         public string RoleSelected { get; set; }
         public IFormFile Photo { get; set; }
 

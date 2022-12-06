@@ -1,0 +1,76 @@
+﻿@model Teacher
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Create User</h4>
+                <p class="card-description"></p>
+                <form class="forms-sample" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label asp-for="Photo"></label>
+                        <input accept="image/*" asp-for="Photo" class="form-control">
+                        <span asp-validation-for="Photo" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input asp-for="FullName" class="form-control form-control-lg" placeholder="Full Name">
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input asp-for="UserName" class="form-control form-control-lg" placeholder="Username">
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" name="genId">
+                            @foreach (Gender gen in ViewBag.Genders)
+                            {
+                                <option value="" selected disabled hidden>--Select Gender--</option>
+                                <option value="@gen.Id">@gen.Type</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <input asp-for="Email" class="form-control form-control-lg" placeholder="Email">
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input asp-for="Password" class="form-control form-control-lg" placeholder="Password">
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <input asp-for="ConfirmPassword" class="form-control form-control-lg" placeholder="Confirm Password">
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <select class="form-control" name="depId">
+                            @foreach (Department dep in ViewBag.Departments)
+                            {
+                                <option value="" selected disabled hidden>--Select Department--</option>
+                                <option value="@dep.Id">@dep.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input asp-for="Degree" class="form-control form-control-lg" placeholder="Degree">
+                        <span asp-validation-for="Degree" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input asp-for="Number" class="form-control form-control-lg" placeholder="Number">
+                        <span asp-validation-for="Number" class="text-danger"></span>
+                    </div>
+                    <button type="submit" class="btn btn-gradient-primary me-2">Submit</button>
+                    <a asp-action="Index" class="btn btn-inverse-dark btn-fw">Go back</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

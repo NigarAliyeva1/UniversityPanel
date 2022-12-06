@@ -14,8 +14,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using static MyProjectUniversityPanel.Helpers.Helper;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.VisualBasic;
+using Org.BouncyCastle.Ocsp;
+using System;
 
-namespace Fiorella.Areas.Admin.Controllers
+namespace MyProjectUniversityPanel.Controllers
 {
 
     [Authorize(Roles = "SuperAdmin")]
@@ -38,6 +41,7 @@ namespace Fiorella.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             List<AppUser> users = await _userManager.Users.ToListAsync();
+
             List<UserVM> userVMs = new List<UserVM>();
             foreach (AppUser user in users)
             {
@@ -60,7 +64,7 @@ namespace Fiorella.Areas.Admin.Controllers
 
         public IActionResult Create()
         {
-
+           
             List<SelectListItem> ListItems = new List<SelectListItem>();
             ListItems.Add(new SelectListItem()
             {
@@ -95,7 +99,23 @@ namespace Fiorella.Areas.Admin.Controllers
             {
                 return View();
             }
-            
+            Teacher teacher = new Teacher
+            {
+                FullName = register.FullName,
+                Email = register.Email,
+                UserName = register.UserName,
+                Image = register.Image,
+                Degree = "null",
+                Number = "null",
+                //DepartmentIdni deyish 1 ele
+                DepartmentId=2,
+                GenderId=3,
+                JoiningDate=DateTime.Now,
+                ConfirmPassword=register.ConfirmPassword,
+                Password=register.Password,
+
+               
+            };
             AppUser appUser = new AppUser
             {
                 FullName = register.FullName,
@@ -103,8 +123,6 @@ namespace Fiorella.Areas.Admin.Controllers
                 UserName = register.UserName,
                 Image = register.Image
             };
-
-
             IdentityResult identityResult = await _userManager.CreateAsync(appUser, register.Password);
             if (!identityResult.Succeeded)
             {
@@ -130,9 +148,12 @@ namespace Fiorella.Areas.Admin.Controllers
 
                 string folder = Path.Combine(_env.WebRootPath, "assets","images");
                 appUser.Image = await register.Photo.SaveFileAsync(folder);
+                teacher.Image = await register.Photo.SaveFileAsync(folder);
+
             }
             else
             {
+                teacher.Image = "user.png";
                 appUser.Image = "user.png";
             }
             IdentityResult addIdentityResult = await _userManager.AddToRoleAsync(appUser, createRole);
@@ -141,21 +162,13 @@ namespace Fiorella.Areas.Admin.Controllers
                 ModelState.AddModelError("", "Error");
                 return View();
             }
+            if (createRole == Helper.Roles.Teacher.ToString())
+            {
+                await _db.Teachers.AddAsync(teacher);
+                
+            }
             await _userManager.UpdateAsync(appUser);
-
-            //if (register.RoleSelected != null && register.RoleSelected.Length > 0 && register.RoleSelected == Helper.Roles.Admin.ToString())
-            //{
-            //    await _userManager.AddToRoleAsync(appUser, Helper.Roles.Admin.ToString());
-            //}
-            //else if (register.RoleSelected != null && register.RoleSelected.Length > 0 && register.RoleSelected == Helper.Roles.Teacher.ToString())
-            //{
-            //    await _userManager.AddToRoleAsync(appUser, Helper.Roles.Teacher.ToString());
-            //}
-            //else if (register.RoleSelected != null && register.RoleSelected.Length > 0 && register.RoleSelected == Helper.Roles.Student.ToString())
-            //{
-            //    await _userManager.AddToRoleAsync(appUser, Helper.Roles.Student.ToString());
-            //}
-            //await _userManager.UpdateAsync(appUser);
+            await _db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 

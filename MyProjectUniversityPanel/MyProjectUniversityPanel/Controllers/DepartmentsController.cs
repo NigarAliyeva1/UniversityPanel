@@ -39,7 +39,7 @@ namespace MyProjectUniversityPanel.Controllers
             {
                 return NotFound();
             }
-            Department department = await _db.Departments.FirstOrDefaultAsync(x => x.Id == id);
+            Department department = await _db.Departments.Where(x => !x.IsDeactive).FirstOrDefaultAsync(x => x.Id == id);
             if (department == null)
             {
                 return BadRequest();
@@ -55,7 +55,7 @@ namespace MyProjectUniversityPanel.Controllers
             {
                 return NotFound();
             }
-            Department department = await _db.Departments.FirstOrDefaultAsync(x => x.Id == id);
+            Department department = await _db.Departments.Where(x => !x.IsDeactive).FirstOrDefaultAsync(x => x.Id == id);
             if (department == null)
             {
                 return BadRequest();
@@ -81,7 +81,7 @@ namespace MyProjectUniversityPanel.Controllers
                 ModelState.AddModelError("Name", "This field cannot be empty");
                 return View();
             }
-            bool isExist = await _db.Departments.AnyAsync(x => x.Name == department.Name && x.Name!=null);
+            bool isExist = await _db.Departments.Where(x => !x.IsDeactive).AnyAsync(x => x.Name == department.Name && x.Name!=null);
             if (isExist)
             {
                 ModelState.AddModelError("Name", "This department is already exist");
@@ -97,7 +97,7 @@ namespace MyProjectUniversityPanel.Controllers
             {
                 return NotFound();
             }
-            Department dbDepartment = await _db.Departments.FirstOrDefaultAsync(x => x.Id == id);
+            Department dbDepartment = await _db.Departments.Where(x => !x.IsDeactive).FirstOrDefaultAsync(x => x.Id == id);
             if (dbDepartment == null)
             {
                 return BadRequest();
@@ -112,7 +112,7 @@ namespace MyProjectUniversityPanel.Controllers
             {
                 return NotFound();
             }
-            Department dbDepartment = await _db.Departments.FirstOrDefaultAsync(x => x.Id == id);
+            Department dbDepartment = await _db.Departments.Where(x => !x.IsDeactive).FirstOrDefaultAsync(x => x.Id == id);
             if (dbDepartment == null)
             {
                 return BadRequest();
@@ -121,7 +121,7 @@ namespace MyProjectUniversityPanel.Controllers
             {
                 return View(dbDepartment);
             }
-            bool isExist = await _db.Departments.AnyAsync(x => x.Name == department.Name && x.Id != id);
+            bool isExist = await _db.Departments.Where(x => !x.IsDeactive).AnyAsync(x => x.Name == department.Name && x.Id != id);
             if (isExist)
             {
                 ModelState.AddModelError("Title", "This category is already exist");
