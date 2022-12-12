@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.VisualBasic;
 using Org.BouncyCastle.Ocsp;
 using System;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace MyProjectUniversityPanel.Controllers
 {
@@ -66,12 +67,7 @@ namespace MyProjectUniversityPanel.Controllers
         {
            
             List<SelectListItem> ListItems = new List<SelectListItem>();
-            ListItems.Add(new SelectListItem()
-            {
-                Value = Helper.Roles.Admin.ToString(),
-                Text = Helper.Roles.Admin.ToString()
-
-            });
+            
 
             ListItems.Add(new SelectListItem()
             {
@@ -86,6 +82,13 @@ namespace MyProjectUniversityPanel.Controllers
                 Text = Helper.Roles.Student.ToString()
 
             });
+            ListItems.Add(new SelectListItem()
+            {
+                Value=Helper.Roles.Admin.ToString(),
+                Text=Helper.Roles.Admin.ToString()
+            });
+
+         
             RegisterVM registerVM = new RegisterVM();
             registerVM.RoleList = ListItems;
             return View(registerVM);
@@ -230,6 +233,22 @@ namespace MyProjectUniversityPanel.Controllers
                 user.IsDeactive = true;
 
             }
+            Teacher dbTeacher = await _db.Teachers.FirstOrDefaultAsync(x => x.UserName == user.UserName);
+            if (await _userManager.IsInRoleAsync(user, "Teacher"))
+            {
+                if (dbTeacher.IsDeactive)
+                {
+                    dbTeacher.IsDeactive = false;
+                    user.IsDeactive = false;
+
+                }
+                else
+                {
+                    dbTeacher.IsDeactive = true;
+                    user.IsDeactive = true;
+
+                }
+            }
             await _userManager.UpdateAsync(user);
             return RedirectToAction("Index");
         }
@@ -282,6 +301,11 @@ namespace MyProjectUniversityPanel.Controllers
             {
                 return View(dbUpdateVM);
             }
+            Teacher dbTeacher = await _db.Teachers.FirstOrDefaultAsync(x=>x.UserName== user.UserName);
+            //if (dbTeacher == null)
+            //{
+            //    return BadRequest();
+            //}
             bool isExist = await _db.Users.AnyAsync(x => x.UserName == updateVM.UserName && x.Id != appUser.Id);
             if (isExist)
             {
@@ -307,6 +331,13 @@ namespace MyProjectUniversityPanel.Controllers
             user.FullName = updateVM.FullName;
             user.UserName = updateVM.UserName;
             user.Email = updateVM.Email;
+            if (await _userManager.IsInRoleAsync(user, "Teacher"))
+            {
+                dbTeacher.FullName = updateVM.FullName;
+                dbTeacher.UserName = updateVM.UserName;
+                dbTeacher.Email = updateVM.Email;
+                await _db.SaveChangesAsync();
+            }
             await _userManager.UpdateAsync(user);
             return RedirectToAction("Index");
         }
@@ -352,6 +383,11 @@ namespace MyProjectUniversityPanel.Controllers
                 }
                 return View();
             }
+            Teacher dbTeacher = await _db.Teachers.FirstOrDefaultAsync(x => x.UserName == user.UserName);
+            dbTeacher.Password = resetPasswordVM.Password;
+            dbTeacher.ConfirmPassword = resetPasswordVM.ConfirmPassword;
+           
+            await _db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
