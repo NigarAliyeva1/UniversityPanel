@@ -1,0 +1,66 @@
+﻿@model DepartmentDetail
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Update Detail Of Departments</h4>
+                <p class="card-description"></p>
+                <form class="forms-sample" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <select class="form-control text-black" name="depId">
+                            @foreach (Department dep in ViewBag.Departments)
+                            {
+                                if (Model.DepartmentId == dep.Id)
+                                {
+                                    <option selected value="@dep.Id">@dep.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@dep.Id">@dep.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control text-black" name="techId">
+                            @foreach (Teacher tech in ViewBag.Teachers)
+                            {
+
+                                if (Model.TeacherId == tech.Id)
+                                {
+                                    <option selected value="@tech.Id">@tech.FullName</option>
+                                }
+                                else
+                                {
+
+                                    <option value="@tech.Id">@tech.FullName</option>
+                                }
+                             
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input asp-for="Phone" class="form-control form-control-lg" placeholder="Phone">
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input asp-for="Email" class="form-control form-control-lg" placeholder="Email">
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input asp-for="Capacity" class="form-control form-control-lg" placeholder="Student Capacity">
+                        <span asp-validation-for="Capacity" class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-gradient-primary me-2">Submit</button>
+                    <a asp-action="Index" class="btn btn-inverse-dark btn-fw">Go back</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -3,7 +3,7 @@
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Create User</h4>
+                <h4 class="card-title">Create Teacher</h4>
                 <p class="card-description"></p>
                 <form class="forms-sample" method="post" enctype="multipart/form-data">
                     <div class="form-group">
@@ -57,7 +57,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <input asp-for="Degree" class="form-control form-control-lg" placeholder="Degree">
+                        <input asp-for="Degree" maxlength="14" class="form-control form-control-lg" placeholder="Degree">
                         <span asp-validation-for="Degree" class="text-danger"></span>
                     </div>
                     <div class="form-group">

@@ -8,7 +8,8 @@ namespace MyProjectUniversityPanel.Models
         public string Name{ get; set; }
         public bool IsDeactive { get; set; }
         public List<Teacher> Teachers { get; set; }
-
+        public virtual ICollection<DepartmentDetail> DepartmentDetails { get; set; }
+        public List<Student> Students { get; set; }
 
     }
 }

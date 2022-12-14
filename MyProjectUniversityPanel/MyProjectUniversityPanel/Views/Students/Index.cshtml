@@ -1,80 +1,99 @@
-﻿<div class="row">
+﻿@model List<Student>
+
+<div class="row">
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Students</h4>
-                <p class="card-description">
-                    Add class <code>.table</code>
-                </p>
-                <table class="table">
+                <div class="d-flex justify-content-between">
+                    <h4 class="card-title">Students</h4>
+                    <a class="mdi mdi-plus-circle icon-lg" asp-action="Create"></a>
+                    @*
+                    @if (ViewBag.Count!=0)
+                    {
+                    <a class="mdi mdi-plus-circle icon-lg" asp-action="Create"></a>
+                    }
+                    else
+                    {
+                    <a class="mdi mdi-plus-circle icon-lg" asp-action="New"></a>
+                    }*@
+                </div>
+                <table class="table" id="myTable">
                     <thead>
                         <tr>
                             <th>Image</th>
-                            <th>Name</th>
-                            <th>Department</th>
+                            <th>Full Name</th>
+                            <th>Username</th>
                             <th>Gender</th>
-                            <th>Degree</th>
-                            <th>Mobile</th>
                             <th>Email</th>
-                            <th>Admission Date</th>
-                            <th>Actions</th>
+                            <th>Mobile</th>
+                            <th>Department</th>
+                            <th>Degree</th>
+                            <th>
+                                <div>
+                                    Admission
+                                </div>
+                                <div>
+                                    Date
+                                </div>
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th>
+                                Actions
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
-
-                        <tr>
-                            <td class="py-1">
-                                <img src="../../assets/images/faces-clipart/pic-1.png" alt="image" />
-                            </td>
-                            <td>Jay Soni</td>
-                            <td>
-                                Mathematics
-                            </td>
-                            <td>Female</td>
-                            <td>M.Com., P.H.D.</td>
-                            <td>1234567890</td>
-                            <td>test@email.com</td>
-                            <td>2/25/2018</td>
-                            <td>
-                                <div class="d-flex justify-content-end">
-                                    @*<a asp-action="ResetPassword" asp-route-id="@item.Id" style="width:130px" class="btn btn-outline-warning mx-2 btn-rounded">Reset Password</a>
-                                    <a asp-action="Update" asp-route-id="@item.Id" style="width:120px" class="btn btn-outline-info mx-2 btn-rounded">Update</a>
-                                    @if (item.UserName != User.Identity.Name)
+                        @foreach (Student student in Model)
+                        {
+                            <tr>
+                                <td class="py-1">
+                                    <img src="~/assets/images/@student.Image" />
+                                </td>
+                                <td>@student.FullName</td>
+                                <td>
+                                    @student.UserName
+                                </td>
+                                <td>@student.Gender.Type</td>
+                                <td>@student.Email</td>
+                                <td>@student.Number</td>
+                                <td>@student.Department.Name</td>
+                                <td>@student.Degree</td>
+                                <td>@student.AdmissionDate.ToString("MM/dd/yyyy")</td>
+                                <td class="d-flex justify-content-center">
+                                    @if (student.IsDeactive)
                                     {
-                                    <a asp-action="ChangeRole" asp-route-id="@item.Id" style="width:120px" class="btn btn-outline-linkedin mx-2 btn-rounded">Change Role</a>
+                                        <span style="width:30px" class="mdi mdi-close-circle-outline icon-md text-danger"></span>
                                     }
                                     else
                                     {
-                                    <a style="width:120px" class="btn btn-outline-secondary mx-2 btn-rounded">Change Role</a>
+                                        <span style="width:30px" class="mdi mdi-check-circle-outline icon-md text-success"></span>
 
                                     }
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-md-start">
+                                        <a asp-action="ResetPassword" asp-route-id="@student.Id" style="width:30px" class="mdi mdi-key-variant icon-md"></a>
+                                        <a asp-action="Update" asp-route-id="@student.Id" style="width:30px" class="mdi mdi-wrench icon-md text-info"></a>
 
-                                    @if (item.UserName != User.Identity.Name)
-                                    {
-                                    @if (item.IsDeactive)
-                                    {
-                                    <a asp-action="Activity" asp-route-id="@item.Id" style="width:120px" class="btn btn-outline-success mx-2 btn-rounded">Activate</a>
-                                    }
-                                    else
-                                    {
-                                    <a asp-action="Activity" asp-route-id="@item.Id" style="width:120px" class="btn btn-outline-danger mx-2 btn-rounded">Deactivate</a>
-                                    }
-                                    }
-                                    else
-                                    {
-                                    if (item.IsDeactive)
-                                    {
-                                    <a style="width:120px" class="btn btn-outline-secondary mx-2 btn-rounded">Activate</a>
-                                    }
-                                    else
-                                    {
-                                    <a style="width:120px" class="btn btn-outline-secondary mx-2 btn-rounded">Deactivate</a>
-                                    }
-                                    }*@
-                                </div>
-                            </td>
-                        </tr>
+                                        @if (student.IsDeactive)
+                                        {
+                                            <a asp-action="Activity" asp-route-id="@student.Id" style="width:30px" class="mdi mdi-toggle-switch-off icon-md text-danger"></a>
+                                        }
+                                        else
+                                        {
 
+                                            <a asp-action="Activity" asp-route-id="@student.Id" style="width:30px" class="mdi mdi-toggle-switch icon-md text-success"></a>
+
+                                        }
+
+                                        
+                                    </div>
+                                </td>
+
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>
@@ -82,4 +101,17 @@
     </div>
 </div>
 
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#myTable').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
+    });
+
+</script>
 

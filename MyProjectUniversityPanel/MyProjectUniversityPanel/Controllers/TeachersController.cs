@@ -61,7 +61,7 @@ namespace MyProjectUniversityPanel.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Teacher teacher, int depId, int genId)
+        public async Task<IActionResult> Create(Teacher teacher, int? depId, int? genId)
         {
             ViewBag.Departments = await _db.Departments.Where(x => !x.IsDeactive).ToListAsync();
             ViewBag.Genders = await _db.Genders.ToListAsync();
@@ -122,8 +122,8 @@ namespace MyProjectUniversityPanel.Controllers
                 ModelState.AddModelError("UserName", "This teacher is already exist");
                 return View();
             }
-            teacher.DepartmentId = depId;
-            teacher.GenderId = genId;
+            teacher.DepartmentId = (int)depId;
+            teacher.GenderId = (int)genId;
             teacher.JoiningDate = DateAndTime.Now;
             await _userManager.UpdateAsync(appUser);
             await _db.Teachers.AddAsync(teacher);
@@ -170,7 +170,7 @@ namespace MyProjectUniversityPanel.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(int? id, Teacher teacher, UpdateVM updateVM, AppUser appUser, int depId, int genId)
+        public async Task<IActionResult> Update(int? id, Teacher teacher, UpdateVM updateVM, int? depId, int? genId)
         {
             ViewBag.Departments = await _db.Departments.Where(x => !x.IsDeactive).ToListAsync();
             ViewBag.Genders = await _db.Genders.ToListAsync();
@@ -231,8 +231,8 @@ namespace MyProjectUniversityPanel.Controllers
             user.UserName = teacher.UserName;
             user.Email = teacher.Email;
 
-            dbTeacher.GenderId = genId;
-            dbTeacher.DepartmentId = depId;
+            dbTeacher.GenderId = (int)genId;
+            dbTeacher.DepartmentId = (int)depId;
             dbTeacher.FullName = teacher.FullName;
             dbTeacher.UserName = teacher.UserName;
             dbTeacher.Email = teacher.Email;

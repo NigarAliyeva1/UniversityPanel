@@ -57,11 +57,11 @@
                                 <td>
                                     @if (item.IsDeactive)
                                     {
-                                        <span class="text-danger">Passive</span>
+                                        <span style="width:50px" class="mdi mdi-close-circle-outline icon-md text-danger"></span>
                                     }
                                     else
                                     {
-                                        <span class="text-success">Active</span>
+                                        <span style="width:50px" class="mdi mdi-check-circle-outline icon-md text-success"></span>
 
                                     }
                                 </td>
@@ -85,12 +85,12 @@
                                             
                                             @if (item.IsDeactive)
                                             {
-                                                <a asp-action="Activity" asp-route-id="@item.Id" style="width:50px" class="mdi mdi-check-circle-outline icon-md text-success"></a>
+                                                <a asp-action="Activity" asp-route-id="@item.Id" style="width:50px" class="mdi mdi-toggle-switch-off icon-md text-danger"></a>
                                             }
                                             else
                                             {
                                                @* <a asp-action="Delete" asp-route-id="@item.Id" style="width:50px" class="mdi mdi-delete icon-md text-danger"></a>*@
-                                                <a asp-action="Activity" asp-route-id="@item.Id" style="width:50px" class="mdi mdi-close-circle-outline icon-md text-danger"></a>
+                                                <a asp-action="Activity" asp-route-id="@item.Id" style="width:50px" class="mdi mdi-toggle-switch icon-md text-success"></a>
                                                
                                             }
                                         }
@@ -99,11 +99,11 @@
                                             @*<a style="width:50px" class="mdi mdi-delete icon-md text-dark"></a>*@
                                             if (item.IsDeactive)
                                             {
-                                                <a style="width:50px" class="mdi mdi-check-circle-outline icon-md text-dark"></a>
+                                                <a style="width:50px" class="mdi mdi-toggle-switch-off icon-md text-dark"></a>
                                             }
                                             else
                                             {
-                                                <a style="width:50px" class="mdi mdi-close-circle-outline icon-md text-dark"></a>
+                                                <a style="width:50px" class="mdi mdi-toggle-switch icon-md text-dark"></a>
                                             }
                                         }
                                     </div>

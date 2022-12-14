@@ -240,6 +240,50 @@ namespace MyProjectUniversityPanel.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Departments");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IsDeactive = false,
+                            Name = "Default"
+                        });
+                });
+
+            modelBuilder.Entity("MyProjectUniversityPanel.Models.DepartmentDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Capacity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DepartmentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeactive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("DepartmentDetails");
                 });
 
             modelBuilder.Entity("MyProjectUniversityPanel.Models.Gender", b =>
@@ -294,6 +338,63 @@ namespace MyProjectUniversityPanel.Migrations
                             Id = 1,
                             HasSuperadmin = false
                         });
+                });
+
+            modelBuilder.Entity("MyProjectUniversityPanel.Models.Student", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("AdmissionDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ConfirmPassword")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Degree")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DepartmentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("GenderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeactive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Number")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.HasIndex("GenderId");
+
+                    b.ToTable("Students");
                 });
 
             modelBuilder.Entity("MyProjectUniversityPanel.Models.Teacher", b =>
@@ -404,6 +505,44 @@ namespace MyProjectUniversityPanel.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("MyProjectUniversityPanel.Models.DepartmentDetail", b =>
+                {
+                    b.HasOne("MyProjectUniversityPanel.Models.Department", "Department")
+                        .WithMany("DepartmentDetails")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MyProjectUniversityPanel.Models.Teacher", "Teacher")
+                        .WithMany("DepartmentDetails")
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Department");
+
+                    b.Navigation("Teacher");
+                });
+
+            modelBuilder.Entity("MyProjectUniversityPanel.Models.Student", b =>
+                {
+                    b.HasOne("MyProjectUniversityPanel.Models.Department", "Department")
+                        .WithMany("Students")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MyProjectUniversityPanel.Models.Gender", "Gender")
+                        .WithMany("Students")
+                        .HasForeignKey("GenderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Department");
+
+                    b.Navigation("Gender");
+                });
+
             modelBuilder.Entity("MyProjectUniversityPanel.Models.Teacher", b =>
                 {
                     b.HasOne("MyProjectUniversityPanel.Models.Department", "Department")
@@ -425,12 +564,23 @@ namespace MyProjectUniversityPanel.Migrations
 
             modelBuilder.Entity("MyProjectUniversityPanel.Models.Department", b =>
                 {
+                    b.Navigation("DepartmentDetails");
+
+                    b.Navigation("Students");
+
                     b.Navigation("Teachers");
                 });
 
             modelBuilder.Entity("MyProjectUniversityPanel.Models.Gender", b =>
                 {
+                    b.Navigation("Students");
+
                     b.Navigation("Teachers");
+                });
+
+            modelBuilder.Entity("MyProjectUniversityPanel.Models.Teacher", b =>
+                {
+                    b.Navigation("DepartmentDetails");
                 });
 #pragma warning restore 612, 618
         }

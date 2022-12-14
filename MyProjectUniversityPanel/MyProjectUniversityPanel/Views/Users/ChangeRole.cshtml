@@ -4,30 +4,22 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Change Role</h4>
-                <p class="card-description"></p>
+                <p class="card-description">if the user is Head Of Department, change the Head Of Department before changing the role</p>
+                <a asp-action="Index" asp-controller="DepartmentsDetail" class="btn btn-inverse-primary btn-fw">Go To Detail of Departments</a>
                 <form class="forms-sample" method="post" enctype="multipart/form-data">
                    
                     <div class="form-group">
-                        <label>@Model.Username</label>
-                        @*<select class="form-control" name="newRole">
-                            @foreach (string item in Model.RoleList)
-                            {
-                                if (Model.RoleSelected == item.ToString())
-                                {
-                                    <option selected value="@item">@item</option>
-                                }
-                                else
-                                {
-                                    <option value="@item">@item</option>
-                                }
-                            }
-                        </select>*@
+                        <p></p>
+                        <div class>
+                            <h3>@Model.Username</h3>
+                        </div>
+                        
                         <select asp-for="RoleSelected" asp-items="@Model.RoleList" name="newRole" class="form-control form-control-lg">
                           
-                            <option disabled selected>--Select Role--</option>
+                            @*<option disabled selected>--Select Role--</option>*@
                         </select>
                     </div>
-
+                    <span class="text-danger" asp-validation-for="RoleSelected"></span>
                     <button type="submit" class="btn btn-gradient-primary me-2">Submit</button>
                     <a asp-action="Index" class="btn btn-inverse-dark btn-fw">Go back</a>
                 </form>

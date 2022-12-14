@@ -15,7 +15,9 @@ namespace MyProjectUniversityPanel.DAL
         public DbSet<Teacher> Teachers { get; set; }
         //public DbSet<Designation> Designations { get; set; }
         public DbSet<HasSuperAdmin> HasSuperAdmins { get; set; }
-
+        public DbSet<DepartmentDetail> DepartmentDetails { get; set; }
+        public DbSet<Student> Students { get; set; }
+        
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

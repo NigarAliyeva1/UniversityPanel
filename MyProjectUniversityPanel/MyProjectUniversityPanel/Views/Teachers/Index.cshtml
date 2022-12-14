@@ -5,16 +5,16 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between">
-                    <h4 class="card-title">Teacher</h4>
+                    <h4 class="card-title">Teachers</h4>
                     <a class="mdi mdi-plus-circle icon-lg" asp-action="Create"></a>
-@*
+                    @*
                     @if (ViewBag.Count!=0)
                     {
-                        <a class="mdi mdi-plus-circle icon-lg" asp-action="Create"></a>
+                    <a class="mdi mdi-plus-circle icon-lg" asp-action="Create"></a>
                     }
                     else
                     {
-                        <a class="mdi mdi-plus-circle icon-lg" asp-action="New"></a>
+                    <a class="mdi mdi-plus-circle icon-lg" asp-action="New"></a>
                     }*@
                 </div>
                 <table class="table" id="myTable">
@@ -29,12 +29,17 @@
                             <th>Department</th>
                             <th>Degree</th>
                             <th>
-                                Joining Date
+                                <div>
+                                    Joining
+                                </div>
+                                <div>
+                                    Date
+                                </div>
                             </th>
                             <th>
                                 Status
                             </th>
-                            <th class="d-flex justify-content-end">
+                            <th>
                                 Actions
                             </th>
                         </tr>
@@ -56,46 +61,34 @@
                                 <td>@teacher.Department.Name</td>
                                 <td>@teacher.Degree</td>
                                 <td>@teacher.JoiningDate.ToString("MM/dd/yyyy")</td>
-                                <td>
+                                <td class="d-flex justify-content-center">
                                     @if (teacher.IsDeactive)
                                     {
-                                        <span class="text-danger">Passive</span>
+                                        <span style="width:30px" class="mdi mdi-close-circle-outline icon-md text-danger"></span>
                                     }
                                     else
                                     {
-                                        <span class="text-success">Active</span>
+                                        <span style="width:30px" class="mdi mdi-check-circle-outline icon-md text-success"></span>
+
                                     }
                                 </td>
                                 <td>
-                                    <div class="d-flex justify-content-end">
-                                        <a asp-action="ResetPassword" asp-route-id="@teacher.Id" style="width:40px" class="mdi mdi-key-variant icon-md"></a>
-                                        <a asp-action="Update" asp-route-id="@teacher.Id" style="width:40px" class="mdi mdi-wrench icon-md text-info"></a>
+                                    <div class="d-flex justify-content-md-start">
+                                        <a asp-action="ResetPassword" asp-route-id="@teacher.Id" style="width:30px" class="mdi mdi-key-variant icon-md"></a>
+                                        <a asp-action="Update" asp-route-id="@teacher.Id" style="width:30px" class="mdi mdi-wrench icon-md text-info"></a>
 
-                                        @if (teacher.UserName != User.Identity.Name)
+
+                                        @if (teacher.IsDeactive)
                                         {
-                                            @if (teacher.IsDeactive)
-                                            {
-                                                <a asp-action="Activity" asp-route-id="@teacher.Id" style="width:40px" class="mdi mdi-check-circle-outline icon-md text-success"></a>
-                                            }
-                                            else
-                                            {
-
-                                                <a asp-action="Activity" asp-route-id="@teacher.Id" style="width:40px" class="mdi mdi-close-circle-outline icon-md text-danger"></a>
-
-                                            }
+                                            <a asp-action="Activity" asp-route-id="@teacher.Id" style="width:30px" class="mdi mdi-toggle-switch-off icon-md text-danger"></a>
                                         }
                                         else
                                         {
 
-                                            if (teacher.IsDeactive)
-                                            {
-                                                <a style="width:40px" class="mdi mdi-check-circle-outline icon-md text-dark"></a>
-                                            }
-                                            else
-                                            {
-                                                <a style="width:40px" class="mdi mdi-close-circle-outline icon-md text-dark"></a>
-                                            }
+                                            <a asp-action="Activity" asp-route-id="@teacher.Id" style="width:30px" class="mdi mdi-toggle-switch icon-md text-success"></a>
+
                                         }
+
                                     </div>
                                 </td>
 

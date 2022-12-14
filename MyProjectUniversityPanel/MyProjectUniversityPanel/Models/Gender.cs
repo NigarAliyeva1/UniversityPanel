@@ -7,6 +7,7 @@ namespace MyProjectUniversityPanel.Models
         public int Id { get; set; }
         public string Type { get; set; }
         public List<Teacher> Teachers { get; set; }
+        public List<Student> Students { get; set; }
 
 
     }
