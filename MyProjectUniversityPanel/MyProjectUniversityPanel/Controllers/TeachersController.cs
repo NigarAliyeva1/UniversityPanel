@@ -10,6 +10,7 @@ using MyProjectUniversityPanel.Helpers;
 using MyProjectUniversityPanel.Models;
 using MyProjectUniversityPanel.ViewModels;
 using Org.BouncyCastle.Ocsp;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -124,7 +125,7 @@ namespace MyProjectUniversityPanel.Controllers
             }
             teacher.DepartmentId = (int)depId;
             teacher.GenderId = (int)genId;
-            teacher.JoiningDate = DateAndTime.Now;
+            teacher.JoiningDate = DateTime.UtcNow.AddHours(4);
             await _userManager.UpdateAsync(appUser);
             await _db.Teachers.AddAsync(teacher);
 

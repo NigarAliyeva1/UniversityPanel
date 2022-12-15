@@ -268,3 +268,6 @@ C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyPr
 C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\DepartmentsDetail\Update.cshtml.g.cs
 C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Students\Create.cshtml.g.cs
 C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Students\Update.cshtml.g.cs
+C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Staff\Create.cshtml.g.cs
+C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Staff\Detail.cshtml.g.cs
+C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Staff\Update.cshtml.g.cs
