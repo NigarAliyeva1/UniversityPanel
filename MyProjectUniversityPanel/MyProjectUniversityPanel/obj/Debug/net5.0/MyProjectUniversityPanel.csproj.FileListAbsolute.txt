@@ -263,7 +263,6 @@ C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyPr
 C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Teachers\Create.cshtml.g.cs
 C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Teachers\Update.cshtml.g.cs
 C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Teachers\New.cshtml.g.cs
-C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Teachers\ResetPassword.cshtml.g.cs
 C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\DepartmentsDetail\Create.cshtml.g.cs
 C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\DepartmentsDetail\Update.cshtml.g.cs
 C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Students\Create.cshtml.g.cs
@@ -271,3 +270,19 @@ C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyPr
 C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Staff\Create.cshtml.g.cs
 C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Staff\Detail.cshtml.g.cs
 C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Staff\Update.cshtml.g.cs
+C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Income\Index.cshtml.g.cs
+C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Income\Create.cshtml.g.cs
+C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Income\Update.cshtml.g.cs
+C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Income\Delete.cshtml.g.cs
+C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Outcome\Index.cshtml.g.cs
+C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Outcome\Create.cshtml.g.cs
+C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Outcome\Update.cshtml.g.cs
+C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Outcome\Delete.cshtml.g.cs
+C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Designation\Delete.cshtml.g.cs
+C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Designation\Create.cshtml.g.cs
+C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Designation\Update.cshtml.g.cs
+C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Teachers\Detail.cshtml.g.cs
+C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Students\Detail.cshtml.g.cs
+C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Salary\Index.cshtml.g.cs
+C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Salary\Create.cshtml.g.cs
+C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Salary\Delete.cshtml.g.cs

@@ -25,9 +25,8 @@
                             <th>Username</th>
                             <th>Gender</th>
                             <th>Email</th>
-                            <th>Mobile</th>
                             <th>Department</th>
-                            <th>Degree</th>
+                   
                             <th>
                                 <div>
                                     Joining
@@ -39,7 +38,7 @@
                             <th>
                                 Status
                             </th>
-                            <th>
+                            <th class="text-end">
                                 Actions
                             </th>
                         </tr>
@@ -57,9 +56,9 @@
                                 </td>
                                 <td>@teacher.Gender.Type</td>
                                 <td>@teacher.Email</td>
-                                <td>@teacher.Number</td>
+       
                                 <td>@teacher.Department.Name</td>
-                                <td>@teacher.Degree</td>
+          
                                 <td>@teacher.JoiningDate.ToString("MM/dd/yyyy")</td>
                                 <td class="d-flex justify-content-center">
                                     @if (teacher.IsDeactive)
@@ -74,7 +73,7 @@
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-md-start">
-                                        <a asp-action="ResetPassword" asp-route-id="@teacher.Id" style="width:30px" class="mdi mdi-key-variant icon-md"></a>
+                                        <a asp-action="Detail" asp-route-id="@teacher.Id" style="width:45px" class="mdi mdi-account-card-details icon-md"></a>
                                         <a asp-action="Update" asp-route-id="@teacher.Id" style="width:30px" class="mdi mdi-wrench icon-md text-info"></a>
 
 

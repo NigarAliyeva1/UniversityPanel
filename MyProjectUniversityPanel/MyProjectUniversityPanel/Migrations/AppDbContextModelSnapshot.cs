@@ -286,6 +286,24 @@ namespace MyProjectUniversityPanel.Migrations
                     b.ToTable("DepartmentDetails");
                 });
 
+            modelBuilder.Entity("MyProjectUniversityPanel.Models.Designation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsDeactive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Designations");
+                });
+
             modelBuilder.Entity("MyProjectUniversityPanel.Models.Gender", b =>
                 {
                     b.Property<int>("Id")
@@ -340,6 +358,143 @@ namespace MyProjectUniversityPanel.Migrations
                         });
                 });
 
+            modelBuilder.Entity("MyProjectUniversityPanel.Models.Income", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("For")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeactive")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Money")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("Incomes");
+                });
+
+            modelBuilder.Entity("MyProjectUniversityPanel.Models.Kassa", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Balance")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeactive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastModifiedFor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("LastModifiedMoney")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("LastModifiedTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("Kassas");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AppUserId = "a4dab9a1-cbf9-4795-a071-b4255ede23d9",
+                            Balance = 0,
+                            IsDeactive = false,
+                            LastModifiedBy = "",
+                            LastModifiedFor = "",
+                            LastModifiedMoney = 0,
+                            LastModifiedTime = new DateTime(2022, 12, 18, 22, 52, 33, 176, DateTimeKind.Utc).AddTicks(1546)
+                        });
+                });
+
+            modelBuilder.Entity("MyProjectUniversityPanel.Models.Outcome", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("For")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeactive")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Money")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("Outcomes");
+                });
+
+            modelBuilder.Entity("MyProjectUniversityPanel.Models.Salary", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeactive")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Money")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StaffId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("StaffId");
+
+                    b.ToTable("Salaries");
+                });
+
             modelBuilder.Entity("MyProjectUniversityPanel.Models.Staff", b =>
                 {
                     b.Property<int>("Id")
@@ -354,9 +509,8 @@ namespace MyProjectUniversityPanel.Migrations
                     b.Property<DateTime>("Birthday")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Designation")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("DesignationId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Education")
                         .IsRequired()
@@ -389,7 +543,12 @@ namespace MyProjectUniversityPanel.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Salary")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("DesignationId");
 
                     b.HasIndex("GenderId");
 
@@ -405,10 +564,6 @@ namespace MyProjectUniversityPanel.Migrations
 
                     b.Property<DateTime>("AdmissionDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("ConfirmPassword")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Degree")
                         .IsRequired()
@@ -438,10 +593,6 @@ namespace MyProjectUniversityPanel.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -461,10 +612,6 @@ namespace MyProjectUniversityPanel.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ConfirmPassword")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Degree")
                         .IsRequired()
@@ -494,10 +641,6 @@ namespace MyProjectUniversityPanel.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Number")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -584,13 +727,65 @@ namespace MyProjectUniversityPanel.Migrations
                     b.Navigation("Teacher");
                 });
 
+            modelBuilder.Entity("MyProjectUniversityPanel.Models.Income", b =>
+                {
+                    b.HasOne("MyProjectUniversityPanel.Models.AppUser", "AppUser")
+                        .WithMany("Incomes")
+                        .HasForeignKey("AppUserId");
+
+                    b.Navigation("AppUser");
+                });
+
+            modelBuilder.Entity("MyProjectUniversityPanel.Models.Kassa", b =>
+                {
+                    b.HasOne("MyProjectUniversityPanel.Models.AppUser", "AppUser")
+                        .WithMany("Kassas")
+                        .HasForeignKey("AppUserId");
+
+                    b.Navigation("AppUser");
+                });
+
+            modelBuilder.Entity("MyProjectUniversityPanel.Models.Outcome", b =>
+                {
+                    b.HasOne("MyProjectUniversityPanel.Models.AppUser", "AppUser")
+                        .WithMany("Outcomes")
+                        .HasForeignKey("AppUserId");
+
+                    b.Navigation("AppUser");
+                });
+
+            modelBuilder.Entity("MyProjectUniversityPanel.Models.Salary", b =>
+                {
+                    b.HasOne("MyProjectUniversityPanel.Models.AppUser", "AppUser")
+                        .WithMany("Salaries")
+                        .HasForeignKey("AppUserId");
+
+                    b.HasOne("MyProjectUniversityPanel.Models.Staff", "Staff")
+                        .WithMany("Salaries")
+                        .HasForeignKey("StaffId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Staff");
+                });
+
             modelBuilder.Entity("MyProjectUniversityPanel.Models.Staff", b =>
                 {
+                    b.HasOne("MyProjectUniversityPanel.Models.Designation", "Designation")
+                        .WithMany("Staff")
+                        .HasForeignKey("DesignationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("MyProjectUniversityPanel.Models.Gender", "Gender")
                         .WithMany("Staff")
                         .HasForeignKey("GenderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Designation");
 
                     b.Navigation("Gender");
                 });
@@ -633,6 +828,17 @@ namespace MyProjectUniversityPanel.Migrations
                     b.Navigation("Gender");
                 });
 
+            modelBuilder.Entity("MyProjectUniversityPanel.Models.AppUser", b =>
+                {
+                    b.Navigation("Incomes");
+
+                    b.Navigation("Kassas");
+
+                    b.Navigation("Outcomes");
+
+                    b.Navigation("Salaries");
+                });
+
             modelBuilder.Entity("MyProjectUniversityPanel.Models.Department", b =>
                 {
                     b.Navigation("DepartmentDetails");
@@ -642,6 +848,11 @@ namespace MyProjectUniversityPanel.Migrations
                     b.Navigation("Teachers");
                 });
 
+            modelBuilder.Entity("MyProjectUniversityPanel.Models.Designation", b =>
+                {
+                    b.Navigation("Staff");
+                });
+
             modelBuilder.Entity("MyProjectUniversityPanel.Models.Gender", b =>
                 {
                     b.Navigation("Staff");
@@ -649,6 +860,11 @@ namespace MyProjectUniversityPanel.Migrations
                     b.Navigation("Students");
 
                     b.Navigation("Teachers");
+                });
+
+            modelBuilder.Entity("MyProjectUniversityPanel.Models.Staff", b =>
+                {
+                    b.Navigation("Salaries");
                 });
 
             modelBuilder.Entity("MyProjectUniversityPanel.Models.Teacher", b =>

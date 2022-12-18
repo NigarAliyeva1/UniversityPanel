@@ -2,11 +2,14 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Win32;
 using MyProjectUniversityPanel.DAL;
 using MyProjectUniversityPanel.Helpers;
 using MyProjectUniversityPanel.Models;
 using MyProjectUniversityPanel.ViewModels;
+using Org.BouncyCastle.Ocsp;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -35,28 +38,76 @@ namespace MyProjectUniversityPanel.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            List<Staff> staff = await _db.Staff.Include(x => x.Gender).ToListAsync();
+            List<Staff> staff = await _db.Staff.Include(x => x.Gender).Include(x => x.Designation).ToListAsync();
             return View(staff);
         }
         public async Task<IActionResult> Create()
         {
-           
+
             ViewBag.Genders = await _db.Genders.ToListAsync();
+            ViewBag.Designations = await _db.Designations.Where(x => !x.IsDeactive).ToListAsync();
 
             return View();
 
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Staff staff,DateTime birthday, int? genId)
+        public async Task<IActionResult> Create(Staff staff, DateTime birthday, int? genId, int? desId)
         {
-           
-            ViewBag.Genders = await _db.Genders.ToListAsync();
+
             if (!ModelState.IsValid)
             {
                 return View();
             }
+            ViewBag.Genders = await _db.Genders.ToListAsync();
+            ViewBag.Designations = await _db.Designations.Where(x => !x.IsDeactive).ToListAsync();
 
+            Teacher teacher = new Teacher
+            {
+                FullName = staff.FullName,
+                Email = staff.Email,
+                UserName = staff.Email,
+                Image = staff.Image,
+                Degree = "null",
+                Number = staff.Number,
+                DepartmentId = 1,
+                GenderId = (int)genId,
+                JoiningDate = DateTime.Now,
+                
+            };
+
+            Designation designation = await _db.Designations.Where(x => !x.IsDeactive).FirstOrDefaultAsync(x => x.Id == (int)desId);
+            AppUser appUser = new AppUser
+            {
+                FullName = teacher.FullName,
+                Email = teacher.Email,
+                UserName = teacher.UserName,
+                Image = teacher.Image
+            };
+
+
+            IdentityResult identityResult = await _userManager.CreateAsync(appUser, "Admin1234");
+            if (!identityResult.Succeeded)
+            {
+                foreach (IdentityError error in identityResult.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+                return View();
+            }
+
+            IdentityResult addIdentityResult = await _userManager.AddToRoleAsync(appUser, Helper.Roles.Teacher.ToString());
+            if (!addIdentityResult.Succeeded)
+            {
+                ModelState.AddModelError("", "Error");
+                return View();
+            }
+            bool isExist = await _db.Teachers.AnyAsync(x => x.UserName == teacher.UserName);
+            if (isExist)
+            {
+                ModelState.AddModelError("UserName", "This teacher is already exist");
+                return View();
+            }
             if (staff.Photo != null)
             {
                 if (!staff.Photo.IsImage())
@@ -70,12 +121,16 @@ namespace MyProjectUniversityPanel.Controllers
                     return View();
                 }
                 string folder = Path.Combine(_env.WebRootPath, "assets", "images");
-              
+
                 staff.Image = await staff.Photo.SaveFileAsync(folder);
+                teacher.Image = await staff.Photo.SaveFileAsync(folder);
+                appUser.Image = await staff.Photo.SaveFileAsync(folder);
             }
             else
             {
                 staff.Image = "user.png";
+                teacher.Image = "user.png";
+                appUser.Image = "user.png";
             }
 
             if (staff.UploadFile != null)
@@ -86,14 +141,20 @@ namespace MyProjectUniversityPanel.Controllers
                     return View();
                 }
                 string folder = Path.Combine(_env.WebRootPath, "assets", "images");
-              
+
                 staff.File = await staff.UploadFile.SaveFileAsync(folder);
             }
-            
-            staff.Birthday= birthday;
+
+            staff.Birthday = birthday;
             staff.GenderId = (int)genId;
+            staff.DesignationId = (int)desId;
             staff.JoiningDate = DateTime.UtcNow.AddHours(4);
             await _db.Staff.AddAsync(staff);
+            if (designation.Name == "Teacher")
+            {
+                await _db.Teachers.AddAsync(teacher);
+                await _userManager.UpdateAsync(appUser);
+            }
             await _db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
@@ -103,7 +164,7 @@ namespace MyProjectUniversityPanel.Controllers
             {
                 return NotFound();
             }
-            Staff staff = await _db.Staff.Include(x => x.Gender).FirstOrDefaultAsync(x => x.Id == id);
+            Staff staff = await _db.Staff.Include(x => x.Gender).Include(x => x.Designation).FirstOrDefaultAsync(x => x.Id == id);
             if (staff == null)
             {
                 return BadRequest();
@@ -121,17 +182,29 @@ namespace MyProjectUniversityPanel.Controllers
             {
                 return BadRequest();
             }
+            Teacher dbTeacher = await _db.Teachers.FirstOrDefaultAsync(x => x.Email == staff.Email);
+            if (dbTeacher == null)
+            {
+                return BadRequest();
+            }
 
+            AppUser user = await _userManager.FindByNameAsync(dbTeacher.UserName);
+            if (user == null)
+            {
+                return BadRequest();
+            }
             if (staff.IsDeactive)
             {
                 staff.IsDeactive = false;
-                
+                dbTeacher.IsDeactive = false;
+                user.IsDeactive = false;
 
             }
             else
             {
                 staff.IsDeactive = true;
-               
+                dbTeacher.IsDeactive = true;
+                user.IsDeactive = true;
 
             }
             await _db.SaveChangesAsync();
@@ -139,14 +212,16 @@ namespace MyProjectUniversityPanel.Controllers
         }
         public async Task<IActionResult> Update(int? id)
         {
-            
+
             ViewBag.Genders = await _db.Genders.ToListAsync();
+            ViewBag.Designations = await _db.Designations.Where(x => !x.IsDeactive).ToListAsync();
+
             if (id == null)
             {
                 return NotFound();
             }
-         
-            Staff dbStaff = await _db.Staff.FirstOrDefaultAsync(x => x.Id == id);
+
+            Staff dbStaff = await _db.Staff.Include(x => x.Gender).Include(x => x.Designation).FirstOrDefaultAsync(x => x.Id == id);
             if (dbStaff == null)
             {
                 return BadRequest();
@@ -156,10 +231,12 @@ namespace MyProjectUniversityPanel.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(int? id, Staff staff, DateTime birthday, int? genId)
+        public async Task<IActionResult> Update(int? id, Staff staff, DateTime birthday, int? genId, int? desId)
         {
-        
+
             ViewBag.Genders = await _db.Genders.ToListAsync();
+            ViewBag.Designations = await _db.Designations.Where(x => !x.IsDeactive).ToListAsync();
+
             if (id == null)
             {
                 return NotFound();
@@ -172,14 +249,10 @@ namespace MyProjectUniversityPanel.Controllers
                 return BadRequest();
             }
 
-     
-
-            if (!ModelState.IsValid)
-            {
-                return View(dbStaff);
-            }
-
-
+            Designation designation = await _db.Designations.Where(x => !x.IsDeactive).FirstOrDefaultAsync(x => x.Id == (int)desId);
+           
+            Teacher dbTeacher = await _db.Teachers.FirstOrDefaultAsync(x => x.Email == dbStaff.Email);
+            AppUser user = await _userManager.FindByNameAsync(dbTeacher.UserName);
             if (staff.Photo != null)
             {
                 if (!staff.Photo.IsImage())
@@ -193,8 +266,10 @@ namespace MyProjectUniversityPanel.Controllers
                     return View(dbStaff);
                 }
                 string folder = Path.Combine(_env.WebRootPath, "assets", "images");
-              
+
                 dbStaff.Image = await staff.Photo.SaveFileAsync(folder);
+                user.Image = await staff.Photo.SaveFileAsync(folder);
+                dbTeacher.Image = await staff.Photo.SaveFileAsync(folder);
             }
 
             if (staff.UploadFile != null)
@@ -208,16 +283,30 @@ namespace MyProjectUniversityPanel.Controllers
 
                 dbStaff.File = await staff.UploadFile.SaveFileAsync(folder);
             }
+            if (await _userManager.IsInRoleAsync(user, "Teacher"))
+            {
+                user.FullName = staff.FullName;
+                user.Email = staff.Email;
+
+                dbTeacher.GenderId = (int)genId;
+                dbTeacher.FullName = staff.FullName;
+                dbTeacher.Email = staff.Email;
+                dbTeacher.Number = staff.Number;
+                await _userManager.UpdateAsync(user);
+                await _db.SaveChangesAsync();
+
+            }
 
             dbStaff.GenderId = (int)genId;
-            dbStaff.Birthday=birthday;
+            dbStaff.DesignationId = (int)desId;
+            dbStaff.Birthday = birthday;
             dbStaff.FullName = staff.FullName;
             dbStaff.Email = staff.Email;
             dbStaff.Number = staff.Number;
             dbStaff.Address = staff.Address;
             dbStaff.Education = staff.Education;
-            dbStaff.Designation = staff.Designation;
-            
+            dbStaff.Salary = staff.Salary;
+
             await _db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

@@ -25,9 +25,9 @@
                             <th>Username</th>
                             <th>Gender</th>
                             <th>Email</th>
-                            <th>Mobile</th>
+                           
                             <th>Department</th>
-                            <th>Degree</th>
+                            
                             <th>
                                 <div>
                                     Admission
@@ -57,9 +57,9 @@
                                 </td>
                                 <td>@student.Gender.Type</td>
                                 <td>@student.Email</td>
-                                <td>@student.Number</td>
+                              
                                 <td>@student.Department.Name</td>
-                                <td>@student.Degree</td>
+                              
                                 <td>@student.AdmissionDate.ToString("MM/dd/yyyy")</td>
                                 <td class="d-flex justify-content-center">
                                     @if (student.IsDeactive)
@@ -74,7 +74,7 @@
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-md-start">
-                                        <a asp-action="ResetPassword" asp-route-id="@student.Id" style="width:30px" class="mdi mdi-key-variant icon-md"></a>
+                                       <a asp-action="Detail" asp-route-id="@student.Id" style="width:45px" class="mdi mdi-account-card-details icon-md"></a>
                                         <a asp-action="Update" asp-route-id="@student.Id" style="width:30px" class="mdi mdi-wrench icon-md text-info"></a>
 
                                         @if (student.IsDeactive)

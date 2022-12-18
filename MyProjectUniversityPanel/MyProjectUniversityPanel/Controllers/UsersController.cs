@@ -18,6 +18,7 @@ using Microsoft.VisualBasic;
 using Org.BouncyCastle.Ocsp;
 using System;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using static iTextSharp.text.pdf.PdfDocument;
 
 namespace MyProjectUniversityPanel.Controllers
 {
@@ -113,8 +114,7 @@ namespace MyProjectUniversityPanel.Controllers
                 DepartmentId=1,
                 GenderId=3,
                 JoiningDate=DateTime.Now,
-                ConfirmPassword=register.ConfirmPassword,
-                Password=register.Password,
+               
             };
             Student student = new Student
             {
@@ -124,11 +124,9 @@ namespace MyProjectUniversityPanel.Controllers
                 Image = register.Image,
                 Degree = "null",
                 Number = "null",
-                DepartmentId=1,
-                GenderId=3,
-                AdmissionDate=DateTime.Now,
-                ConfirmPassword=register.ConfirmPassword,
-                Password=register.Password,
+                DepartmentId = 1,
+                GenderId = 3,
+                AdmissionDate = DateTime.Now,
             };
             AppUser appUser = new AppUser
             {
@@ -136,6 +134,22 @@ namespace MyProjectUniversityPanel.Controllers
                 Email = register.Email,
                 UserName = register.UserName,
                 Image = register.Image
+            };
+            Designation designation = await _db.Designations.FirstOrDefaultAsync(x => x.Name == "Teacher");
+            Staff staff = new Staff
+            {
+                FullName = teacher.FullName,
+                Email = teacher.Email,
+                Image = teacher.Image,
+                File = teacher.Image,
+                Birthday = DateTime.UtcNow.AddHours(4),
+                GenderId = 3,
+                DesignationId = designation.Id,
+                Education = "",
+                Number = teacher.Number,
+                Address = "",
+                Salary = 0,
+                JoiningDate = DateTime.UtcNow.AddHours(4),
             };
             IdentityResult identityResult = await _userManager.CreateAsync(appUser, register.Password);
             if (!identityResult.Succeeded)
@@ -164,6 +178,7 @@ namespace MyProjectUniversityPanel.Controllers
                 appUser.Image = await register.Photo.SaveFileAsync(folder);
                 teacher.Image = await register.Photo.SaveFileAsync(folder);
                 student.Image = await register.Photo.SaveFileAsync(folder);
+                staff.Image = await register.Photo.SaveFileAsync(folder);
 
 
             }
@@ -172,6 +187,7 @@ namespace MyProjectUniversityPanel.Controllers
                 teacher.Image = "user.png";
                 student.Image = "user.png";
                 appUser.Image = "user.png";
+                staff.Image = "user.png";
             }
             IdentityResult addIdentityResult = await _userManager.AddToRoleAsync(appUser, createRole);
             if (!addIdentityResult.Succeeded)
@@ -182,6 +198,7 @@ namespace MyProjectUniversityPanel.Controllers
             if (createRole == Helper.Roles.Teacher.ToString())
             {
                 await _db.Teachers.AddAsync(teacher);
+                await _db.Staff.AddAsync(staff);
                 
             }
             if (createRole == Helper.Roles.Student.ToString())
@@ -190,6 +207,7 @@ namespace MyProjectUniversityPanel.Controllers
                 
             }
             await _userManager.UpdateAsync(appUser);
+
             await _db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
@@ -253,19 +271,20 @@ namespace MyProjectUniversityPanel.Controllers
 
             }
             Teacher dbTeacher = await _db.Teachers.FirstOrDefaultAsync(x => x.UserName == user.UserName);
+            Staff dbStaff = await _db.Staff.FirstOrDefaultAsync(x => x.Email == user.Email);
             if (await _userManager.IsInRoleAsync(user, "Teacher"))
             {
                 if (dbTeacher.IsDeactive)
                 {
                     dbTeacher.IsDeactive = false;
                     user.IsDeactive = false;
-
+                    dbStaff.IsDeactive = false;
                 }
                 else
                 {
                     dbTeacher.IsDeactive = true;
                     user.IsDeactive = true;
-
+                    dbStaff.IsDeactive = true;
                 }
             }
             await _userManager.UpdateAsync(user);
@@ -322,11 +341,8 @@ namespace MyProjectUniversityPanel.Controllers
             }
             Teacher dbTeacher = await _db.Teachers.FirstOrDefaultAsync(x=>x.UserName== user.UserName);
             Student dbStudent = await _db.Students.FirstOrDefaultAsync(x=>x.UserName== user.UserName);
+            Staff dbStaff= await _db.Staff.FirstOrDefaultAsync(x => x.Email == user.Email);
 
-            //if (dbTeacher == null)
-            //{
-            //    return BadRequest();
-            //}
             bool isExist = await _db.Users.AnyAsync(x => x.UserName == updateVM.UserName && x.Id != appUser.Id);
             if (isExist)
             {
@@ -357,6 +373,8 @@ namespace MyProjectUniversityPanel.Controllers
                 dbTeacher.FullName = updateVM.FullName;
                 dbTeacher.UserName = updateVM.UserName;
                 dbTeacher.Email = updateVM.Email;
+                dbStaff.Email = updateVM.Email;
+                dbStaff.FullName = updateVM.FullName;
                 await _db.SaveChangesAsync();
             }
             if (await _userManager.IsInRoleAsync(user, "Student"))
@@ -409,23 +427,8 @@ namespace MyProjectUniversityPanel.Controllers
                 }
                 return View();
             }
-            Teacher dbTeacher = await _db.Teachers.FirstOrDefaultAsync(x => x.UserName == user.UserName);
-            Student dbStudent = await _db.Students.FirstOrDefaultAsync(x => x.UserName == user.UserName);
-
-        
-            if (await _userManager.IsInRoleAsync(user, "Teacher"))
-            {
-                dbTeacher.Password = resetPasswordVM.Password;
-                dbTeacher.ConfirmPassword = resetPasswordVM.ConfirmPassword;
-                await _db.SaveChangesAsync();
-            }
-            if (await _userManager.IsInRoleAsync(user, "Student"))
-            {
-                dbStudent.Password = resetPasswordVM.Password;
-                dbStudent.ConfirmPassword = resetPasswordVM.ConfirmPassword;
-                await _db.SaveChangesAsync();
-            }
-            await _db.SaveChangesAsync();
+           
+          
             return RedirectToAction("Index");
         }
 
@@ -580,8 +583,7 @@ namespace MyProjectUniversityPanel.Controllers
                     DepartmentId = 1,
                     GenderId = 3,
                     JoiningDate = DateTime.UtcNow.AddHours(4),
-                    ConfirmPassword = "Admin1234",
-                    Password = "Admin1234",
+                  
                 };
                 _db.Teachers.Add(teacher);
                 await _db.SaveChangesAsync();
@@ -604,8 +606,7 @@ namespace MyProjectUniversityPanel.Controllers
                     DepartmentId = 1,
                     GenderId = 3,
                     AdmissionDate = DateTime.UtcNow.AddHours(4),
-                    ConfirmPassword = "Admin1234",
-                    Password = "Admin1234",
+                  
                 };
                 _db.Students.Add(student);
                 await _db.SaveChangesAsync();

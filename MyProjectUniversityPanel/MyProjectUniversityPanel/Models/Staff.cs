@@ -15,10 +15,13 @@ namespace MyProjectUniversityPanel.Models
         public string FullName { get; set; }
         [Required]
         public DateTime Birthday { get; set; }
+
         public Gender Gender { get; set; }
         public int GenderId { get; set; }
-        [Required]
-        public string Designation { get; set; }
+
+        public Designation Designation { get; set; }
+        public int DesignationId { get; set; }
+
         [Required]
         public string Education { get; set; }
         [Required]
@@ -29,13 +32,18 @@ namespace MyProjectUniversityPanel.Models
         public string Number { get; set; }
         [Required]
         public string Address { get; set; }
+        [Required]
+        public int Salary { get; set; }
         [NotMapped]
         public IFormFile Photo { get; set; }
         [NotMapped]
         public IFormFile UploadFile { get; set; }
         public bool IsDeactive { get; set; }
         public DateTime JoiningDate { get; set; }
-        
-       
+
+        public List<Salary> Salaries { get; set; }
+
+
+
     }
 }

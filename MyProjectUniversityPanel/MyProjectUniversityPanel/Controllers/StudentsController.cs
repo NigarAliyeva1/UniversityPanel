@@ -71,7 +71,7 @@ namespace MyProjectUniversityPanel.Controllers
             };
 
 
-            IdentityResult identityResult = await _userManager.CreateAsync(appUser, student.Password);
+            IdentityResult identityResult = await _userManager.CreateAsync(appUser, "Admin1234");
             if (!identityResult.Succeeded)
             {
                 foreach (IdentityError error in identityResult.Errors)
@@ -186,10 +186,10 @@ namespace MyProjectUniversityPanel.Controllers
 
             };
 
-            //if (!ModelState.IsValid)
-            //{
-            //    return View(dbStudent);
-            //}
+            if (!ModelState.IsValid)
+            {
+                return View(dbStudent);
+            }
 
 
             bool isExist1 = await _db.Students.AnyAsync(x => x.UserName == student.UserName && x.Id != id);
@@ -262,6 +262,19 @@ namespace MyProjectUniversityPanel.Controllers
             await _db.SaveChangesAsync();
             await _userManager.UpdateAsync(user);
             return RedirectToAction("Index");
+        }
+        public async Task<IActionResult> Detail(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            Student student = await _db.Students.Include(x => x.Gender).Include(x => x.Department).FirstOrDefaultAsync(x => x.Id == id);
+            if (student == null)
+            {
+                return BadRequest();
+            }
+            return View(student);
         }
     }
 }

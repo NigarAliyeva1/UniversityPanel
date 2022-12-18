@@ -17,7 +17,7 @@
                             <th>Designation</th>
                             <th>Gender</th>
                             <th>Email</th>
-                            <th>Mobile</th>
+                            <th>Salary</th>
                             
                             <th>
                                 <div>
@@ -44,11 +44,11 @@
                                 </td>
                                 <td>@staff.FullName</td>
                                 <td>
-                                    @staff.Designation
+                                    @staff.Designation.Name
                                 </td>
                                 <td>@staff.Gender.Type</td>
                                 <td>@staff.Email</td>
-                                <td>@staff.Number</td>
+                                <td>@staff.Salary$</td>
                                 <td>@staff.JoiningDate.ToString("MM/dd/yyyy")</td>
                                 <td>
                                     @if (staff.IsDeactive)

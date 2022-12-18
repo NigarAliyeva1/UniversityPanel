@@ -1,0 +1,143 @@
+﻿@model Student
+<style>
+    * {
+        margin: 0;
+        padding: 0
+    }
+
+    body {
+        background-color: white
+    }
+
+    .card {
+        width: 350px;
+        background-color: white;
+        border: none;
+        cursor: pointer;
+        transition: all 0.5s;
+    }
+
+    .image img {
+        transition: all 0.5s
+    }
+
+    .card:hover .image img {
+        transform: scale(1.5)
+    }
+
+    .btn {
+        height: 200px;
+        width: 200px;
+        border-radius: 50%
+    }
+
+    .name {
+        font-size: 22px;
+        font-weight: bold
+    }
+
+    .idd {
+        font-size: 14px;
+        font-weight: 600
+    }
+
+    .idd1 {
+        font-size: 12px
+    }
+
+    .number {
+        font-size: 22px;
+        font-weight: bold
+    }
+
+    .follow {
+        font-size: 12px;
+        font-weight: 500;
+        color: #444444
+    }
+
+
+    .text p {
+        font-size: 13px;
+        color: #545454;
+        font-weight: 500
+    }
+
+    .icons i {
+        font-size: 19px
+    }
+
+    hr .new1 {
+        border: 1px solid
+    }
+
+    .join {
+        font-size: 14px;
+        color: #a0a0a0;
+        font-weight: bold
+    }
+
+    .date {
+        background-color: #ccc
+    }
+</style>
+
+
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div>
+                <h1 class="text-black"><a asp-action="Index" class="mdi mdi-keyboard-return text-black icon-lg"></a>Go Back</h1>
+            </div>
+            <div class=" image d-flex flex-column justify-content-center align-items-center">
+                <button class="btn btn-secondary">
+                    <img src="~/assets/images/@Model.Image" height="100" width="100" />
+                </button>
+
+                <p class="name mt-3">@Model.FullName</p>
+                <div class="d-flex flex-row justify-content-center align-items-center gap-2 text-muted">
+                    <h5>Username:</h5>
+                </div>
+                <h4>@Model.UserName</h4>
+
+
+                <div class="d-flex flex-row justify-content-center align-items-center gap-2 text-muted">
+                    <h5>Gender:</h5>
+                </div>
+                <h4>@Model.Gender.Type</h4>
+
+
+                <div class="d-flex flex-row justify-content-center align-items-center gap-2 text-muted">
+                    <h5>Department:</h5>
+                </div>
+                <h4>@Model.Department.Name</h4>
+
+
+                <div class="d-flex flex-row justify-content-center align-items-center gap-2 text-muted">
+                    <h5>Degree:</h5>
+                </div>
+                <h4>@Model.Degree</h4>
+
+
+                <div class="d-flex flex-row justify-content-center align-items-center gap-2 text-muted">
+                    <h5>Email:</h5>
+                </div>
+                <h4>@Model.Email</h4>
+
+
+                <div class="d-flex flex-row justify-content-center align-items-center gap-2 text-muted">
+                    <h5>Mobile Number:</h5>
+                </div>
+                <h4>@Model.Number</h4>
+
+                <div class="d-flex flex-row justify-content-center align-items-center gap-2 text-muted">
+                    <h5>Admission Date:</h5>
+                </div>
+                <h4>@Model.AdmissionDate.ToString("MMMM dd, yyyy")</h4>
+                <h4></h4>
+
+            </div>
+        </div>
+    </div>
+</div>
+

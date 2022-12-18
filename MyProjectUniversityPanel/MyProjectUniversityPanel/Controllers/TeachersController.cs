@@ -70,7 +70,6 @@ namespace MyProjectUniversityPanel.Controllers
             {
                 return View();
             }
-
             AppUser appUser = new AppUser
             {
                 FullName = teacher.FullName,
@@ -79,8 +78,23 @@ namespace MyProjectUniversityPanel.Controllers
                 Image = teacher.Image
             };
 
-
-            IdentityResult identityResult = await _userManager.CreateAsync(appUser, teacher.Password);
+            Designation designation = await _db.Designations.FirstOrDefaultAsync(x => x.Name == "Teacher");
+            Staff staff = new Staff
+            {
+                FullName = teacher.FullName,
+                Email = teacher.Email,
+                Image = teacher.Image,
+                File = teacher.Image,
+                Birthday = DateTime.UtcNow.AddHours(4),
+                GenderId = (int)genId,
+                DesignationId = designation.Id,
+                Education = "",
+                Number = teacher.Number,
+                Address = "",
+                Salary = 0,
+                JoiningDate = DateTime.UtcNow.AddHours(4),
+            };
+            IdentityResult identityResult = await _userManager.CreateAsync(appUser, "Admin1234");
             if (!identityResult.Succeeded)
             {
                 foreach (IdentityError error in identityResult.Errors)
@@ -105,11 +119,13 @@ namespace MyProjectUniversityPanel.Controllers
                 string folder = Path.Combine(_env.WebRootPath, "assets", "images");
                 appUser.Image = await teacher.Photo.SaveFileAsync(folder);
                 teacher.Image = await teacher.Photo.SaveFileAsync(folder);
+                staff.Image= await teacher.Photo.SaveFileAsync(folder);
             }
             else
             {
                 teacher.Image = "user.png";
                 appUser.Image = "user.png";
+                staff.Image = "user.png";
             }
             IdentityResult addIdentityResult = await _userManager.AddToRoleAsync(appUser, Helper.Roles.Teacher.ToString());
             if (!addIdentityResult.Succeeded)
@@ -123,12 +139,13 @@ namespace MyProjectUniversityPanel.Controllers
                 ModelState.AddModelError("UserName", "This teacher is already exist");
                 return View();
             }
+            
             teacher.DepartmentId = (int)depId;
             teacher.GenderId = (int)genId;
             teacher.JoiningDate = DateTime.UtcNow.AddHours(4);
             await _userManager.UpdateAsync(appUser);
             await _db.Teachers.AddAsync(teacher);
-
+            await _db.Staff.AddAsync(staff);
             await _db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
@@ -149,7 +166,7 @@ namespace MyProjectUniversityPanel.Controllers
             {
                 return NotFound();
             }
-            Teacher dbTeacher = await _db.Teachers.FirstOrDefaultAsync(x => x.Id == id);
+            Teacher dbTeacher = await _db.Teachers.Include(x => x.Gender).Include(x => x.Department).FirstOrDefaultAsync(x => x.Id == id);
             if (dbTeacher == null)
             {
                 return BadRequest();
@@ -173,18 +190,24 @@ namespace MyProjectUniversityPanel.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(int? id, Teacher teacher, UpdateVM updateVM, int? depId, int? genId)
         {
+
+
             ViewBag.Departments = await _db.Departments.Where(x => !x.IsDeactive).ToListAsync();
             ViewBag.Genders = await _db.Genders.ToListAsync();
+
             if (id == null)
             {
                 return NotFound();
             }
-           
-
-            Teacher dbTeacher = await _db.Teachers.FirstOrDefaultAsync(x => x.Id == id);
+            Teacher dbTeacher = await _db.Teachers.Include(x => x.Gender).Include(x => x.Department).FirstOrDefaultAsync(x => x.Id == id);
             if (dbTeacher == null)
             {
                 return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(dbTeacher);
             }
 
             AppUser user = await _userManager.FindByNameAsync(dbTeacher.UserName);
@@ -199,11 +222,7 @@ namespace MyProjectUniversityPanel.Controllers
                 Email = user.Email
 
             };
-
-            //if (!ModelState.IsValid)
-            //{
-            //    return View(dbTeacher);
-            //}
+            Staff dbStaff = await _db.Staff.FirstOrDefaultAsync(x => x.Email == user.Email);
 
 
             bool isExist1 = await _db.Teachers.AnyAsync(x => x.UserName == teacher.UserName && x.Id != id);
@@ -231,7 +250,10 @@ namespace MyProjectUniversityPanel.Controllers
             user.FullName = teacher.FullName;
             user.UserName = teacher.UserName;
             user.Email = teacher.Email;
-
+            dbStaff.FullName= teacher.FullName;
+            dbStaff.Email= teacher.Email;
+            dbStaff.Number= teacher.Number;
+            dbStaff.GenderId= (int)genId;
             dbTeacher.GenderId = (int)genId;
             dbTeacher.DepartmentId = (int)depId;
             dbTeacher.FullName = teacher.FullName;
@@ -260,76 +282,37 @@ namespace MyProjectUniversityPanel.Controllers
             {
                 return BadRequest();
             }
-           
+            Staff dbStaff = await _db.Staff.FirstOrDefaultAsync(x => x.Email == user.Email);
             if (dbTeacher.IsDeactive)
             {
                 dbTeacher.IsDeactive = false;
                 user.IsDeactive = false;
+                dbStaff.IsDeactive = false;
 
             }
             else
             {
                 dbTeacher.IsDeactive = true;
                 user.IsDeactive = true;
+                dbStaff.IsDeactive = true;
 
             }
             await _db.SaveChangesAsync();
             await _userManager.UpdateAsync(user);
             return RedirectToAction("Index");
         }
-        public async Task<IActionResult> ResetPassword(int? id)
+        public async Task<IActionResult> Detail(int? id)
         {
-
             if (id == null)
             {
                 return NotFound();
             }
-            Teacher dbTeacher = await _db.Teachers.FirstOrDefaultAsync(x => x.Id == id);
-            if (dbTeacher == null)
+            Teacher teacher = await _db.Teachers.Include(x => x.Gender).Include(x => x.Department).FirstOrDefaultAsync(x => x.Id == id);
+            if (teacher== null)
             {
                 return BadRequest();
             }
-
-            AppUser user = await _userManager.FindByNameAsync(dbTeacher.UserName);
-            if (user == null)
-            {
-                return BadRequest();
-            }
-            return View();
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ResetPassword(int? id,Teacher teacher)
-        {
-
-            if (id == null)
-            {
-                return NotFound();
-            }
-            Teacher dbTeacher = await _db.Teachers.FirstOrDefaultAsync(x => x.Id == id);
-           
-
-            AppUser user = await _userManager.FindByNameAsync(dbTeacher.UserName);
-            if (user == null)
-            {
-                return BadRequest();
-            }
-            string token = await _userManager.GeneratePasswordResetTokenAsync(user);
-            IdentityResult identityResult = await _userManager.ResetPasswordAsync(user, token, teacher.Password);
-            if (!identityResult.Succeeded)
-            {
-                foreach (IdentityError error in identityResult.Errors)
-                {
-                    ModelState.AddModelError("", error.Description);
-                }
-                return View();
-            }
-            dbTeacher.Password = teacher.Password;
-            dbTeacher.ConfirmPassword = teacher.ConfirmPassword;
-
-
-            await _db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return View(teacher);
         }
     }
 }

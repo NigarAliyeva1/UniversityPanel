@@ -1,0 +1,23 @@
+﻿@model Designation
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Create Designation</h4>
+                <p class="card-description"></p>
+                <form class="forms-sample" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label asp-for="Name">Designation name</label>
+                        <input asp-for="Name" class="form-control" id="exampleInputUsername1" placeholder="Name">
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <button type="submit" class="btn btn-gradient-primary me-2">Submit</button>
+                    <a asp-action="Index" class="btn btn-light">Go back</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

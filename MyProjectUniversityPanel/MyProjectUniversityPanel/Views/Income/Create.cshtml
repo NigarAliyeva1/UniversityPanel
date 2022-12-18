@@ -1,0 +1,28 @@
+﻿@model Income
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Create Income</h4>
+                <p class="card-description"></p>
+                <form class="forms-sample" method="post" enctype="multipart/form-data">
+                  
+                    <div class="form-group">
+                        <input asp-for="For" class="form-control form-control-lg" placeholder="Title">
+                        <span asp-validation-for="For" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input asp-for="Money" type="number" class="form-control form-control-lg" placeholder="Income">
+                        <span asp-validation-for="Money" class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-gradient-primary me-2">Submit</button>
+                    <a asp-action="Index" class="btn btn-inverse-dark btn-fw">Go back</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

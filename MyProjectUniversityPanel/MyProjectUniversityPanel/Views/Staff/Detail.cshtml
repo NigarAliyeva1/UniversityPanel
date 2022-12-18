@@ -103,11 +103,18 @@
                 <div class="d-flex flex-row justify-content-center align-items-center gap-2 text-muted">
                     <h5>Gender:</h5>
                 </div>
+
                 <h4>@Model.Gender.Type</h4>
+                <div class="d-flex flex-row justify-content-center align-items-center gap-2 text-muted">
+                    <h5>Salary:</h5>
+                </div>
+
+                <h4>@Model.Salary$</h4>
                 <div class="d-flex flex-row justify-content-center align-items-center gap-2 text-muted">
                     <h5>Designation:</h5>
                 </div>
-                <h4>@Model.Designation</h4>
+
+                <h4>@Model.Designation.Name</h4>
                 <div class="d-flex flex-row justify-content-center align-items-center gap-2 text-muted">
                     <h5>Education:</h5>
                 </div>
@@ -124,6 +131,11 @@
                     <h5>Address:</h5>
                 </div>
                 <h4>@Model.Address</h4>
+                <div class="d-flex flex-row justify-content-center align-items-center gap-2 text-muted">
+                    <h5>Upload File:</h5>
+                </div>
+                <embed src="~/assets/images/@Model.File" width="500px" height="800px" />
+                <h4></h4>
 
             </div>
         </div>

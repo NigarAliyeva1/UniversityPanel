@@ -96,8 +96,24 @@ namespace MyProjectUniversityPanel.Controllers
                 ModelState.AddModelError("UserName", "Username or password is wrong!");
                 return View();
             }
-            
-            
+          
+            if ((await _userManager.GetRolesAsync(user)).FirstOrDefault() == "SuperAdmin")
+            {
+               return RedirectToAction("Index", "Home");
+            }
+            else if ((await _userManager.GetRolesAsync(user)).FirstOrDefault() == "Admin")
+            {
+                return RedirectToAction("Index", "HomeAdmin");
+            }
+            else if ((await _userManager.GetRolesAsync(user)).FirstOrDefault() == "Teacher")
+            {
+                return RedirectToAction("Index", "HomeTeacher");
+            }
+            else if ((await _userManager.GetRolesAsync(user)).FirstOrDefault() == "Student")
+            {
+                return RedirectToAction("Index", "HomeStudent");
+            }
+
             return RedirectToAction("Index", "Default");
         }
         public async Task<IActionResult> CreateAdmin()

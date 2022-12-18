@@ -1,6 +1,7 @@
 ﻿using MyProjectUniversityPanel.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace MyProjectUniversityPanel.DAL
 {
@@ -17,7 +18,13 @@ namespace MyProjectUniversityPanel.DAL
         public DbSet<HasSuperAdmin> HasSuperAdmins { get; set; }
         public DbSet<DepartmentDetail> DepartmentDetails { get; set; }
         public DbSet<Student> Students { get; set; }
-        
+        public DbSet<Kassa> Kassas { get; set; }
+        public DbSet<Income> Incomes { get; set; }
+        public DbSet<Outcome> Outcomes { get; set; }
+        public DbSet<Designation> Designations { get; set; }
+
+        public DbSet<Salary> Salaries { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -26,6 +33,8 @@ namespace MyProjectUniversityPanel.DAL
             builder.Entity<Gender>().HasData(new Gender { Id = 2, Type = "Female" });
             builder.Entity<Gender>().HasData(new Gender { Id = 3, Type = "Other" });
             builder.Entity<Department>().HasData(new Department { Id = 1, Name = "Default" , IsDeactive=false});
+            builder.Entity<Kassa>().HasData(new Kassa { Id = 1, Balance = 0,LastModifiedBy="",LastModifiedMoney=0,LastModifiedFor="",LastModifiedTime= DateTime.UtcNow.AddHours(4),IsDeactive=false,AppUserId= "a4dab9a1-cbf9-4795-a071-b4255ede23d9" });
+
         }
     }
 }

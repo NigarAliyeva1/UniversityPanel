@@ -1,5 +1,4 @@
-﻿@using MyProjectUniversityPanel.ViewModels;
-@model List<Department>
+﻿@model List<Designation>
 
 
 <div class="row">
@@ -14,29 +13,28 @@
                     <thead>
                         <tr>
 
-                            <th>Department Name</th>
+                            <th>Designation Name</th>
                             <th class="d-flex justify-content-end">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
 
 
-                        @foreach (Department department in Model)
+                        @foreach (Designation designation in Model)
                         {
                             <tr>
-                                <td>@department.Name</td>
+                                <td>@designation.Name</td>
                                 <td>
 
                                     <div class="d-flex justify-content-end">
 
-                                        <a asp-action="Update" asp-route-id="@department.Id" style="width:50px" class="mdi mdi-border-color icon-md"></a>
-                                        <a asp-action="Delete" asp-route-id="@department.Id" style="width:50px" class="mdi mdi-delete icon-md text-danger"></a>
+                                        <a asp-action="Update" asp-route-id="@designation.Id" style="width:50px" class="mdi mdi-wrench icon-md text-info"></a>
+                                        <a asp-action="Delete" asp-route-id="@designation.Id" style="width:50px" class="mdi mdi-delete icon-md text-danger"></a>
 
 
                                     </div>
                                 </td>
                             </tr>
-
 
                         }
 
@@ -48,13 +46,7 @@
 </div>
 
 
-@*@section Scripts{
-    <script>
-        $(document).ready(function () {
-            $('#myDepartments').DataTable();
-        });
-    </script>
-}*@
+
 <script type="text/javascript">
     $(document).ready(function () {
         $('#myDepartments').DataTable({

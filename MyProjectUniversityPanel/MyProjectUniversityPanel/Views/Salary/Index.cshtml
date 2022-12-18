@@ -1,0 +1,79 @@
+﻿@model List<Salary>
+
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <h4 class="card-title">Salaries</h4>
+                    <a class="mdi mdi-plus-circle icon-lg" asp-action="Create"></a>
+
+                </div>
+                <table class="table" id="myTable">
+                    <thead>
+                        <tr>
+                            <th>Salary</th>
+                            <th>Title</th>
+                            <th>Date</th>
+                            <th>User</th>
+                            @if (User.IsInRole("SuperAdmin"))
+                            {
+                                <th class="text-end">
+                                    Actions
+                                </th>
+                            }
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Salary salary in Model)
+                        {
+                            <tr>
+
+                                <td>
+                                    @salary.Money$
+                                </td>
+                                <td>
+                                    @salary.Staff.FullName
+                                </td>
+                                <td>@salary.Date.ToString("MM/dd/yyyy hh:mm")</td>
+                                <td>
+                                    @salary.AppUser.FullName
+                                </td>
+
+                                <td>
+                                    <div class="d-flex justify-content-end">
+                                        @if (User.IsInRole("SuperAdmin"))
+                                        {
+                                           
+                                            <a asp-action="Delete" asp-route-id="@salary.Id" style="width:50px" class="mdi mdi-delete icon-md text-danger"></a>
+                                        }
+
+
+                                    </div>
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#myTable').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
+    });
+
+</script>
+
+
