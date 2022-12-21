@@ -14,8 +14,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 using System.Threading.Tasks;
 using static MyProjectUniversityPanel.Helpers.Helper;
+using System.Text.RegularExpressions;
 
 namespace MyProjectUniversityPanel.Controllers
 {
@@ -70,6 +73,11 @@ namespace MyProjectUniversityPanel.Controllers
             {
                 return View();
             }
+            if (depId == null || genId == null)
+            {
+                ModelState.AddModelError("", "Please choose one");
+                return View();
+            }
             AppUser appUser = new AppUser
             {
                 FullName = teacher.FullName,
@@ -119,13 +127,17 @@ namespace MyProjectUniversityPanel.Controllers
                 string folder = Path.Combine(_env.WebRootPath, "assets", "images");
                 appUser.Image = await teacher.Photo.SaveFileAsync(folder);
                 teacher.Image = await teacher.Photo.SaveFileAsync(folder);
-                staff.Image= await teacher.Photo.SaveFileAsync(folder);
+
+                staff.Image = await teacher.Photo.SaveFileAsync(folder);
+                staff.File = await teacher.Photo.SaveFileAsync(folder);
+
             }
             else
             {
                 teacher.Image = "user.png";
                 appUser.Image = "user.png";
                 staff.Image = "user.png";
+                staff.File = "user.png";
             }
             IdentityResult addIdentityResult = await _userManager.AddToRoleAsync(appUser, Helper.Roles.Teacher.ToString());
             if (!addIdentityResult.Succeeded)
@@ -139,7 +151,7 @@ namespace MyProjectUniversityPanel.Controllers
                 ModelState.AddModelError("UserName", "This teacher is already exist");
                 return View();
             }
-            
+
             teacher.DepartmentId = (int)depId;
             teacher.GenderId = (int)genId;
             teacher.JoiningDate = DateTime.UtcNow.AddHours(4);
@@ -154,7 +166,7 @@ namespace MyProjectUniversityPanel.Controllers
         //    return RedirectToAction("CreateDepartment", "Teachers");
 
         //}
-        public async Task<IActionResult> Update(AppUser appUser,int? id)
+        public async Task<IActionResult> Update(AppUser appUser, int? id)
         {
             ViewBag.Departments = await _db.Departments.Where(x => !x.IsDeactive).ToListAsync();
             ViewBag.Genders = await _db.Genders.ToListAsync();
@@ -195,6 +207,11 @@ namespace MyProjectUniversityPanel.Controllers
             ViewBag.Departments = await _db.Departments.Where(x => !x.IsDeactive).ToListAsync();
             ViewBag.Genders = await _db.Genders.ToListAsync();
 
+            if (depId == null || genId == null)
+            {
+                ModelState.AddModelError("", "Please choose one");
+                return View();
+            }
             if (id == null)
             {
                 return NotFound();
@@ -247,13 +264,14 @@ namespace MyProjectUniversityPanel.Controllers
                 user.Image = await teacher.Photo.SaveFileAsync(folder);
                 dbTeacher.Image = await teacher.Photo.SaveFileAsync(folder);
             }
+
             user.FullName = teacher.FullName;
             user.UserName = teacher.UserName;
             user.Email = teacher.Email;
-            dbStaff.FullName= teacher.FullName;
-            dbStaff.Email= teacher.Email;
-            dbStaff.Number= teacher.Number;
-            dbStaff.GenderId= (int)genId;
+            dbStaff.FullName = teacher.FullName;
+            dbStaff.Email = teacher.Email;
+            dbStaff.Number = teacher.Number;
+            dbStaff.GenderId = (int)genId;
             dbTeacher.GenderId = (int)genId;
             dbTeacher.DepartmentId = (int)depId;
             dbTeacher.FullName = teacher.FullName;
@@ -263,7 +281,7 @@ namespace MyProjectUniversityPanel.Controllers
             dbTeacher.Degree = teacher.Degree;
             await _db.SaveChangesAsync();
             await _userManager.UpdateAsync(user);
-            return RedirectToAction("Index","Teachers");
+            return RedirectToAction("Index", "Teachers");
         }
         public async Task<IActionResult> Activity(int? id)
         {
@@ -308,11 +326,141 @@ namespace MyProjectUniversityPanel.Controllers
                 return NotFound();
             }
             Teacher teacher = await _db.Teachers.Include(x => x.Gender).Include(x => x.Department).FirstOrDefaultAsync(x => x.Id == id);
-            if (teacher== null)
+            if (teacher == null)
             {
                 return BadRequest();
             }
             return View(teacher);
+        }
+        public async Task<IActionResult> SendEmail(int? id)
+        {
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Teacher dbTeacher = await _db.Teachers.Include(x => x.Gender).Include(x => x.Department).FirstOrDefaultAsync(x => x.Id == id);
+            if (dbTeacher == null)
+            {
+                return BadRequest();
+            }
+
+            return View();
+
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SendEmail(int? id, Email email)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+            if (email.MessageSubject == null)
+            {
+                ModelState.AddModelError("MessageSubject", "The Subject field is required.");
+                return View();
+            }
+            if (email.MessageBody == null)
+            {
+                ModelState.AddModelError("MessageBody", "The Message Body field is required.");
+                return View();
+            }
+            Teacher dbTeacher = await _db.Teachers.Include(x => x.Gender).Include(x => x.Department).FirstOrDefaultAsync(x => x.Id == id);
+            if (dbTeacher == null)
+            {
+                return BadRequest();
+            }
+
+
+
+
+            SmtpClient client = new SmtpClient("smtp.yandex.com", 587);
+            client.UseDefaultCredentials = false;
+            client.EnableSsl = true;
+            client.Credentials = new NetworkCredential("nigarkhanim.a@itbrains.edu.az", "burhphattpriyhqd");
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+
+            MailMessage message = new MailMessage("nigarkhanim.a@itbrains.edu.az", dbTeacher.Email);
+            message.Subject = email.MessageSubject;
+            message.Body = email.MessageBody;
+            message.BodyEncoding = System.Text.Encoding.UTF8;
+            message.IsBodyHtml = true;
+
+            try
+            {
+                await client.SendMailAsync(message);
+
+                TempData["Message"] = "Email has been sent";
+            }
+            catch (System.Exception ex)
+            {
+                TempData["Message"] = "Email was not sent " + ex.Message;
+            }
+            await _db.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+        public IActionResult SendEmailAll()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SendEmailAll(Email email)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            if (email.MessageSubject == null)
+            {
+                ModelState.AddModelError("MessageSubject", "The Subject field is required.");
+                return View();
+            }
+            if (email.MessageBody == null)
+            {
+                ModelState.AddModelError("MessageBody", "The Message Body field is required.");
+                return View();
+            }
+
+            List<Teacher> teachers = await _db.Teachers.ToListAsync();
+            foreach (Teacher item in teachers)
+            {
+                SmtpClient client = new SmtpClient("smtp.yandex.com", 587);
+                client.UseDefaultCredentials = false;
+                client.EnableSsl = true;
+                client.Credentials = new NetworkCredential("nigarkhanim.a@itbrains.edu.az", "burhphattpriyhqd");
+                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+
+                MailMessage message = new MailMessage("nigarkhanim.a@itbrains.edu.az", item.Email);
+                message.Subject = email.MessageSubject;
+                message.Body = email.MessageBody;
+                message.BodyEncoding = System.Text.Encoding.UTF8;
+                message.IsBodyHtml = true;
+
+                try
+                {
+                    await client.SendMailAsync(message);
+
+                    TempData["Message"] = "Email has been sent";
+                }
+                catch (System.Exception ex)
+                {
+                    TempData["Message"] = "Email was not sent " + ex.Message;
+                }
+                await _db.SaveChangesAsync();
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }

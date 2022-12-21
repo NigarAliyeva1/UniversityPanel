@@ -16,12 +16,12 @@
                             <th>Title</th>
                             <th>Date</th>
                             <th>User</th>
-                            @if (User.IsInRole("SuperAdmin"))
+                         @*   @if (User.IsInRole("SuperAdmin"))
                             {
                                 <th class="text-end">
                                     Actions
                                 </th>
-                            }
+                            }*@
 
                         </tr>
                     </thead>
@@ -41,7 +41,7 @@
                                     @salary.AppUser.FullName
                                 </td>
 
-                                <td>
+                         @*       <td>
                                     <div class="d-flex justify-content-end">
                                         @if (User.IsInRole("SuperAdmin"))
                                         {
@@ -51,7 +51,7 @@
 
 
                                     </div>
-                                </td>
+                                </td>*@
 
                             </tr>
                         }

@@ -32,6 +32,7 @@ namespace MyProjectUniversityPanel.Models
         public bool IsDeactive { get; set; }
         public DateTime JoiningDate { get; set; }
         public virtual ICollection<DepartmentDetail> DepartmentDetails { get; set; }
+        public List<TeacherGroups> teacherGroups { get; set; }
 
 
 

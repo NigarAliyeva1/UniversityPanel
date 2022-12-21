@@ -7,6 +7,7 @@ namespace MyProjectUniversityPanel.DAL
 {
     public class AppDbContext : IdentityDbContext<AppUser>
     {
+        
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
 
@@ -24,6 +25,11 @@ namespace MyProjectUniversityPanel.DAL
         public DbSet<Designation> Designations { get; set; }
 
         public DbSet<Salary> Salaries { get; set; }
+        public DbSet<Email> Emails { get; set; }
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<StudentGroup> StudentGroups { get; set; }
+        public DbSet<TeacherGroups> TeacherGroups { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

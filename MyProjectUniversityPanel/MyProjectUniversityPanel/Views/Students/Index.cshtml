@@ -4,19 +4,25 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <div class="d-flex justify-content-between">
+                <div class="d-flex justify-content-start">
                     <h4 class="card-title">Students</h4>
-                    <a class="mdi mdi-plus-circle icon-lg" asp-action="Create"></a>
-                    @*
-                    @if (ViewBag.Count!=0)
-                    {
-                    <a class="mdi mdi-plus-circle icon-lg" asp-action="Create"></a>
-                    }
-                    else
-                    {
-                    <a class="mdi mdi-plus-circle icon-lg" asp-action="New"></a>
-                    }*@
                 </div>
+                <div class="d-flex justify-content-end">
+                    <a class="mdi mdi-email text-danger icon-lg" asp-action="SendEmailAll"></a>
+
+                    <a class="mdi mdi-plus-circle icon-lg" asp-action="Create"></a>
+
+                </div>
+
+                @*
+                @if (ViewBag.Count!=0)
+                {
+                <a class="mdi mdi-plus-circle icon-lg" asp-action="Create"></a>
+                }
+                else
+                {
+                <a class="mdi mdi-plus-circle icon-lg" asp-action="New"></a>
+                }*@
                 <table class="table" id="myTable">
                     <thead>
                         <tr>
@@ -30,10 +36,10 @@
                             
                             <th>
                                 <div>
-                                    Admission
+                                    Group
                                 </div>
                                 <div>
-                                    Date
+                                    Number
                                 </div>
                             </th>
                             <th>
@@ -60,8 +66,14 @@
                               
                                 <td>@student.Department.Name</td>
                               
-                                <td>@student.AdmissionDate.ToString("MM/dd/yyyy")</td>
-                                <td class="d-flex justify-content-center">
+                                <td>
+                                  @*  @student.StudentGroups.)*@
+                                    @foreach (StudentGroup studentGroup in student.StudentGroups)
+                                    {
+                                        <div>@studentGroup.Group.Number</div>
+                                    }
+                                </td>
+                                <td>
                                     @if (student.IsDeactive)
                                     {
                                         <span style="width:30px" class="mdi mdi-close-circle-outline icon-md text-danger"></span>
@@ -74,6 +86,7 @@
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-md-start">
+                                        <a asp-action="SendEmail" asp-route-id="@student.Id" style="width:45px" class="mdi mdi-email text-danger icon-md"></a>
                                        <a asp-action="Detail" asp-route-id="@student.Id" style="width:45px" class="mdi mdi-account-card-details icon-md"></a>
                                         <a asp-action="Update" asp-route-id="@student.Id" style="width:30px" class="mdi mdi-wrench icon-md text-info"></a>
 

@@ -78,43 +78,71 @@ namespace MyProjectUniversityPanel.Controllers
             {
                 return BadRequest();
             }
-
+            Staff staff = await _db.Staff.Include(x => x.Designation).Include(x => x.Gender).Where(x => !x.IsDeactive).FirstOrDefaultAsync(x => dbOutcome.For.Contains(x.FullName));
+            if (staff != null)
+            {
+                ViewBag.Staff = staff;
+            }
+           
             return View(dbOutcome);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(int? id, Outcome outcome, DateTime date)
         {
-
             if (id == null)
             {
                 return NotFound();
             }
+
 
             Outcome dbOutcome = await _db.Outcomes.Where(x => !x.IsDeactive).FirstOrDefaultAsync(x => x.Id == id);
             if (dbOutcome == null)
             {
                 return BadRequest();
             }
-
-
+        
             if (!ModelState.IsValid)
             {
                 return View(dbOutcome);
             }
+            Staff staff = await _db.Staff.Include(x => x.Designation).Include(x => x.Gender).Where(x => !x.IsDeactive).FirstOrDefaultAsync(x=>dbOutcome.For.Contains(x.FullName));
+            if (staff!=null)
+            {
+                Salary dbSalary = await _db.Salaries.FirstOrDefaultAsync(x => x.StaffId == staff.Id);
+                AppUser appUser = await _userManager.FindByNameAsync(User.Identity.Name);
+                Kassa kassa = await _db.Kassas.FirstOrDefaultAsync();
+                kassa.LastModifiedBy = appUser.FullName;
+                kassa.Balance += dbOutcome.Money;
+                kassa.Balance -= outcome.Money;
+                kassa.LastModifiedMoney = outcome.Money;
+                kassa.LastModifiedFor = outcome.For;
+                kassa.LastModifiedTime = date;
+                dbOutcome.AppUserId = appUser.Id;
+                dbOutcome.Money = outcome.Money;
+                dbSalary.Money = outcome.Money;
+                dbOutcome.Date = dbOutcome.Date;
+                dbOutcome.For = dbOutcome.For;
 
-            AppUser appUser = await _userManager.FindByNameAsync(User.Identity.Name);
-            Kassa kassa = await _db.Kassas.FirstOrDefaultAsync();
-            kassa.LastModifiedBy = appUser.FullName;
-            kassa.Balance += dbOutcome.Money;
-            kassa.Balance -= outcome.Money;
-            kassa.LastModifiedMoney = outcome.Money;
-            kassa.LastModifiedFor = outcome.For;
-            kassa.LastModifiedTime = date;
-            dbOutcome.Date = date;
-            dbOutcome.AppUserId = appUser.Id;
-            dbOutcome.Money = outcome.Money;
-            dbOutcome.For = outcome.For;
+            }
+            else
+            {
+                AppUser appUser = await _userManager.FindByNameAsync(User.Identity.Name);
+                Kassa kassa = await _db.Kassas.FirstOrDefaultAsync();
+                kassa.LastModifiedBy = appUser.FullName;
+                kassa.Balance += dbOutcome.Money;
+                kassa.Balance -= outcome.Money;
+                kassa.LastModifiedMoney = outcome.Money;
+                kassa.LastModifiedFor = outcome.For;
+                kassa.LastModifiedTime = date;
+                dbOutcome.AppUserId = appUser.Id;
+                dbOutcome.Money = outcome.Money;
+                dbOutcome.Date = date;
+                dbOutcome.For = outcome.For;
+            }
+            
+           
+         
 
 
             await _db.SaveChangesAsync();
@@ -152,11 +180,18 @@ namespace MyProjectUniversityPanel.Controllers
                 return BadRequest();
             }
             dbOutcome.IsDeactive = true;
+            Staff staff = await _db.Staff.Include(x => x.Designation).Include(x => x.Gender).Where(x => !x.IsDeactive).FirstOrDefaultAsync(x => dbOutcome.For.Contains(x.FullName));
+            if (staff != null)
+            {
+                Salary dbSalary = await _db.Salaries.FirstOrDefaultAsync(x => x.StaffId == staff.Id);
+                dbSalary.IsDeactive = true;
+            }
+
             AppUser appUser = await _userManager.FindByNameAsync(User.Identity.Name);
             Kassa kassa = await _db.Kassas.FirstOrDefaultAsync();
             kassa.Balance += dbOutcome.Money;
             kassa.LastModifiedBy = appUser.FullName;
-            kassa.LastModifiedFor = "Delete outcome -" + dbOutcome.For;
+            kassa.LastModifiedFor = " Delete outcome - " + dbOutcome.For;
             kassa.LastModifiedMoney = dbOutcome.Money;
             kassa.LastModifiedTime = DateTime.UtcNow.AddHours(4);
             await _db.SaveChangesAsync();

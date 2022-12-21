@@ -42,8 +42,7 @@ namespace MyProjectUniversityPanel.Controllers
             List<Outcome> outcomes = await _db.Outcomes.Include(x => x.AppUser).Where(x => !x.IsDeactive).ToListAsync();
             List<Student> students = await _db.Students.Include(x => x.Gender).Include(x => x.Department).ToListAsync();
             List<Teacher> teachers = await _db.Teachers.Include(x => x.Gender).Include(x => x.Department).ToListAsync();
-            Income income = await _db.Incomes.Include(x => x.AppUser).Where(x => !x.IsDeactive).OrderBy(x => x.Id).LastOrDefaultAsync();
-            Outcome outcome = await _db.Outcomes.Include(x => x.AppUser).Where(x => !x.IsDeactive).OrderBy(x => x.Id).LastOrDefaultAsync();
+
             HomeVM homeVM = new HomeVM
             {
                 Kassa = await _db.Kassas.Include(x => x.AppUser).Where(x => !x.IsDeactive).OrderBy(x => x.Id).LastOrDefaultAsync(),
@@ -56,7 +55,6 @@ namespace MyProjectUniversityPanel.Controllers
             {
                 ViewBag.NumberOfStudents++;
             }
-            
             foreach (var teacher in teachers)
             {
                 ViewBag.NumberOfTeachers++;
@@ -71,73 +69,95 @@ namespace MyProjectUniversityPanel.Controllers
                 ViewBag.AllOutcome += item.Money;
             }
             DateTime nowDate = DateTime.UtcNow.AddHours(4);
-            if (nowDate.ToString("dd/MM/yyyy") == income.Date.ToString("dd/MM/yyyy"))
+
+
+            Income income = await _db.Incomes.Include(x => x.AppUser).Where(x => !x.IsDeactive).OrderBy(x => x.Id).LastOrDefaultAsync();
+            if (income!=null)
             {
-                ViewBag.Date = "Today";
-            }
-            else if (nowDate.AddDays(-1).ToString("dd/MM/yyyy") == income.Date.ToString("dd/MM/yyyy"))
-            {
-                ViewBag.Date = "Yesterday";
-            }
-            else if ((nowDate - income.Date).TotalDays <= 7)
-            {
-                ViewBag.Date = income.Date.DayOfWeek.ToString();
-            }
-            else if ((nowDate - income.Date).TotalDays <= 14)
-            {
-                ViewBag.Date = "Last Week";
-            }
-            else if ((nowDate - income.Date).TotalDays <= 21)
-            {
-                ViewBag.Date = "Two Weeks Ago";
-            }
-            else if ((nowDate - income.Date).TotalDays <= 28)
-            {
-                ViewBag.Date = "Three Weeks Ago";
-            }
-            else if ((nowDate - income.Date).TotalDays <= 30)
-            {
-                ViewBag.Date = "Last Month";
+                if (nowDate.ToString("dd/MM/yyyy") == income.Date.ToString("dd/MM/yyyy"))
+                {
+                    ViewBag.Date = "Today";
+                }
+                else if (nowDate.AddDays(-1).ToString("dd/MM/yyyy") == income.Date.ToString("dd/MM/yyyy"))
+                {
+                    ViewBag.Date = "Yesterday";
+                }
+                else if ((nowDate - income.Date).TotalDays <= 7)
+                {
+                    ViewBag.Date = income.Date.DayOfWeek.ToString();
+                }
+                else if ((nowDate - income.Date).TotalDays <= 14)
+                {
+                    ViewBag.Date = "Last Week";
+                }
+                else if ((nowDate - income.Date).TotalDays <= 21)
+                {
+                    ViewBag.Date = "Two Weeks Ago";
+                }
+                else if ((nowDate - income.Date).TotalDays <= 28)
+                {
+                    ViewBag.Date = "Three Weeks Ago";
+                }
+                else if ((nowDate - income.Date).TotalDays <= 30)
+                {
+                    ViewBag.Date = "Last Month";
+                }
+                else
+                {
+                    ViewBag.Date2 = "Older";
+                }
             }
             else
             {
-                ViewBag.Date2 = "Older";
+                ViewBag.Date2 = "";
             }
 
-            if (nowDate.ToString("dd/MM/yyyy") == outcome.Date.ToString("dd/MM/yyyy"))
+
+            Outcome outcome = await _db.Outcomes.Include(x => x.AppUser).Where(x => !x.IsDeactive).OrderBy(x => x.Id).LastOrDefaultAsync();
+            if (outcome!=null)
             {
-                ViewBag.Date2 = "Today";
-            }
-            else if (nowDate.AddDays(-1).ToString("dd/MM/yyyy") == outcome.Date.ToString("dd/MM/yyyy"))
-            {
-                ViewBag.Date2 = "Yesterday";
-            }
-            else if ((nowDate - outcome.Date).TotalDays <= 7)
-            {
-                ViewBag.Date2 = outcome.Date.DayOfWeek.ToString();
-            }
-            else if ((nowDate - outcome.Date).TotalDays <= 14)
-            {
-                ViewBag.Date2 = "Last Week";
-            }
-            else if ((nowDate - outcome.Date).TotalDays <= 21)
-            {
-                ViewBag.Date2 = "Two Weeks Ago";
-            }
-            else if ((nowDate - outcome.Date).TotalDays <= 28)
-            {
-                ViewBag.Date2 = "Three Weeks Ago";
-            }
-            else if ((nowDate - outcome.Date).TotalDays <= 30)
-            {
-                ViewBag.Date2 = "Last Month";
+                if (nowDate.ToString("dd/MM/yyyy") == outcome.Date.ToString("dd/MM/yyyy"))
+                {
+                    ViewBag.Date2 = "Today";
+                }
+                else if (nowDate.AddDays(-1).ToString("dd/MM/yyyy") == outcome.Date.ToString("dd/MM/yyyy"))
+                {
+                    ViewBag.Date2 = "Yesterday";
+                }
+                else if ((nowDate - outcome.Date).TotalDays <= 7)
+                {
+                    ViewBag.Date2 = outcome.Date.DayOfWeek.ToString();
+                }
+                else if ((nowDate - outcome.Date).TotalDays <= 14)
+                {
+                    ViewBag.Date2 = "Last Week";
+                }
+                else if ((nowDate - outcome.Date).TotalDays <= 21)
+                {
+                    ViewBag.Date2 = "Two Weeks Ago";
+                }
+                else if ((nowDate - outcome.Date).TotalDays <= 28)
+                {
+                    ViewBag.Date2 = "Three Weeks Ago";
+                }
+                else if ((nowDate - outcome.Date).TotalDays <= 30)
+                {
+                    ViewBag.Date2 = "Last Month";
+                }
+                else
+                {
+                    ViewBag.Date2 = "Older";
+                }
             }
             else
             {
-                ViewBag.Date2 = "Older";
+                ViewBag.Date2 = "";
             }
+
+
             return View(homeVM);
         }
+
     }
 }
 

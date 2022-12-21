@@ -24,7 +24,8 @@
                 <h6 class="card-text">Last Modified : @Model.Kassa.LastModifiedTime.ToString("MM/dd/yyyy hh:mm")</h6>
                 <h6 class="card-text">Title:@Model.Kassa.LastModifiedFor</h6>
                 <h6 class="card-text">User: @Model.Kassa.AppUser.FullName.ToString()</h6>
-            
+                <h6 class="card-text">Last Modified Money: @Model.Kassa.LastModifiedMoney$</h6>
+
                 <h2 class="mb-5"></h2>
                 <h6 class="card-text">Amount: @Model.Kassa.Balance$</h6>
             </div>
@@ -37,14 +38,18 @@
                 <h4 class="font-weight-normal mb-3">
                     Income <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
                 </h4>
-                <h6 class="card-text">Last Income : @ViewBag.Date</h6>
-                <h6 class="card-text">Title:@Model.Income.For</h6>
-                <h6 class="card-text">User: @Model.Income.AppUser.FullName.ToString()</h6>
-                <h6 class="card-text">Last Income : @Model.Income.Money$</h6>
-                
-                
-                <h2 class="mb-5"></h2>
-                <h6 class="card-text">Total Earning : @ViewBag.AllIncome$</h6>
+                @if (ViewBag.AllIncome > 0)
+                {
+                    <h6 class="card-text">Last Income : @ViewBag.Date</h6>
+                    <h6 class="card-text">Title:@Model.Income.For</h6>
+                    <h6 class="card-text">User: @Model.Income.AppUser.FullName.ToString()</h6>
+                    <h6 class="card-text">Last Income : @Model.Income.Money$</h6>
+
+
+                    <h2 class="mb-5"></h2>
+                    <h6 class="card-text">Total Earning : @ViewBag.AllIncome$</h6>
+                }
+
             </div>
         </div>
     </div>
@@ -52,17 +57,21 @@
         <div class="card bg-gradient-success card-img-holder text-white">
             <div class="card-body">
                 <img src="~/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                 <h4 class="font-weight-normal mb-3">
+                <h4 class="font-weight-normal mb-3">
                     Outcome <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
                 </h4>
-                <h6 class="card-text">Last Outcome : @ViewBag.Date2</h6>
-                <h6 class="card-text">Title:@Model.Outcome.For</h6>
-                <h6 class="card-text">User: @Model.Outcome.AppUser.FullName.ToString()</h6>
-                <h6 class="card-text">Last Outcome : @Model.Income.Money$</h6>
-                
-                
-                <h2 class="mb-5"></h2>
-                <h6 class="card-text">Total Paying : @ViewBag.AllOutcome$</h6>
+                @if (ViewBag.AllOutcome > 0)
+                {
+                    <h6 class="card-text">Last Outcome : @ViewBag.Date2</h6>
+                    <h6 class="card-text">Title:@Model.Outcome.For</h6>
+                    <h6 class="card-text">User: @Model.Outcome.AppUser.FullName.ToString()</h6>
+                    <h6 class="card-text">Last Outcome : @Model.Outcome.Money$</h6>
+
+
+                    <h2 class="mb-5"></h2>
+                    <h6 class="card-text">Total Paying : @ViewBag.AllOutcome$</h6>
+                }
+
             </div>
         </div>
     </div>

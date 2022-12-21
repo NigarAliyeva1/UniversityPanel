@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyProjectUniversityPanel.DAL;
@@ -6,9 +7,12 @@ using MyProjectUniversityPanel.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static MyProjectUniversityPanel.Helpers.Helper;
 
 namespace MyProjectUniversityPanel.Controllers
 {
+    [Authorize(Roles = "SuperAdmin")]
+
     public class DesignationController : Controller
     {
         private readonly AppDbContext _db;

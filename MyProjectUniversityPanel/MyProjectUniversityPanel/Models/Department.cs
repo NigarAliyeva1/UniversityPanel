@@ -10,6 +10,7 @@ namespace MyProjectUniversityPanel.Models
         public List<Teacher> Teachers { get; set; }
         public virtual ICollection<DepartmentDetail> DepartmentDetails { get; set; }
         public List<Student> Students { get; set; }
+        public List<Group> groups { get; set; }
 
     }
 }

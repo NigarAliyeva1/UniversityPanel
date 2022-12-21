@@ -11,6 +11,8 @@ using MyProjectUniversityPanel.ViewModels;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 using System.Threading.Tasks;
 using static MyProjectUniversityPanel.Helpers.Helper;
 
@@ -36,27 +38,33 @@ namespace MyProjectUniversityPanel.Controllers
         public async Task<IActionResult> Index()
         {
 
-            List<Student> students = await _db.Students.Include(x => x.Gender).Include(x => x.Department).ToListAsync();
-            //ViewBag.Departments = await _db.Departments.Where(x => !x.IsDeactive).ToListAsync();
-            ////int count = await _db.Departments.Where(x => !x.IsDeactive).CountAsync();
-            ////ViewBag.Count = count;
-            //ViewBag.Genders = await _db.Genders.ToListAsync();
+            List<Student> students = await _db.Students.Include(x => x.Gender).Include(x => x.Department).Include(x => x.StudentGroups).ThenInclude(x=>x.Group).ToListAsync();
+
             return View(students);
         }
         public async Task<IActionResult> Create()
         {
             ViewBag.Departments = await _db.Departments.Where(x => !x.IsDeactive).ToListAsync();
             ViewBag.Genders = await _db.Genders.ToListAsync();
+            ViewBag.Groups = await _db.Groups.Where(x => !x.IsDeactive).ToListAsync();
+
 
             return View();
 
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Student student, int? depId, int? genId)
+        public async Task<IActionResult> Create(Student student, int? depId, int? genId,int? groupId)
         {
             ViewBag.Departments = await _db.Departments.Where(x => !x.IsDeactive).ToListAsync();
             ViewBag.Genders = await _db.Genders.ToListAsync();
+            ViewBag.Groups = await _db.Groups.Where(x => !x.IsDeactive).ToListAsync();
+            if (depId == null||genId == null||groupId==null)
+            {
+                ModelState.AddModelError("", "Please choose one");
+                return View();
+            }
+           
             if (!ModelState.IsValid)
             {
                 return View();
@@ -114,6 +122,28 @@ namespace MyProjectUniversityPanel.Controllers
                 ModelState.AddModelError("UserName", "This username is already exist");
                 return View();
             }
+            //List<StudentGroup> studentGroups = new List<StudentGroup>();
+            //if (groupId != null)
+            //{
+            //    StudentGroup studentGroup = new StudentGroup
+            //    {
+            //        GroupId = (int)groupId,
+
+            //    };
+            //    studentGroups.Add(studentGroup);
+            //}
+            //student.StudentGroups = studentGroups;
+
+            List<StudentGroup> studentGroups = new List<StudentGroup>();
+            StudentGroup studentGroup = new StudentGroup
+            {
+                GroupId = (int)groupId,
+
+            };
+            studentGroup.GroupId = (int)groupId;
+            studentGroups.Add(studentGroup);
+            student.StudentGroups = studentGroups;
+
             student.DepartmentId = (int)depId;
             student.GenderId = (int)genId;
             student.AdmissionDate = DateAndTime.Now;
@@ -127,6 +157,8 @@ namespace MyProjectUniversityPanel.Controllers
         {
             ViewBag.Departments = await _db.Departments.Where(x => !x.IsDeactive).ToListAsync();
             ViewBag.Genders = await _db.Genders.ToListAsync();
+           
+
             if (id == null)
             {
                 return NotFound();
@@ -135,12 +167,12 @@ namespace MyProjectUniversityPanel.Controllers
             {
                 return NotFound();
             }
-            Student dbStudent = await _db.Students.FirstOrDefaultAsync(x => x.Id == id);
+            Student dbStudent = await _db.Students.Include(x => x.StudentGroups).ThenInclude(x => x.Group).FirstOrDefaultAsync(x => x.Id == id);
             if (dbStudent == null)
             {
                 return BadRequest();
             }
-
+            ViewBag.Groups = await _db.Groups.Where(x => !x.IsDeactive).ToListAsync();
             AppUser user = await _userManager.FindByNameAsync(dbStudent.UserName);
             if (user == null)
             {
@@ -157,22 +189,28 @@ namespace MyProjectUniversityPanel.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(int? id, Student student, UpdateVM updateVM,int? depId, int? genId)
+        public async Task<IActionResult> Update(int? id, Student student, UpdateVM updateVM,int? depId, int? genId, int? groupId)
         {
             ViewBag.Departments = await _db.Departments.Where(x => !x.IsDeactive).ToListAsync();
             ViewBag.Genders = await _db.Genders.ToListAsync();
+           
+            if (depId == null || genId == null || groupId == null)
+            {
+                ModelState.AddModelError("", "Please choose one");
+                return View();
+            }
             if (id == null)
             {
                 return NotFound();
             }
 
 
-            Student dbStudent = await _db.Students.FirstOrDefaultAsync(x => x.Id == id);
+            Student dbStudent = await _db.Students.Include(x => x.StudentGroups).ThenInclude(x => x.Group).FirstOrDefaultAsync(x => x.Id == id);
             if (dbStudent == null)
             {
                 return BadRequest();
             }
-
+            ViewBag.Groups = await _db.Groups.Where(x => !x.IsDeactive).ToListAsync();
             AppUser user = await _userManager.FindByNameAsync(dbStudent.UserName);
             if (user == null)
             {
@@ -214,6 +252,18 @@ namespace MyProjectUniversityPanel.Controllers
                 user.Image = await student.Photo.SaveFileAsync(folder);
                 dbStudent.Image = await student.Photo.SaveFileAsync(folder);
             }
+            List<StudentGroup> studentGroups = new List<StudentGroup>();
+            StudentGroup studentGroup = new StudentGroup
+            {
+                GroupId = (int)groupId,
+
+            };
+            studentGroup.GroupId = (int)groupId;
+            studentGroups.Add(studentGroup);
+
+            dbStudent.StudentGroups = studentGroups;
+
+
             user.FullName = student.FullName;
             user.UserName = student.UserName;
             user.Email = student.Email;
@@ -275,6 +325,136 @@ namespace MyProjectUniversityPanel.Controllers
                 return BadRequest();
             }
             return View(student);
+        }
+        public async Task<IActionResult> SendEmail(int? id)
+        {
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Student dbStudent = await _db.Students.FirstOrDefaultAsync(x => x.Id == id);
+            if (dbStudent == null)
+            {
+                return BadRequest();
+            }
+
+            return View();
+
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SendEmail(int? id, Email email)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+            if (email.MessageSubject == null)
+            {
+                ModelState.AddModelError("MessageSubject", "The Subject field is required.");
+                return View();
+            }
+            if (email.MessageBody == null)
+            {
+                ModelState.AddModelError("MessageBody", "The Message Body field is required.");
+                return View();
+            }
+            Student dbStudent = await _db.Students.FirstOrDefaultAsync(x => x.Id == id);
+            if (dbStudent == null)
+            {
+                return BadRequest();
+            }
+
+
+
+
+            SmtpClient client = new SmtpClient("smtp.yandex.com", 587);
+            client.UseDefaultCredentials = false;
+            client.EnableSsl = true;
+            client.Credentials = new NetworkCredential("nigarkhanim.a@itbrains.edu.az", "burhphattpriyhqd");
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+
+            MailMessage message = new MailMessage("nigarkhanim.a@itbrains.edu.az", dbStudent.Email);
+            message.Subject = email.MessageSubject;
+            message.Body = email.MessageBody;
+            message.BodyEncoding = System.Text.Encoding.UTF8;
+            message.IsBodyHtml = true;
+
+            try
+            {
+                await client.SendMailAsync(message);
+
+                TempData["Message"] = "Email has been sent";
+            }
+            catch (System.Exception ex)
+            {
+                TempData["Message"] = "Email was not sent " + ex.Message;
+            }
+            await _db.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+        public IActionResult SendEmailAll()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SendEmailAll(Email email)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            if (email.MessageSubject == null)
+            {
+                ModelState.AddModelError("MessageSubject", "The Subject field is required.");
+                return View();
+            }
+            if (email.MessageBody == null)
+            {
+                ModelState.AddModelError("MessageBody", "The Message Body field is required.");
+                return View();
+            }
+
+            List<Student> students = await _db.Students.ToListAsync();
+            foreach (Student item in students)
+            {
+                SmtpClient client = new SmtpClient("smtp.yandex.com", 587);
+                client.UseDefaultCredentials = false;
+                client.EnableSsl = true;
+                client.Credentials = new NetworkCredential("nigarkhanim.a@itbrains.edu.az", "burhphattpriyhqd");
+                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+
+                MailMessage message = new MailMessage("nigarkhanim.a@itbrains.edu.az", item.Email);
+                message.Subject = email.MessageSubject;
+                message.Body = email.MessageBody;
+                message.BodyEncoding = System.Text.Encoding.UTF8;
+                message.IsBodyHtml = true;
+
+                try
+                {
+                    await client.SendMailAsync(message);
+
+                    TempData["Message"] = "Email has been sent";
+                }
+                catch (System.Exception ex)
+                {
+                    TempData["Message"] = "Email was not sent " + ex.Message;
+                }
+                await _db.SaveChangesAsync();
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }

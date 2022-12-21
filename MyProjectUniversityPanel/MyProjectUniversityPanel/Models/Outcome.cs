@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace MyProjectUniversityPanel.Models
 {
@@ -6,6 +7,7 @@ namespace MyProjectUniversityPanel.Models
     {
         public int Id { get; set; }
         public int Money { get; set; }
+        [Required]
         public string For { get; set; }
         public DateTime Date { get; set; }
         public AppUser AppUser { get; set; }

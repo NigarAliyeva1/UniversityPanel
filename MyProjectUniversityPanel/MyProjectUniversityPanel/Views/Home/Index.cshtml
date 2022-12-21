@@ -25,7 +25,7 @@
                 <h6 class="card-text">Title:@Model.Kassa.LastModifiedFor</h6>
                 <h6 class="card-text">User: @Model.Kassa.AppUser.FullName.ToString()</h6>
                 <h6 class="card-text">Last Modified Money: @Model.Kassa.LastModifiedMoney$</h6>
-            
+
                 <h2 class="mb-5"></h2>
                 <h6 class="card-text">Amount: @Model.Kassa.Balance$</h6>
             </div>
@@ -38,14 +38,18 @@
                 <h4 class="font-weight-normal mb-3">
                     Income <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
                 </h4>
-                <h6 class="card-text">Last Income : @ViewBag.Date</h6>
-                <h6 class="card-text">Title:@Model.Income.For</h6>
-                <h6 class="card-text">User: @Model.Income.AppUser.FullName.ToString()</h6>
-                <h6 class="card-text">Last Income : @Model.Income.Money$</h6>
-                
-                
-                <h2 class="mb-5"></h2>
-                <h6 class="card-text">Total Earning : @ViewBag.AllIncome$</h6>
+                @if (ViewBag.AllIncome > 0)
+                {
+                    <h6 class="card-text">Last Income : @ViewBag.Date</h6>
+                    <h6 class="card-text">Title:@Model.Income.For</h6>
+                    <h6 class="card-text">User: @Model.Income.AppUser.FullName.ToString()</h6>
+                    <h6 class="card-text">Last Income : @Model.Income.Money$</h6>
+
+
+                    <h2 class="mb-5"></h2>
+                    <h6 class="card-text">Total Earning : @ViewBag.AllIncome$</h6>
+                }
+
             </div>
         </div>
     </div>
@@ -53,17 +57,21 @@
         <div class="card bg-gradient-success card-img-holder text-white">
             <div class="card-body">
                 <img src="~/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                 <h4 class="font-weight-normal mb-3">
+                <h4 class="font-weight-normal mb-3">
                     Outcome <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
                 </h4>
-                <h6 class="card-text">Last Outcome : @ViewBag.Date2</h6>
-                <h6 class="card-text">Title:@Model.Outcome.For</h6>
-                <h6 class="card-text">User: @Model.Outcome.AppUser.FullName.ToString()</h6>
-                <h6 class="card-text">Last Outcome : @Model.Outcome.Money$</h6>
-                
-                
-                <h2 class="mb-5"></h2>
-                <h6 class="card-text">Total Paying : @ViewBag.AllOutcome$</h6>
+                @if (ViewBag.AllOutcome > 0)
+                {
+                    <h6 class="card-text">Last Outcome : @ViewBag.Date2</h6>
+                    <h6 class="card-text">Title:@Model.Outcome.For</h6>
+                    <h6 class="card-text">User: @Model.Outcome.AppUser.FullName.ToString()</h6>
+                    <h6 class="card-text">Last Outcome : @Model.Outcome.Money$</h6>
+
+
+                    <h2 class="mb-5"></h2>
+                    <h6 class="card-text">Total Paying : @ViewBag.AllOutcome$</h6>
+                }
+
             </div>
         </div>
     </div>
@@ -83,9 +91,34 @@
     <div class="col-md-5 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Traffic Sources</h4>
-                <canvas id="traffic-chart"></canvas>
-                <div id="traffic-chart-legend" class="rounded-legend legend-vertical legend-bottom-left pt-4"></div>
+                <div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                <h4 class="card-title"></h4>
+                <canvas id="traffic-chart" width="488" height="243" style="display: block; height: 195px; width: 391px;" class="chartjs-render-monitor"></canvas>
+                <div id="traffic-chart-legend" class="rounded-legend legend-vertical legend-bottom-left pt-4">
+                    <ul>
+                        <li>
+                            <span class="legend-dots" style="background:linear-gradient(to right, rgba(54, 215, 232, 1), rgba(177, 148, 250, 1))">
+
+                            </span>
+                            
+                            <span class="float-right">Students 30%</span>
+                        </li>
+                        <li>
+                            <span class="legend-dots" style="background:linear-gradient(to right, rgba(6, 185, 157, 1), rgba(132, 217, 210, 1))">
+
+                            </span>
+                            
+                            <span class="float-right">Teacher 30%</span>
+                        </li>
+                        <li>
+                            <span class="legend-dots" style="background:linear-gradient(to right, rgba(255, 191, 150, 1), rgba(254, 112, 150, 1))">
+
+                            </span>
+                            
+                            <span class="float-right">Staff 40%</span>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -99,6 +132,7 @@
                     <table class="table">
                         <thead>
                             <tr>
+
                                 <th> Assignee </th>
                                 <th> Subject </th>
                                 <th> Status </th>

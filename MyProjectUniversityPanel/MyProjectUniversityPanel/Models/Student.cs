@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System;
+using System.Collections.Generic;
 
 namespace MyProjectUniversityPanel.Models
 {
@@ -16,6 +17,9 @@ namespace MyProjectUniversityPanel.Models
 
         public Department Department { get; set; }
         public int DepartmentId { get; set; }
+
+        public List<StudentGroup> StudentGroups { get; set; }
+       
 
         public Gender Gender { get; set; }
         public int GenderId { get; set; }
@@ -37,5 +41,7 @@ namespace MyProjectUniversityPanel.Models
         public IFormFile Photo { get; set; }
         public bool IsDeactive { get; set; }
         public DateTime AdmissionDate { get; set; }
+
+        //public StudentGrades StudentGrades { get; set; }
     }
 }

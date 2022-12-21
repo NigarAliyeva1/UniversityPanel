@@ -19,6 +19,8 @@ using Org.BouncyCastle.Ocsp;
 using System;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using static iTextSharp.text.pdf.PdfDocument;
+using System.Net.Mail;
+using System.Net;
 
 namespace MyProjectUniversityPanel.Controllers
 {
@@ -211,45 +213,6 @@ namespace MyProjectUniversityPanel.Controllers
             await _db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
-
-
-
-
-        //public async Task<IActionResult> Delete(string id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    AppUser user = await _userManager.FindByIdAsync(id);
-        //    if (user == null)
-        //    {
-        //        return BadRequest();
-        //    }
-        //    return View(user);
-        //}
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //[ActionName("Delete")]
-        //public async Task<IActionResult> DeletePost(string id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    AppUser user = await _userManager.FindByIdAsync(id);
-        //    if (user == null)
-        //    {
-        //        return BadRequest();
-        //    }
-        //    user.IsDeactive = true;
-        //    await _userManager.UpdateAsync(user);
-        //    return RedirectToAction("Index");
-        //}
-
-
-
-
         public async Task<IActionResult> Activity(string id)
         {
             if (id == null)
@@ -613,6 +576,134 @@ namespace MyProjectUniversityPanel.Controllers
             }
             return RedirectToAction("Index");
         }
+        public async Task<IActionResult> SendEmail(string id)
+        {
 
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            AppUser user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return BadRequest();
+            }
+            return View();
+
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SendEmail(string id, Email email)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+            if (email.MessageSubject==null)
+            {
+                ModelState.AddModelError("MessageSubject", "The Subject field is required.");
+                return View();
+            }
+            if (email.MessageBody==null)
+            {
+                ModelState.AddModelError("MessageBody", "The Message Body field is required.");
+                return View();
+            }
+
+            AppUser user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
+
+            SmtpClient client = new SmtpClient("smtp.yandex.com", 587);
+            client.UseDefaultCredentials = false;
+            client.EnableSsl = true;
+            client.Credentials = new NetworkCredential("nigarkhanim.a@itbrains.edu.az", "burhphattpriyhqd");
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+
+            MailMessage message = new MailMessage("nigarkhanim.a@itbrains.edu.az", user.Email);
+            message.Subject = email.MessageSubject;
+            message.Body = email.MessageBody;
+            message.BodyEncoding = System.Text.Encoding.UTF8;
+            message.IsBodyHtml = true;
+
+            try
+            {
+                await client.SendMailAsync(message);
+
+                TempData["Message"] = "Email has been sent";
+            }
+            catch (System.Exception ex)
+            {
+                TempData["Message"] = "Email was not sent " + ex.Message;
+            }
+            await _db.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+        public IActionResult SendEmailAll()
+        {
+            return View();
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SendEmailAll(Email email)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            if (email.MessageSubject == null)
+            {
+                ModelState.AddModelError("MessageSubject", "The Subject field is required.");
+                return View();
+            }
+            if (email.MessageBody == null)
+            {
+                ModelState.AddModelError("MessageBody", "The Message Body field is required.");
+                return View();
+            }
+            List<AppUser> users = await _userManager.Users.ToListAsync();
+            foreach (AppUser item in users)
+            {
+                SmtpClient client = new SmtpClient("smtp.yandex.com", 587);
+                client.UseDefaultCredentials = false;
+                client.EnableSsl = true;
+                client.Credentials = new NetworkCredential("nigarkhanim.a@itbrains.edu.az", "burhphattpriyhqd");
+                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+
+                MailMessage message = new MailMessage("nigarkhanim.a@itbrains.edu.az", item.Email);
+                message.Subject = email.MessageSubject;
+                message.Body = email.MessageBody;
+                message.BodyEncoding = System.Text.Encoding.UTF8;
+                message.IsBodyHtml = true;
+
+                try
+                {
+                    await client.SendMailAsync(message);
+
+                    TempData["Message"] = "Email has been sent";
+                }
+                catch (System.Exception ex)
+                {
+                    TempData["Message"] = "Email was not sent " + ex.Message;
+                }
+                await _db.SaveChangesAsync();
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }
