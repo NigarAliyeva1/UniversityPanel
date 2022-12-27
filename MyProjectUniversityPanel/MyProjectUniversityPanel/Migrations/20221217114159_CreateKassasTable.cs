@@ -32,11 +32,7 @@ namespace MyProjectUniversityPanel.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.InsertData(
-                table: "Kassas",
-                columns: new[] { "Id", "AppUserId", "Balance", "IsDeactive", "LastModifiedBy", "LastModifiedFor", "LastModifiedMoney", "LastModifiedTime" },
-                values: new object[] { 1, "a4dab9a1-cbf9-4795-a071-b4255ede23d9", 0, false, "", "", 0, new DateTime(2022, 12, 17, 15, 41, 58, 423, DateTimeKind.Utc).AddTicks(8194) });
-
+          
             migrationBuilder.CreateIndex(
                 name: "IX_Kassas_AppUserId",
                 table: "Kassas",

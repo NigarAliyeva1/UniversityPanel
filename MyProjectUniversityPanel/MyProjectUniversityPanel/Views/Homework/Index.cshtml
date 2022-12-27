@@ -1,0 +1,102 @@
+﻿@model List<Homework>
+
+
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <h4 class="card-title">Homeworks</h4>
+                    <a class="mdi mdi-plus-circle icon-lg" asp-action="Create"></a>
+                </div>
+                <table id="myDepartments" class="table">
+                    <thead>
+                        <tr>
+
+                            <th>Title</th>
+                            <th>Group Number</th>
+                            <th>Deadline</th>
+                            <th>Download Homework</th>
+                            <th>Status</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+
+                        @foreach (Homework homework in Model)
+                        {
+                            <tr>
+                                <td>@homework.Title</td>
+                                <td>@homework.Group.Number</td>
+                                <td>@homework.Deadline.ToString("MM/dd/yyyy")</td>
+                                <td>
+                                    @if (homework.IsHomework)
+                                    {
+                                        <div>
+                                            <a asp-action="DownloadFile" asp-route-id="@homework.Id" style="width:50px" class="mdi mdi-download icon-md text-info"></a>
+
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div>
+                                            <a style="width:50px" class="mdi mdi-download icon-md text-black"></a>
+                                        </div>
+                                    }
+                                </td>
+
+                                <td>
+                                    @if (homework.IsDeactive)
+                                    {
+                                        <span style="width:45px" class="mdi mdi-close-circle-outline icon-md text-danger"></span>
+                                    }
+                                    else
+                                    {
+                                        <span style="width:45px" class="mdi mdi-check-circle-outline icon-md text-success"></span>
+
+                                    }
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-end">
+
+                                        <a asp-action="Update" asp-route-id="@homework.Id" style="width:50px" class="mdi mdi-wrench icon-md text-info"></a>
+
+
+                                        @if (homework.IsDeactive)
+                                        {
+                                            <a asp-action="Activity" asp-route-id="@homework.Id" style="width:45px" class="mdi mdi-toggle-switch-off icon-md text-danger"></a>
+                                        }
+                                        else
+                                        {
+
+                                            <a asp-action="Activity" asp-route-id="@homework.Id" style="width:45px" class="mdi mdi-toggle-switch icon-md text-success"></a>
+
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
+
+
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#myDepartments').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
+    });
+
+</script>

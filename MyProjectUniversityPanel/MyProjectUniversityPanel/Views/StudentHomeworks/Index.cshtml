@@ -1,0 +1,70 @@
+﻿
+
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-start">
+                    <h4 class="card-title">Homeworks</h4>
+                </div>
+
+
+                <table class="table" id="myTable">
+                    <thead>
+                        <tr>
+
+                            <th>Title</th>
+                            <th>File</th>
+                            <th>Deadline</th>
+                            <th>Teacher</th>
+                            <th>Upload Homework</th>
+
+
+
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        @foreach (var homework in ViewBag.Homeworks)
+                        {
+                            <tr>
+                                <td>@homework.Title</td>
+                                <td>
+                                   
+                                    <div>
+                                        <a asp-action="DownloadFile" asp-route-id="@homework.Id" style="width:50px" class="mdi mdi-download icon-md text-info"></a>
+                                        
+                                    </div>
+                                </td>
+                                <td>@homework.Deadline.ToString("MM/dd/yyyy")</td>
+                                <td>@homework.AppUser.FullName</td>
+                                <td>
+                                    @if (homework.IsHomework)
+                                    {
+                                        <div>
+                                            <a style="width:50px" class="mdi mdi-upload icon-md text-black"></a>
+
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div>
+                                            <a asp-action="UploadFile" asp-route-id="@homework.Id" style="width:50px" class="mdi mdi-upload icon-md text-success"></a>
+
+                                        </div>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+

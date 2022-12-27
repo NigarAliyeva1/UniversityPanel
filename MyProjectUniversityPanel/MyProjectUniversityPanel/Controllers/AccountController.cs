@@ -136,6 +136,17 @@ namespace MyProjectUniversityPanel.Controllers
                 Email = "admin@admin.com",
                 Image="user.png"
             };
+          
+            Kassa kassa = new Kassa
+            {
+                Balance = 0,
+                LastModifiedBy = "",
+                LastModifiedFor="",
+                LastModifiedMoney= 0,
+                LastModifiedTime = DateTime.UtcNow.AddHours(4),
+                IsDeactive=false,
+                AppUserId=newUser.Id
+            };
             await _userManager.CreateAsync(newUser, "Admin1234");
             await _userManager.AddToRoleAsync(newUser, "SuperAdmin");
          
@@ -143,6 +154,7 @@ namespace MyProjectUniversityPanel.Controllers
             hasSuperAdmin.HasSuperadmin = true;
 
             _db.Entry(hasSuperAdmin).State = EntityState.Modified;
+            await _db.Kassas.AddAsync(kassa);
             await _db.SaveChangesAsync();
             ViewBag.IsExistAdmin = true;
 

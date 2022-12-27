@@ -15,6 +15,8 @@ namespace MyProjectUniversityPanel.Models
         //public List<Group> ChildrenStudents { get; set; }
         public List<StudentGroup> StudentGroups { get; set; }
         public List<TeacherGroups> teacherGroups { get; set; }
+        public List<StudentsAttendance> StudentsAttendances { get; set; }
+        public List<Homework> Homeworks { get; set; }
 
         public bool IsDeactive { get; set; }
     }

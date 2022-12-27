@@ -29,6 +29,9 @@ namespace MyProjectUniversityPanel.DAL
         public DbSet<Group> Groups { get; set; }
         public DbSet<StudentGroup> StudentGroups { get; set; }
         public DbSet<TeacherGroups> TeacherGroups { get; set; }
+        public DbSet<StudentsAttendance> StudentsAttendances { get; set; }
+        public DbSet<Homework> Homeworks { get; set; }
+        public DbSet<StudentGrades> StudentGrades { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -39,7 +42,6 @@ namespace MyProjectUniversityPanel.DAL
             builder.Entity<Gender>().HasData(new Gender { Id = 2, Type = "Female" });
             builder.Entity<Gender>().HasData(new Gender { Id = 3, Type = "Other" });
             builder.Entity<Department>().HasData(new Department { Id = 1, Name = "Default" , IsDeactive=false});
-            builder.Entity<Kassa>().HasData(new Kassa { Id = 1, Balance = 0,LastModifiedBy="",LastModifiedMoney=0,LastModifiedFor="",LastModifiedTime= DateTime.UtcNow.AddHours(4),IsDeactive=false,AppUserId= "a4dab9a1-cbf9-4795-a071-b4255ede23d9" });
 
         }
     }

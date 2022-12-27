@@ -33,6 +33,7 @@ namespace MyProjectUniversityPanel.Models
         public DateTime JoiningDate { get; set; }
         public virtual ICollection<DepartmentDetail> DepartmentDetails { get; set; }
         public List<TeacherGroups> teacherGroups { get; set; }
+        public List<StudentGrades> StudentGrades { get; set; }
 
 
 

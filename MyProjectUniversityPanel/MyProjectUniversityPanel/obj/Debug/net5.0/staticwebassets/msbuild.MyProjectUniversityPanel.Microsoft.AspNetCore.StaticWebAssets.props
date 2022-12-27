@@ -32,6 +32,70 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\assets\css\style.css.map))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\assets\files\63d289fe-6991-4af0-8b99-5278add03403Quiz.txt))">
+      <SourceType>Package</SourceType>
+      <SourceId>MyProjectUniversityPanel</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/MyProjectUniversityPanel</BasePath>
+      <RelativePath>assets\files\63d289fe-6991-4af0-8b99-5278add03403Quiz.txt</RelativePath>
+      <AssetKind></AssetKind>
+      <AssetMode></AssetMode>
+      <AssetRole></AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\assets\files\63d289fe-6991-4af0-8b99-5278add03403Quiz.txt))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\assets\files\6892cec0-1817-42c9-9382-6615ebb69a32hi.txt))">
+      <SourceType>Package</SourceType>
+      <SourceId>MyProjectUniversityPanel</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/MyProjectUniversityPanel</BasePath>
+      <RelativePath>assets\files\6892cec0-1817-42c9-9382-6615ebb69a32hi.txt</RelativePath>
+      <AssetKind></AssetKind>
+      <AssetMode></AssetMode>
+      <AssetRole></AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\assets\files\6892cec0-1817-42c9-9382-6615ebb69a32hi.txt))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\assets\files\9d6d3f17-a3a6-47b1-8132-08d8f79d489ehi.txt))">
+      <SourceType>Package</SourceType>
+      <SourceId>MyProjectUniversityPanel</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/MyProjectUniversityPanel</BasePath>
+      <RelativePath>assets\files\9d6d3f17-a3a6-47b1-8132-08d8f79d489ehi.txt</RelativePath>
+      <AssetKind></AssetKind>
+      <AssetMode></AssetMode>
+      <AssetRole></AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\assets\files\9d6d3f17-a3a6-47b1-8132-08d8f79d489ehi.txt))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\assets\files\f5cb9cc8-f314-4aff-9a97-53543e9719c9hi.txt))">
+      <SourceType>Package</SourceType>
+      <SourceId>MyProjectUniversityPanel</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/MyProjectUniversityPanel</BasePath>
+      <RelativePath>assets\files\f5cb9cc8-f314-4aff-9a97-53543e9719c9hi.txt</RelativePath>
+      <AssetKind></AssetKind>
+      <AssetMode></AssetMode>
+      <AssetRole></AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\assets\files\f5cb9cc8-f314-4aff-9a97-53543e9719c9hi.txt))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\assets\fonts\Ubuntu\Ubuntu-Bold.eot))">
       <SourceType>Package</SourceType>
       <SourceId>MyProjectUniversityPanel</SourceId>
@@ -671,6 +735,22 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\assets\images\cfa760ce-da36-45b5-8593-103038402555Məmmədova Xalidə (3).jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\assets\images\d5332c6b-a221-4d22-83dc-398d41dfb9e40a592474-c22b-4cbd-9136-cb1a8308bdd7307b713210523a7b53826ee3684b0476.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>MyProjectUniversityPanel</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/MyProjectUniversityPanel</BasePath>
+      <RelativePath>assets\images\d5332c6b-a221-4d22-83dc-398d41dfb9e40a592474-c22b-4cbd-9136-cb1a8308bdd7307b713210523a7b53826ee3684b0476.jpg</RelativePath>
+      <AssetKind></AssetKind>
+      <AssetMode></AssetMode>
+      <AssetRole></AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\assets\images\d5332c6b-a221-4d22-83dc-398d41dfb9e40a592474-c22b-4cbd-9136-cb1a8308bdd7307b713210523a7b53826ee3684b0476.jpg))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\assets\images\d8f866d2-ac0f-403e-b6d8-508bfdb04f00download.jpg))">
       <SourceType>Package</SourceType>

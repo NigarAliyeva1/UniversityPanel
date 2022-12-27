@@ -24,9 +24,13 @@
                         @foreach (var teacher in ViewBag.Teachers)
                         {
                             <tr>
+                              
                                 <td>@teacher.Subject</td>
-                                <td>@teacher.Group.Number</td>
+                           
+                                <td>
+                                    <a asp-action="Students" asp-route-id=@teacher.Group.Id class="text-black">@teacher.Group.Number</a>
 
+                                </td>
                             </tr>
                         }
                     </tbody>

@@ -1,0 +1,8 @@
+createDepartment actionunu duzelt
+
+Attendance yarat
+
+muellim homework yaradib atsin (qebul edilib edilmediyi gosterilsin)(teacher hesabinda hansisa qrupun ustune basanda getsin o qrupun qiymetlerini gostersin)
+
+
+studentde subjectler gorunsun

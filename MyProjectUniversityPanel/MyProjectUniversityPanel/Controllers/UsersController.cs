@@ -99,12 +99,13 @@ namespace MyProjectUniversityPanel.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(RegisterVM register,string createRole)
+        public async Task<IActionResult> Create(RegisterVM register, string createRole)
         {
             if (!ModelState.IsValid)
             {
                 return View();
             }
+          
             Teacher teacher = new Teacher
             {
                 FullName = register.FullName,
@@ -113,10 +114,10 @@ namespace MyProjectUniversityPanel.Controllers
                 Image = register.Image,
                 Degree = "null",
                 Number = "null",
-                DepartmentId=1,
-                GenderId=3,
-                JoiningDate=DateTime.Now,
-               
+                DepartmentId = 1,
+                GenderId = 3,
+                JoiningDate = DateTime.Now,
+
             };
             Student student = new Student
             {
@@ -138,21 +139,46 @@ namespace MyProjectUniversityPanel.Controllers
                 Image = register.Image
             };
             Designation designation = await _db.Designations.FirstOrDefaultAsync(x => x.Name == "Teacher");
-            Staff staff = new Staff
+            if (designation != null)
             {
-                FullName = teacher.FullName,
-                Email = teacher.Email,
-                Image = teacher.Image,
-                File = teacher.Image,
-                Birthday = DateTime.UtcNow.AddHours(4),
-                GenderId = 3,
-                DesignationId = designation.Id,
-                Education = "",
-                Number = teacher.Number,
-                Address = "",
-                Salary = 0,
-                JoiningDate = DateTime.UtcNow.AddHours(4),
+                Staff staff = new Staff
+                {
+                    FullName = teacher.FullName,
+                    Email = teacher.Email,
+                    Image = teacher.Image,
+                    File = teacher.Image,
+                    Birthday = DateTime.UtcNow.AddHours(4),
+                    GenderId = 3,
+                    DesignationId = designation.Id,
+                    Education = "",
+                    Number = teacher.Number,
+                    Address = "",
+                    Salary = 0,
+                    JoiningDate = DateTime.UtcNow.AddHours(4),
+                };
+                if (register.Photo != null)
+                {
+                    if (!register.Photo.IsImage())
+                    {
+                        ModelState.AddModelError("Photo", "Please choose the image flie");
+                        return View();
+                    }
+                    if (register.Photo.IsOlder1MB())
+                    {
+                        ModelState.AddModelError("Photo", "Please choose Max 1mb image flie");
+                        return View();
+                    }
+                    string folder = Path.Combine(_env.WebRootPath, "assets", "images");
+                    staff.Image = await register.Photo.SaveFileAsync(folder);
+                }
+                else
+                {
+                    staff.Image = "user.png";
+                }
+                await _db.Staff.AddAsync(staff);
+            
             };
+            
             IdentityResult identityResult = await _userManager.CreateAsync(appUser, register.Password);
             if (!identityResult.Succeeded)
             {
@@ -180,7 +206,7 @@ namespace MyProjectUniversityPanel.Controllers
                 appUser.Image = await register.Photo.SaveFileAsync(folder);
                 teacher.Image = await register.Photo.SaveFileAsync(folder);
                 student.Image = await register.Photo.SaveFileAsync(folder);
-                staff.Image = await register.Photo.SaveFileAsync(folder);
+             
 
 
             }
@@ -189,7 +215,21 @@ namespace MyProjectUniversityPanel.Controllers
                 teacher.Image = "user.png";
                 student.Image = "user.png";
                 appUser.Image = "user.png";
-                staff.Image = "user.png";
+              
+
+               
+            }
+            bool isExist = await _db.Users.AnyAsync(x => x.UserName == register.UserName && x.Id != appUser.Id);
+            if (isExist)
+            {
+                ModelState.AddModelError("Username", "Username is alrready exist");
+                return View();
+            }
+            bool isExist1 = await _db.Users.AnyAsync(x => x.Email == register.Email && x.Id != appUser.Id);
+            if (isExist1)
+            {
+                ModelState.AddModelError("Email", "Email is alrready exist");
+                return View();
             }
             IdentityResult addIdentityResult = await _userManager.AddToRoleAsync(appUser, createRole);
             if (!addIdentityResult.Succeeded)
@@ -197,16 +237,17 @@ namespace MyProjectUniversityPanel.Controllers
                 ModelState.AddModelError("", "Error");
                 return View();
             }
-            if (createRole == Helper.Roles.Teacher.ToString())
-            {
-                await _db.Teachers.AddAsync(teacher);
-                await _db.Staff.AddAsync(staff);
-                
-            }
+           
             if (createRole == Helper.Roles.Student.ToString())
             {
                 await _db.Students.AddAsync(student);
                 
+            }
+            if (createRole == Helper.Roles.Teacher.ToString())
+            {
+                await _db.Teachers.AddAsync(teacher);
+
+
             }
             await _userManager.UpdateAsync(appUser);
 

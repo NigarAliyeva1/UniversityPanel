@@ -141,7 +141,7 @@ namespace MyProjectUniversityPanel.Controllers
             {
                 if (staff.UploadFile.IsOlder1MB())
                 {
-                    ModelState.AddModelError("Photo", "Please choose Max 1mb image flie");
+                    ModelState.AddModelError("UploadFile", "Please choose Max 1mb image flie");
                     return View();
                 }
                 string folder = Path.Combine(_env.WebRootPath, "assets", "images");

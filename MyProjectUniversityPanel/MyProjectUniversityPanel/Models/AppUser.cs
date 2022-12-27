@@ -18,6 +18,8 @@ namespace MyProjectUniversityPanel.Models
         public List<Income> Incomes { get; set; }
         public List<Outcome> Outcomes { get; set; }
         public List<Salary> Salaries { get; set; }
+        public List<Homework> Homeworks { get; set; }
+        public List<StudentGrades> StudentGrades { get; set; }
 
 
 

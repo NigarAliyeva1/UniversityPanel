@@ -1,0 +1,159 @@
+1.Client - - - Front istifade olunur
+Server site - - - Backend istifade olunur
+Frontda HTML CSS proqramlasdirma dili deyil. Java Script proqramlasdirma dilidi
+Frameworkle librarynin ferqi nedir?
+HTTP request - - - > gedir. HTTP response < - - - gelir
+4 cur sorgumuz var
+1)Get
+2)Put
+3)Post
+4)Delete
+
+
+2. Neche cur datatype var? - - - > 2
+1)Value  - - - Stack yaddas
+2)Reference - - - Heap yaddas
+Value ve reference typelar harda saxlanilir?
+3 milyard datani longla saxlayiriq
+Variablelar nedir? - - - > Muveqqeti her hansi bir datani idare etmek ucun muveqqeti ona ad veririk sonra da idare etmek ucun olan bir seydi
+
+3. Operators
+1)Arithmetic
+2)Assignment
+3)Logical
+4)Comparison
+
+5. value typei reference typea cevirme 
+Ref evvelceden deyer vermeliyik sonra vermesek de olar
+Out sonraki deyeri vermeliyik evvelkini vermesek de olar
+
+6.Arrayde for yoxsa foreach itemlari daha tez cixarar? - - - Foreach
+
+7. Value typelara null deyeri vere bilmek ucun nullable typelardan istifade edirik. qabagina ? qoyuruq
+
+8. Method - - - > typei olmayan void(sadece emeliyyat goruruk) , return typei olan(deyer qaytarir)
+
+9. Readline geriye string qaytarir.
+
+10. Stringi inte cevirmeyin en rahat yolu int Tryparse
+Method int number = int.parse(deyer)
+
+11. 2 cur Class var
+1) Obyekt ucunn istifade olunan(model) - - - obyekt yaradaraq cagiririq
+2) Static classlar(icinde hazir methodlar olur) - - - obyekt yaratmadan cagiririq
+
+12. Namespace - - - > Classlarin saxlandigi yerdir
+using ederek cagiririq
+
+13. Access Modifields
+1)Private
+2)Public 
+3)Internal
+4)Protected
+
+14. Abstract Sealed Virtual class
+Abstract classi - baslangic class,burada obyekt yaranmir,miras vermek ucun yaranan classdir,abstract class sade classdan miras ala bilir amma mentiqsizdir
+Sealed classi - Miras vermeyin qarsisini alir,mohurlemek demekdi
+Abstract method - bodysi olmayan methoddu.Abstract classinin icinde yazilir, sonra sade classda override olunur
+Virtual method - bodysi olur. Override edib bodynin icini deyise bilirik. Override etmesek de olar
+
+15.Enum nedir?
+Kodun oxunaqliligini temin etmek ucun istifade olunur
+
+16. Generic nedir?
+Genericler obyekt yaradan zaman teyin olunur
+
+17. StringBuilder classdir
+kicik emeliyyatlari yerine yetiririk. Append ve clear.Ramda elave yer tutmur
+
+18. Unique id nece duzelir?
+Id propertysi yaradiriq
+private static id duzeldirik
+sonra id++
+sonra da Id=id
+
+19. Inheritance nedir? - - - > Bir classin diger bir classdan miras almasi
+
+20. Encupsulation nedir? - - - > Her hansi bir fielde shertlerimize esasen dolayi yollarla deyer vermeye encupsulation deyilir
+
+21. Polimorfizm nedir? - - - > Miras aldigimiz classda hansisa methodu override elemek
+
+22. Abstraction nedir? - - - > Kodumuzun arxa terefde islemesi
+
+21. 3 cur delegate var
+Action - Return typei void, parametr sayi : min=0 max=16
+Predicate - Return typei bool, parametr sayi : min=max=1
+Function - Return typei biz veririk, parametr sayi : min=0 max=16
+
+22. SQL nedir? - - - > melumatlar bazasidi proqramlasdirma dilidi
+hansi sorgular var? - - - >
+CRUD emeliyyati nedir? - - - > Create Read Update Delete
+SQL queries:
+DDL(Data Definiton Language) - database ve tablei yarada,sile,deyisiklik eleye bilirik. CREATE DROP ALTER
+DML(Data Manipulation Language) - tablea datalar elave edirik,datani update ede bilirik,datani sile bilirik. INSERT UPDATE DELETE
+TCL(Transaction Control Language) - odenish saytlarinda yeni bir sehifenin acilmasi emeliyyati
+DQL(Data Query Language) - datani oxumaq secmek demekdi. SELECT
+DCL(Data Control Language)
+
+**************************************
+SELECT * FROM Customers
+ORDER BY Country;
+**************************************
+UPDATE Customers
+SET ContactName = 'Alfred Schmidt', City = 'Frankfurt'
+WHERE CustomerID = 1;
+
+23. Joinler:
+1) Inner Join
+2) Left Join
+3) Right Join
+4) Full Join
+5) Self Join - - - > ozunde ozunun idsini saxlayir
+6) Non-equal Join - - - > aralarinda relation olmayan tablelarin arasinda elaqe yaradir
+7) Cross Join - - - > bir tablela diger tablein datalarini birlesdirir(shert yoxdur )
+
+23. Her sehifede tekrarlanan hisse hansidir?
+Header da daxil olmaqla yuxari hisse ve footer da daxil olmaqla ashagi hisse
+
+24. Css harda cagirilir? - - - > headin baglanma taginin ustunde
+java scriptt harda cagirilir? - - - >bodynin baglanma taginin ustunde
+Title tagi ne ishe yarayir? - - - > basliq
+Bir form taginden frontdan datani nece goture bilerik - - - > inputlarin sectionlarin nameine esasen
+
+25. Css 3 cur yazilir
+1) Inline
+2) Internal
+3) External
+
+26. Java Script 2 cur yazilir
+1) Internal
+2) External - - - > get element by id deyende idnin ozunu yaziriq, amma qr selectorla # ile yaziriq
+Jqueryde bir elementi cagirmaq ucun $(element)
+
+27. Frontdan backa 2 cur data yollaya bilirik
+1) Form
+2) Ajax
+
+28. ASP.netde program classi startup classini cagirir. Startup classinda 2 method var
+1) Configure.service- - - > applicationimiza yeni bir servis elave etmek ucun (AddControllerWithViews)
+2) Configure - - - > applicationimizda her hansi bir servisi istifade etmek ucun
+
+29. View import 
+ViewData = ViewBag
+ViewData["MyWord"] = ViewBag.MyWord
+TempData - - - > oz viewsuna da diger actiona da data yollayaa bilir
+ViewData = ViewBag - - - > diger sehifeye data yollaya bilmir,oz actionindan viewsuna data yollaya bilir
+30. HTMLde methodlar(4 dene sorgu tipimiz var)
+1)Get
+2)Post
+3)Put
+4)Delete
+
+31. JavaScript operators : ** , ===(hem datatypei yoxlayir hem deyeri)
+var ve letin ferqi - - - > var her yerde deyeri gorur yaranma yerinden asili olmayaraq
+
+32. wwwrootdan gelen static file'in acmasi ucun:
+1)  Startupda app.UseStaticFiles yaziriq
+2)  ~/ qoymaq lazimdir. ~(tilda) 
+
+

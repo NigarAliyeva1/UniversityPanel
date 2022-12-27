@@ -38,7 +38,7 @@ namespace MyProjectUniversityPanel.Controllers
             StudentGroup studentGroup = await _db.StudentGroups.Include(x => x.Student).FirstOrDefaultAsync(x => x.StudentId== student.Id);
             Group group = await _db.Groups.FirstOrDefaultAsync(x => x.Id == studentGroup.GroupId);
             ViewBag.Students = await _db.StudentGroups.Include(x => x.Group).Include(x => x.Student).Where(x => x.GroupId == group.Id).ToListAsync();
-
+            ViewBag.Group = group.Number;
             return View();
         }
 

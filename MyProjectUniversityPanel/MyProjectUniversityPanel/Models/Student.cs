@@ -14,11 +14,11 @@ namespace MyProjectUniversityPanel.Models
         public string FullName { get; set; }
         [Required]
         public string UserName { get; set; }
-
         public Department Department { get; set; }
         public int DepartmentId { get; set; }
 
         public List<StudentGroup> StudentGroups { get; set; }
+        public List<StudentsAttendance> StudentsAttendances { get; set; }
        
 
         public Gender Gender { get; set; }
@@ -42,6 +42,7 @@ namespace MyProjectUniversityPanel.Models
         public bool IsDeactive { get; set; }
         public DateTime AdmissionDate { get; set; }
 
-        //public StudentGrades StudentGrades { get; set; }
+        public List<StudentGrades> StudentGrades { get; set; }
+
     }
 }

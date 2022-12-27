@@ -402,6 +402,46 @@ namespace MyProjectUniversityPanel.Migrations
                         });
                 });
 
+            modelBuilder.Entity("MyProjectUniversityPanel.Models.Homework", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("Deadline")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("File")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("HomeFile")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeactive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsHomework")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("GroupId");
+
+                    b.ToTable("Homeworks");
+                });
+
             modelBuilder.Entity("MyProjectUniversityPanel.Models.Income", b =>
                 {
                     b.Property<int>("Id")
@@ -476,7 +516,7 @@ namespace MyProjectUniversityPanel.Migrations
                             LastModifiedBy = "",
                             LastModifiedFor = "",
                             LastModifiedMoney = 0,
-                            LastModifiedTime = new DateTime(2022, 12, 21, 22, 31, 45, 33, DateTimeKind.Utc).AddTicks(2816)
+                            LastModifiedTime = new DateTime(2022, 12, 24, 11, 50, 14, 169, DateTimeKind.Utc).AddTicks(645)
                         });
                 });
 
@@ -652,6 +692,57 @@ namespace MyProjectUniversityPanel.Migrations
                     b.ToTable("Students");
                 });
 
+            modelBuilder.Entity("MyProjectUniversityPanel.Models.StudentGrades", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Exam")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsExam")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsMidterm")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsPresentation")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsQuiz")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Midterm")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Presentation")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quiz")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("StudentId");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("StudentGrades");
+                });
+
             modelBuilder.Entity("MyProjectUniversityPanel.Models.StudentGroup", b =>
                 {
                     b.Property<int>("Id")
@@ -675,6 +766,34 @@ namespace MyProjectUniversityPanel.Migrations
                     b.HasIndex("StudentId");
 
                     b.ToTable("StudentGroups");
+                });
+
+            modelBuilder.Entity("MyProjectUniversityPanel.Models.StudentsAttendance", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsChecked")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GroupId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("StudentsAttendances");
                 });
 
             modelBuilder.Entity("MyProjectUniversityPanel.Models.Teacher", b =>
@@ -837,6 +956,23 @@ namespace MyProjectUniversityPanel.Migrations
                     b.Navigation("Department");
                 });
 
+            modelBuilder.Entity("MyProjectUniversityPanel.Models.Homework", b =>
+                {
+                    b.HasOne("MyProjectUniversityPanel.Models.AppUser", "AppUser")
+                        .WithMany("Homeworks")
+                        .HasForeignKey("AppUserId");
+
+                    b.HasOne("MyProjectUniversityPanel.Models.Group", "Group")
+                        .WithMany("Homeworks")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Group");
+                });
+
             modelBuilder.Entity("MyProjectUniversityPanel.Models.Income", b =>
                 {
                     b.HasOne("MyProjectUniversityPanel.Models.AppUser", "AppUser")
@@ -919,6 +1055,31 @@ namespace MyProjectUniversityPanel.Migrations
                     b.Navigation("Gender");
                 });
 
+            modelBuilder.Entity("MyProjectUniversityPanel.Models.StudentGrades", b =>
+                {
+                    b.HasOne("MyProjectUniversityPanel.Models.AppUser", "AppUser")
+                        .WithMany("StudentGrades")
+                        .HasForeignKey("AppUserId");
+
+                    b.HasOne("MyProjectUniversityPanel.Models.Student", "Student")
+                        .WithMany("StudentGrades")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MyProjectUniversityPanel.Models.Teacher", "Teacher")
+                        .WithMany("StudentGrades")
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Student");
+
+                    b.Navigation("Teacher");
+                });
+
             modelBuilder.Entity("MyProjectUniversityPanel.Models.StudentGroup", b =>
                 {
                     b.HasOne("MyProjectUniversityPanel.Models.Group", "Group")
@@ -929,6 +1090,25 @@ namespace MyProjectUniversityPanel.Migrations
 
                     b.HasOne("MyProjectUniversityPanel.Models.Student", "Student")
                         .WithMany("StudentGroups")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Group");
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("MyProjectUniversityPanel.Models.StudentsAttendance", b =>
+                {
+                    b.HasOne("MyProjectUniversityPanel.Models.Group", "Group")
+                        .WithMany("StudentsAttendances")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MyProjectUniversityPanel.Models.Student", "Student")
+                        .WithMany("StudentsAttendances")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -978,6 +1158,8 @@ namespace MyProjectUniversityPanel.Migrations
 
             modelBuilder.Entity("MyProjectUniversityPanel.Models.AppUser", b =>
                 {
+                    b.Navigation("Homeworks");
+
                     b.Navigation("Incomes");
 
                     b.Navigation("Kassas");
@@ -985,6 +1167,8 @@ namespace MyProjectUniversityPanel.Migrations
                     b.Navigation("Outcomes");
 
                     b.Navigation("Salaries");
+
+                    b.Navigation("StudentGrades");
                 });
 
             modelBuilder.Entity("MyProjectUniversityPanel.Models.Department", b =>
@@ -1014,7 +1198,11 @@ namespace MyProjectUniversityPanel.Migrations
 
             modelBuilder.Entity("MyProjectUniversityPanel.Models.Group", b =>
                 {
+                    b.Navigation("Homeworks");
+
                     b.Navigation("StudentGroups");
+
+                    b.Navigation("StudentsAttendances");
 
                     b.Navigation("teacherGroups");
                 });
@@ -1026,12 +1214,18 @@ namespace MyProjectUniversityPanel.Migrations
 
             modelBuilder.Entity("MyProjectUniversityPanel.Models.Student", b =>
                 {
+                    b.Navigation("StudentGrades");
+
                     b.Navigation("StudentGroups");
+
+                    b.Navigation("StudentsAttendances");
                 });
 
             modelBuilder.Entity("MyProjectUniversityPanel.Models.Teacher", b =>
                 {
                     b.Navigation("DepartmentDetails");
+
+                    b.Navigation("StudentGrades");
 
                     b.Navigation("teacherGroups");
                 });
