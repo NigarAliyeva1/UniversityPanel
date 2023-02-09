@@ -21,7 +21,7 @@ using System.Security.Principal;
 
 namespace MyProjectUniversityPanel.Controllers
 {
-    
+
     public class AccountController : Controller
     {
         private readonly AppDbContext _db;
@@ -97,24 +97,24 @@ namespace MyProjectUniversityPanel.Controllers
                 return View();
             }
           
-            if ((await _userManager.GetRolesAsync(user)).FirstOrDefault() == "SuperAdmin")
-            {
-               return RedirectToAction("Index", "Home");
-            }
-            else if ((await _userManager.GetRolesAsync(user)).FirstOrDefault() == "Admin")
-            {
-                return RedirectToAction("Index", "HomeAdmin");
-            }
-            else if ((await _userManager.GetRolesAsync(user)).FirstOrDefault() == "Teacher")
-            {
-                return RedirectToAction("Index", "HomeTeacher");
-            }
-            else if ((await _userManager.GetRolesAsync(user)).FirstOrDefault() == "Student")
-            {
-                return RedirectToAction("Index", "HomeStudent");
-            }
+            //if ((await _userManager.GetRolesAsync(user)).FirstOrDefault() == "SuperAdmin")
+            //{
+            //   return RedirectToAction("Index", "Home");
+            //}
+            //else if ((await _userManager.GetRolesAsync(user)).FirstOrDefault() == "Admin")
+            //{
+            //    return RedirectToAction("Index", "HomeAdmin");
+            //}
+            //else if ((await _userManager.GetRolesAsync(user)).FirstOrDefault() == "Teacher")
+            //{
+            //    return RedirectToAction("Index", "HomeTeacher");
+            //}
+            //else if ((await _userManager.GetRolesAsync(user)).FirstOrDefault() == "Student")
+            //{
+            //    return RedirectToAction("Index", "HomeStudent");
+            //}
 
-            return RedirectToAction("Index", "Default");
+         return RedirectToAction("Default", "Home");   
         }
         public async Task<IActionResult> CreateAdmin()
         {

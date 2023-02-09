@@ -551,29 +551,33 @@ namespace MyProjectUniversityPanel.Controllers
             Teacher dbTeacher = await _db.Teachers.FirstOrDefaultAsync(x => x.UserName == user.UserName);
             Student dbStudent = await _db.Students.FirstOrDefaultAsync(x => x.UserName == user.UserName);
             DepartmentDetail dbDepartmentDetail = await _db.DepartmentDetails.Include(x=>x.Department).Include(x=>x.Teacher).FirstOrDefaultAsync(x => x.Teacher.UserName == user.UserName);
-            if (dbDepartmentDetail.Teacher==dbTeacher)
+            if (dbDepartmentDetail!=null)
             {
-                ModelState.AddModelError("RoleSelected", "You can't change it");
-                return View(changeRole);
-            }
-            else if (oldRole=="Teacher"&&dbTeacher!=null)
-            {
+                if (dbDepartmentDetail.Teacher == dbTeacher)
+                {
+                    ModelState.AddModelError("RoleSelected", "You can't change it");
+                    return View(changeRole);
+                }
+                else if (oldRole == "Teacher" && dbTeacher != null)
+                {
 
-                IdentityResult addIdentityResult1 = await _userManager.AddToRoleAsync(user, newRole);
-                if (!addIdentityResult1.Succeeded)
-                {
-                    ModelState.AddModelError("", "Error");
-                    return View(changeRole);
+                    IdentityResult addIdentityResult1 = await _userManager.AddToRoleAsync(user, newRole);
+                    if (!addIdentityResult1.Succeeded)
+                    {
+                        ModelState.AddModelError("", "Error");
+                        return View(changeRole);
+                    }
+                    IdentityResult removeIdentityResult1 = await _userManager.RemoveFromRoleAsync(user, oldRole);
+                    if (!removeIdentityResult1.Succeeded)
+                    {
+                        ModelState.AddModelError("", "Error");
+                        return View(changeRole);
+                    }
+                    _db.Teachers.Remove(dbTeacher);
+                    await _db.SaveChangesAsync();
                 }
-                IdentityResult removeIdentityResult1 = await _userManager.RemoveFromRoleAsync(user, oldRole);
-                if (!removeIdentityResult1.Succeeded)
-                {
-                    ModelState.AddModelError("", "Error");
-                    return View(changeRole);
-                }
-                _db.Teachers.Remove(dbTeacher);
-                await _db.SaveChangesAsync();
             }
+           
             if (newRole == "Teacher")
             {
                 Teacher teacher = new Teacher

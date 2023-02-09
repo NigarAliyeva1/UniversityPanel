@@ -189,301 +189,305 @@
                             <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
                         </a>
                     </li>
-                    @if (User.IsInRole("SuperAdmin"))
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="Index">
-                                <span class="menu-title">Dashboard</span>
-                                <i class="mdi mdi-home menu-icon"></i>
-                            </a>
-                        </li>
+                     @if(User.Identity.IsAuthenticated)
+                     {
+                        if (User.IsInRole("SuperAdmin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Home" asp-action="Index">
+                                    <span class="menu-title">Dashboard</span>
+                                    <i class="mdi mdi-home menu-icon"></i>
+                                </a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Teachers" asp-action="Index">
-                                <span class="menu-title">Teachers</span>
-                                <i class="mdi mdi-account menu-icon"></i>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Teachers" asp-action="Index">
+                                    <span class="menu-title">Teachers</span>
+                                    <i class="mdi mdi-account menu-icon"></i>
+                                </a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Students" asp-action="Index">
-                                <span class="menu-title">Students</span>
-                                <i class="mdi mdi-account-multiple menu-icon"></i>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Students" asp-action="Index">
+                                    <span class="menu-title">Students</span>
+                                    <i class="mdi mdi-account-multiple menu-icon"></i>
+                                </a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Designation" asp-action="Index">
-                                <span class="menu-title">Designation</span>
-                                <i class="mdi mdi-seal menu-icon"></i>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Designation" asp-action="Index">
+                                    <span class="menu-title">Designation</span>
+                                    <i class="mdi mdi-seal menu-icon"></i>
+                                </a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Staff" asp-action="Index">
-                                <span class="menu-title">Staff</span>
-                                <i class="mdi mdi-account-search menu-icon"></i>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Staff" asp-action="Index">
+                                    <span class="menu-title">Staff</span>
+                                    <i class="mdi mdi-account-search menu-icon"></i>
+                                </a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Users" asp-action="Index">
-                                <span class="menu-title">Users</span>
-                                <i class="mdi mdi-account-star menu-icon"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Income" asp-action="Index">
-                                <span class="menu-title">Income</span>
-                                <i class="mdi mdi-currency-usd menu-icon"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Outcome" asp-action="Index">
-                                <span class="menu-title">Outcome</span>
-                                <i class="mdi mdi-currency-usd-off menu-icon"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Salary" asp-action="Index">
-                                <span class="menu-title">Salary</span>
-                                <i class="mdi mdi-cash-usd menu-icon"></i>
-                            </a>
-                        </li>
-              @*          <li class="nav-item">
-                            <a class="nav-link" asp-controller="Groups" asp-action="Index">
-                                <span class="menu-title">Groups</span>
-                                <i class="mdi mdi-folder-account menu-icon"></i>
-                            </a>
-                        </li>
-                        
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="TeacherGroups" asp-action="Index">
-                                <span class="menu-title">TeacherGroups</span>
-                                <i class="mdi mdi-book-open-page-variant menu-icon"></i>
-                            </a>
-                        </li>
-*@
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                                <span class="menu-title">Groups</span>
-                                <i class="menu-arrow"></i>
-                                <i class="mdi mdi-folder-account menu-icon"></i>
-                            </a>
-                            <div class="collapse" id="ui-basic">
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"> <a class="nav-link" asp-controller="Groups" asp-action="Index">Groups</a></li>
-                                    <li class="nav-item"> <a class="nav-link" asp-controller="TeacherGroups" asp-action="Index">Teacher of Groups</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                                <span class="menu-title">Departments</span>
-                                <i class="menu-arrow"></i>
-                                <i class="mdi mdi-city menu-icon"></i>
-                            </a>
-                            <div class="collapse" id="ui-basic">
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"> <a class="nav-link" asp-controller="Departments" asp-action="Index">Departments</a></li>
-                                    <li class="nav-item"> <a class="nav-link" asp-controller="DepartmentsDetail" asp-action="Index">Detail of Departments</a></li>
-                                </ul>
-                            </div>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Users" asp-action="Index">
+                                    <span class="menu-title">Users</span>
+                                    <i class="mdi mdi-account-star menu-icon"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Income" asp-action="Index">
+                                    <span class="menu-title">Income</span>
+                                    <i class="mdi mdi-currency-usd menu-icon"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Outcome" asp-action="Index">
+                                    <span class="menu-title">Outcome</span>
+                                    <i class="mdi mdi-currency-usd-off menu-icon"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Salary" asp-action="Index">
+                                    <span class="menu-title">Salary</span>
+                                    <i class="mdi mdi-cash-usd menu-icon"></i>
+                                </a>
+                            </li>
+                            @*          <li class="nav-item">
+                    <a class="nav-link" asp-controller="Groups" asp-action="Index">
+                    <span class="menu-title">Groups</span>
+                    <i class="mdi mdi-folder-account menu-icon"></i>
+                    </a>
+                    </li>
 
-                        @*<li class="nav-item">
-                            <a class="nav-link" href="pages/tables/basic-table.html">
-                                <span class="menu-title">Attendance</span>
-                                <i class="mdi mdi-calendar-multiple-check menu-icon"></i>
-                            </a>
-                        </li>
+                    <li class="nav-item">
+                    <a class="nav-link" asp-controller="TeacherGroups" asp-action="Index">
+                    <span class="menu-title">TeacherGroups</span>
+                    <i class="mdi mdi-book-open-page-variant menu-icon"></i>
+                    </a>
+                    </li>
+                    *@
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                                    <span class="menu-title">Groups</span>
+                                    <i class="menu-arrow"></i>
+                                    <i class="mdi mdi-folder-account menu-icon"></i>
+                                </a>
+                                <div class="collapse" id="ui-basic">
+                                    <ul class="nav flex-column sub-menu">
+                                        <li class="nav-item"> <a class="nav-link" asp-controller="Groups" asp-action="Index">Groups</a></li>
+                                        <li class="nav-item"> <a class="nav-link" asp-controller="TeacherGroups" asp-action="Index">Teacher of Groups</a></li>
+                                    </ul>
+                                </div>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="pages/tables/basic-table.html">
-                                <span class="menu-title">Courses</span>
-                                <i class="mdi mdi-cards menu-icon"></i>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                                    <span class="menu-title">Departments</span>
+                                    <i class="menu-arrow"></i>
+                                    <i class="mdi mdi-city menu-icon"></i>
+                                </a>
+                                <div class="collapse" id="ui-basic">
+                                    <ul class="nav flex-column sub-menu">
+                                        <li class="nav-item"> <a class="nav-link" asp-controller="Departments" asp-action="Index">Departments</a></li>
+                                        <li class="nav-item"> <a class="nav-link" asp-controller="DepartmentsDetail" asp-action="Index">Detail of Departments</a></li>
+                                    </ul>
+                                </div>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="pages/tables/basic-table.html">
-                                <span class="menu-title">Library</span>
-                                <i class="mdi mdi-book-open-variant menu-icon"></i>
-                            </a>
-                        </li>*@
+                            @*<li class="nav-item">
+                    <a class="nav-link" href="pages/tables/basic-table.html">
+                    <span class="menu-title">Attendance</span>
+                    <i class="mdi mdi-calendar-multiple-check menu-icon"></i>
+                    </a>
+                    </li>
 
-                      
-                    }
-                    else if (User.IsInRole("Admin"))
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="Index">
-                                <span class="menu-title">Dashboard</span>
-                                <i class="mdi mdi-home menu-icon"></i>
-                            </a>
-                        </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="pages/tables/basic-table.html">
+                    <span class="menu-title">Courses</span>
+                    <i class="mdi mdi-cards menu-icon"></i>
+                    </a>
+                    </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Teachers" asp-action="Index">
-                                <span class="menu-title">Teachers</span>
-                                <i class="mdi mdi-account menu-icon"></i>
-                            </a>
-                        </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="pages/tables/basic-table.html">
+                    <span class="menu-title">Library</span>
+                    <i class="mdi mdi-book-open-variant menu-icon"></i>
+                    </a>
+                    </li>*@
 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Students" asp-action="Index">
-                                <span class="menu-title">Students</span>
-                                <i class="mdi mdi-account-multiple menu-icon"></i>
-                            </a>
-                        </li>
 
-              
+                        }
+                        else if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Home" asp-action="Index">
+                                    <span class="menu-title">Dashboard</span>
+                                    <i class="mdi mdi-home menu-icon"></i>
+                                </a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Staff" asp-action="Index">
-                                <span class="menu-title">Staff</span>
-                                <i class="mdi mdi-account-search menu-icon"></i>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Teachers" asp-action="Index">
+                                    <span class="menu-title">Teachers</span>
+                                    <i class="mdi mdi-account menu-icon"></i>
+                                </a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Income" asp-action="Index">
-                                <span class="menu-title">Income</span>
-                                <i class="mdi mdi-currency-usd menu-icon"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Outcome" asp-action="Index">
-                                <span class="menu-title">Outcome</span>
-                                <i class="mdi mdi-currency-usd-off menu-icon"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Salary" asp-action="Index">
-                                <span class="menu-title">Salary</span>
-                                <i class="mdi mdi-cash-usd menu-icon"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Groups" asp-action="Index">
-                                <span class="menu-title">Groups</span>
-                                <i class="mdi mdi-folder-account menu-icon"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                                <span class="menu-title">Groups</span>
-                                <i class="menu-arrow"></i>
-                                <i class="mdi mdi-folder-account menu-icon"></i>
-                            </a>
-                            <div class="collapse" id="ui-basic">
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"> <a class="nav-link" asp-controller="Groups" asp-action="Index">Groups</a></li>
-                                    <li class="nav-item"> <a class="nav-link" asp-controller="TeacherGroups" asp-action="Index">Teacher of Groups</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                                <span class="menu-title">Departments</span>
-                                <i class="menu-arrow"></i>
-                                <i class="mdi mdi-city menu-icon"></i>
-                            </a>
-                            <div class="collapse" id="ui-basic">
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"> <a class="nav-link" asp-controller="Departments" asp-action="Index">Departments</a></li>
-                                    <li class="nav-item"> <a class="nav-link" asp-controller="DepartmentsDetail" asp-action="Index">Detail of Departments</a></li>
-                                </ul>
-                            </div>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Students" asp-action="Index">
+                                    <span class="menu-title">Students</span>
+                                    <i class="mdi mdi-account-multiple menu-icon"></i>
+                                </a>
+                            </li>
 
-                       @* <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                                <span class="menu-title">Departments</span>
-                                <i class="menu-arrow"></i>
-                                <i class="mdi mdi-city menu-icon"></i>
-                            </a>
-                            <div class="collapse" id="ui-basic">
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"> <a class="nav-link" asp-controller="Departments" asp-action="Index">Departments</a></li>
-                                    <li class="nav-item"> <a class="nav-link" asp-controller="DepartmentsDetail" asp-action="Index">Detail of Departments</a></li>
-                                </ul>
-                            </div>
-                        </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="pages/tables/basic-table.html">
-                                <span class="menu-title">Attendance</span>
-                                <i class="mdi mdi-calendar-multiple-check menu-icon"></i>
-                            </a>
-                        </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="pages/tables/basic-table.html">
-                                <span class="menu-title">Courses</span>
-                                <i class="mdi mdi-cards menu-icon"></i>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Staff" asp-action="Index">
+                                    <span class="menu-title">Staff</span>
+                                    <i class="mdi mdi-account-search menu-icon"></i>
+                                </a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="pages/tables/basic-table.html">
-                                <span class="menu-title">Library</span>
-                                <i class="mdi mdi-book-open-variant menu-icon"></i>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Income" asp-action="Index">
+                                    <span class="menu-title">Income</span>
+                                    <i class="mdi mdi-currency-usd menu-icon"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Outcome" asp-action="Index">
+                                    <span class="menu-title">Outcome</span>
+                                    <i class="mdi mdi-currency-usd-off menu-icon"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Salary" asp-action="Index">
+                                    <span class="menu-title">Salary</span>
+                                    <i class="mdi mdi-cash-usd menu-icon"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Groups" asp-action="Index">
+                                    <span class="menu-title">Groups</span>
+                                    <i class="mdi mdi-folder-account menu-icon"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                                    <span class="menu-title">Groups</span>
+                                    <i class="menu-arrow"></i>
+                                    <i class="mdi mdi-folder-account menu-icon"></i>
+                                </a>
+                                <div class="collapse" id="ui-basic">
+                                    <ul class="nav flex-column sub-menu">
+                                        <li class="nav-item"> <a class="nav-link" asp-controller="Groups" asp-action="Index">Groups</a></li>
+                                        <li class="nav-item"> <a class="nav-link" asp-controller="TeacherGroups" asp-action="Index">Teacher of Groups</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                                    <span class="menu-title">Departments</span>
+                                    <i class="menu-arrow"></i>
+                                    <i class="mdi mdi-city menu-icon"></i>
+                                </a>
+                                <div class="collapse" id="ui-basic">
+                                    <ul class="nav flex-column sub-menu">
+                                        <li class="nav-item"> <a class="nav-link" asp-controller="Departments" asp-action="Index">Departments</a></li>
+                                        <li class="nav-item"> <a class="nav-link" asp-controller="DepartmentsDetail" asp-action="Index">Detail of Departments</a></li>
+                                    </ul>
+                                </div>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="pages/tables/basic-table.html">
-                                <span class="menu-title">Fees</span>
-                                <i class="mdi mdi-currency-usd menu-icon"></i>
-                            </a>
-                        </li>*@
-                    }
-                    else if (User.IsInRole("Teacher"))
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="HomeTeacher" asp-action="Index">
-                                <span class="menu-title">Dashboard</span>
-                                <i class="mdi mdi-home menu-icon"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="TeacherGroupsSubjects" asp-action="Index">
-                                <span class="menu-title">Groups</span>
-                                <i class="mdi mdi-group menu-icon"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Homework" asp-action="Index">
-                                <span class="menu-title">Homeworks</span>
-                                <i class="mdi mdi-book-open-variant menu-icon"></i>
-                            </a>
-                        </li>
-                    }
-                    else if (User.IsInRole("Student"))
-                    {
+                            @* <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                    <span class="menu-title">Departments</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-city menu-icon"></i>
+                    </a>
+                    <div class="collapse" id="ui-basic">
+                    <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" asp-controller="Departments" asp-action="Index">Departments</a></li>
+                    <li class="nav-item"> <a class="nav-link" asp-controller="DepartmentsDetail" asp-action="Index">Detail of Departments</a></li>
+                    </ul>
+                    </div>
+                    </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="HomeStudent" asp-action="Index">
-                                <span class="menu-title">Dashboard</span>
-                                <i class="mdi mdi-home menu-icon"></i>
-                            </a>
-                        </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="pages/tables/basic-table.html">
+                    <span class="menu-title">Attendance</span>
+                    <i class="mdi mdi-calendar-multiple-check menu-icon"></i>
+                    </a>
+                    </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="StudentGroups" asp-action="Index">
-                                <span class="menu-title">Group</span>
-                                <i class="mdi mdi-group menu-icon"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="StudentHomeworks" asp-action="Index">
-                                <span class="menu-title">Homeworks</span>
-                                <i class="mdi mdi-book-multiple menu-icon"></i>
-                            </a>
-                        </li>
-                    }
+                    <li class="nav-item">
+                    <a class="nav-link" href="pages/tables/basic-table.html">
+                    <span class="menu-title">Courses</span>
+                    <i class="mdi mdi-cards menu-icon"></i>
+                    </a>
+                    </li>
+
+                    <li class="nav-item">
+                    <a class="nav-link" href="pages/tables/basic-table.html">
+                    <span class="menu-title">Library</span>
+                    <i class="mdi mdi-book-open-variant menu-icon"></i>
+                    </a>
+                    </li>
+
+                    <li class="nav-item">
+                    <a class="nav-link" href="pages/tables/basic-table.html">
+                    <span class="menu-title">Fees</span>
+                    <i class="mdi mdi-currency-usd menu-icon"></i>
+                    </a>
+                    </li>*@
+                        }
+                        else if (User.IsInRole("Teacher"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="HomeTeacher" asp-action="Index">
+                                    <span class="menu-title">Dashboard</span>
+                                    <i class="mdi mdi-home menu-icon"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="TeacherGroupsSubjects" asp-action="Index">
+                                    <span class="menu-title">Groups</span>
+                                    <i class="mdi mdi-group menu-icon"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Homework" asp-action="Index">
+                                    <span class="menu-title">Homeworks</span>
+                                    <i class="mdi mdi-book-open-variant menu-icon"></i>
+                                </a>
+                            </li>
+                        }
+                        else if (User.IsInRole("Student"))
+                        {
+
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="HomeStudent" asp-action="Index">
+                                    <span class="menu-title">Dashboard</span>
+                                    <i class="mdi mdi-home menu-icon"></i>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="StudentGroups" asp-action="Index">
+                                    <span class="menu-title">Group</span>
+                                    <i class="mdi mdi-group menu-icon"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="StudentHomeworks" asp-action="Index">
+                                    <span class="menu-title">Homeworks</span>
+                                    <i class="mdi mdi-book-multiple menu-icon"></i>
+                                </a>
+                            </li>
+                        }
+                     }
+                 
                     
                     @*<li class="nav-item">
                     <a class="nav-link" data-bs-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">

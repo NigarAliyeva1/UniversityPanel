@@ -314,3 +314,6 @@ C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyPr
 C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\StudentHomeworks\UploadFile.cshtml.g.cs
 C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\TeacherGroupsSubjects\Students.cshtml.g.cs
 C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\TeacherGroupsSubjects\Exam.cshtml.g.cs
+C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Home\Default.cshtml.g.cs
+C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Home\IndexStudent.cshtml.g.cs
+C:\Users\nigar\OneDrive\Masaüstü\UniversityPanel\MyProjectUniversityPanel\MyProjectUniversityPanel\obj\Debug\net5.0\Razor\Views\Home\IndexTeacher.cshtml.g.cs

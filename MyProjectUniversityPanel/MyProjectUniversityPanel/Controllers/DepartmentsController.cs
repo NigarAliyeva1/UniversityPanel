@@ -124,7 +124,7 @@ namespace MyProjectUniversityPanel.Controllers
             bool isExist = await _db.Departments.Where(x => !x.IsDeactive).AnyAsync(x => x.Name == department.Name && x.Id != id);
             if (isExist)
             {
-                ModelState.AddModelError("Title", "This category is already exist");
+                ModelState.AddModelError("Title", "This department is already exist");
                 return View(dbDepartment);
             }
             dbDepartment.Name = department.Name;

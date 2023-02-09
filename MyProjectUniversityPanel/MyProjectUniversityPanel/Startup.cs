@@ -73,9 +73,10 @@ namespace MyProjectUniversityPanel
 
             app.UseEndpoints(endpoints =>
             {
+               
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Account}/{action=Login}/{id?}");
+                    pattern: "{controller=Home}/{action=Default}/{id?}");
             });
         }
     }

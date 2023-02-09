@@ -32,6 +32,38 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\assets\css\style.css.map))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\assets\files\3a6b7896-492d-4672-988b-89d499abff02Quiz.txt))">
+      <SourceType>Package</SourceType>
+      <SourceId>MyProjectUniversityPanel</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/MyProjectUniversityPanel</BasePath>
+      <RelativePath>assets\files\3a6b7896-492d-4672-988b-89d499abff02Quiz.txt</RelativePath>
+      <AssetKind></AssetKind>
+      <AssetMode></AssetMode>
+      <AssetRole></AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\assets\files\3a6b7896-492d-4672-988b-89d499abff02Quiz.txt))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\assets\files\43712af9-0c9d-4585-a470-cbbbb7609d5cScreenshot (24).png))">
+      <SourceType>Package</SourceType>
+      <SourceId>MyProjectUniversityPanel</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/MyProjectUniversityPanel</BasePath>
+      <RelativePath>assets\files\43712af9-0c9d-4585-a470-cbbbb7609d5cScreenshot (24).png</RelativePath>
+      <AssetKind></AssetKind>
+      <AssetMode></AssetMode>
+      <AssetRole></AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\assets\files\43712af9-0c9d-4585-a470-cbbbb7609d5cScreenshot (24).png))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\assets\files\63d289fe-6991-4af0-8b99-5278add03403Quiz.txt))">
       <SourceType>Package</SourceType>
       <SourceId>MyProjectUniversityPanel</SourceId>
@@ -79,6 +111,22 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\assets\files\9d6d3f17-a3a6-47b1-8132-08d8f79d489ehi.txt))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\assets\files\a3bfb09b-5b24-435e-8764-0dbff4243feaScreenshot_2022-12-10-16-19-35-024_com.android.chrome.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>MyProjectUniversityPanel</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/MyProjectUniversityPanel</BasePath>
+      <RelativePath>assets\files\a3bfb09b-5b24-435e-8764-0dbff4243feaScreenshot_2022-12-10-16-19-35-024_com.android.chrome.jpg</RelativePath>
+      <AssetKind></AssetKind>
+      <AssetMode></AssetMode>
+      <AssetRole></AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\assets\files\a3bfb09b-5b24-435e-8764-0dbff4243feaScreenshot_2022-12-10-16-19-35-024_com.android.chrome.jpg))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\assets\files\f5cb9cc8-f314-4aff-9a97-53543e9719c9hi.txt))">
       <SourceType>Package</SourceType>
@@ -735,6 +783,22 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\assets\images\cfa760ce-da36-45b5-8593-103038402555Məmmədova Xalidə (3).jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\assets\images\d2794102-61c7-406e-94c6-da01d19f8dadScreenshot (24).png))">
+      <SourceType>Package</SourceType>
+      <SourceId>MyProjectUniversityPanel</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/MyProjectUniversityPanel</BasePath>
+      <RelativePath>assets\images\d2794102-61c7-406e-94c6-da01d19f8dadScreenshot (24).png</RelativePath>
+      <AssetKind></AssetKind>
+      <AssetMode></AssetMode>
+      <AssetRole></AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\assets\images\d2794102-61c7-406e-94c6-da01d19f8dadScreenshot (24).png))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\assets\images\d5332c6b-a221-4d22-83dc-398d41dfb9e40a592474-c22b-4cbd-9136-cb1a8308bdd7307b713210523a7b53826ee3684b0476.jpg))">
       <SourceType>Package</SourceType>

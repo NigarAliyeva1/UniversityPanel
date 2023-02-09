@@ -19,6 +19,8 @@ using System.Net;
 using System.Threading.Tasks;
 using static MyProjectUniversityPanel.Helpers.Helper;
 using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace MyProjectUniversityPanel.Controllers
 {
@@ -40,7 +42,15 @@ namespace MyProjectUniversityPanel.Controllers
         }
         public async Task<IActionResult> Index()
         {
-
+            Designation designation = await _db.Designations.FirstOrDefaultAsync(x => x.Name == "Teacher");
+            if (designation == null)
+            {
+                TempData["Message"] = "You have to create Designation first";
+              
+              
+                //return View();
+                
+            }
             List<Teacher> teachers = await _db.Teachers.Include(x => x.Gender).Include(x => x.Department).ToListAsync();
             //ViewBag.Departments = await _db.Departments.Where(x => !x.IsDeactive).ToListAsync();
             ////int count = await _db.Departments.Where(x => !x.IsDeactive).CountAsync();
@@ -87,6 +97,17 @@ namespace MyProjectUniversityPanel.Controllers
             };
 
             Designation designation = await _db.Designations.FirstOrDefaultAsync(x => x.Name == "Teacher");
+            //if (designation==null)
+            //{
+                
+            //}
+            //if (designation==null)
+            //{
+            //    Designation designation1 = new Designation
+            //    {
+            //        Name="Teacher"
+            //    };
+            //}
             Staff staff = new Staff
             {
                 FullName = teacher.FullName,
